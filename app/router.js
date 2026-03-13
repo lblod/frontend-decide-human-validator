@@ -11,7 +11,7 @@ Router.map(function () {
     this.route('index', { path: '' });
     this.route('annotation', { path: '/:annotation_id' });
   });
-  
+
   this.route('route-not-found', {
     path: '/*wildcard',
   });
