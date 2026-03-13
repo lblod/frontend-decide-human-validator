@@ -18,8 +18,7 @@ Router.map(function () {
 
   this.route('mock-login');
   this.route('login');
-  this.route('logout');
-  this.route('sparql');
+  this.route('logout'); 
 
   this.route('dcat', function () {
     this.route('distributions.distribution', {

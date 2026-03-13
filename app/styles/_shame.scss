@@ -39,16 +39,3 @@
     height: 400px;
     overflow: hidden;
 }
-
-/* Workaround: Hide the endpoint selector field */
-.yasgui .controlbar {
-    float: left;
-}
-.yasgui .tabContextButton {
-    position: relative;
-    top: .4em;
-    left: -.2em;
-}
-.yasgui .autocompleteWrapper {
-    display: none;
-}
