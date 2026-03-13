@@ -1,55 +1,27 @@
 {{page-title "DecideFrontend"}}
 <AuApp class="{{if this.showEnvironment 'au-c-app--environment'}}">
   <AuMainHeader
-    @brandLink={{unless
-      this.session.isAuthenticated
-      "https://www.vlaanderen.be/nl"
-    }}
+    @brandLink="https://www.vlaanderen.be/nl"
     @homeRoute="index"
     @appTitle={{this.appTitle}}
   >
-    <li class="au-c-list-horizontal__item">
-      {{#if this.session.isAuthenticated}}
-        <AuDropdown
-          @title={{this.currentSession.user.fullName}}
-          @buttonLabel="Account settings"
-          @alignment="right"
-          role="menu"
-        >
-          <AuLink @route="logout" @icon="logout" role="menuitem">
-            Afmelden
-          </AuLink>
-        </AuDropdown>
-      {{else}}
-        <LoginButton @isCompact={{true}} />
-      {{/if}}
-    </li>
   </AuMainHeader>
   <AuMainContainer as |main|>
     <main.content>
-      {{#if this.session.isAuthenticated}}
-        <AuToolbar @border="bottom" @size="small" @skin="tint">
-          <nav
-            aria-label="breadcrumbs"
-            class="au-u-flex au-u-flex--between au-u-1-1"
+      <AuToolbar @border="bottom" @size="small" @skin="tint">
+        <nav
+          aria-label="breadcrumbs"
+          class="au-u-flex au-u-flex--between au-u-1-1"
+        >
+          <ol
+            class="au-c-list-horizontal au-c-list-horizontal--breadcrumbs au-u-margin-left-tiny"
           >
-            <ol
-              class="au-c-list-horizontal au-c-list-horizontal--breadcrumbs au-u-margin-left-tiny"
-            >
-              <li class="au-c-list-horizontal__item">
-                <AuLink @route="annotations">Annotated data</AuLink>
-              </li>
-            </ol>
-            <ol
-              class="au-c-list-horizontal au-c-list-horizontal--breadcrumbs au-u-margin-right-tiny"
-            >
-              <li class="au-c-list-horizontal__item">
-                <AuLink @route="auth.registration">Request access</AuLink>
-              </li>
-            </ol>
-          </nav>
-        </AuToolbar>
-      {{/if}}
+            <li class="au-c-list-horizontal__item">
+              <AuLink @route="annotations">Annotated data</AuLink>
+            </li>
+          </ol>
+        </nav>
+      </AuToolbar>
       <AuBodyContainer>
         {{outlet}}
       </AuBodyContainer>

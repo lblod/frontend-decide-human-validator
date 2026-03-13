@@ -7,19 +7,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('auth', { path: '/authorization' }, function () {
-    this.route('index', { path: '' });
-    this.route('receive-credential');
-    this.route('present-credential');
-    this.route('registration');
-    this.route('callback');
-    this.route('buy-access');
-  });
-
-  this.route('mock-login');
-  this.route('login');
-  this.route('logout'); 
-
   this.route('annotations', function () {
     this.route('index', { path: '' });
     this.route('annotation', { path: '/:annotation_id' });
