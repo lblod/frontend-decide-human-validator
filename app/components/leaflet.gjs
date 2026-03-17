@@ -14,7 +14,6 @@ class LeafletModifier extends Modifier {
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-
     // NOTE (06/01/2026): `POINT` and `LINESTRING` are actually WKT types,
     // ideally we should use Leaftlet's terminology here.
     switch (props.type) {
@@ -25,24 +24,21 @@ class LeafletModifier extends Modifier {
         break;
       }
       case 'LINESTRING': {
-        const polyline = L.polyline(props.coordinates).addTo(map)
-        map.fitBounds(polyline.getBounds())
+        const polyline = L.polyline(props.coordinates).addTo(map);
+        map.fitBounds(polyline.getBounds());
         break;
       }
       case 'POLYGON': {
         const polygon = L.polygon(props.coordinates).addTo(map);
-        map.fitBounds(polygon.getBounds())
+        map.fitBounds(polygon.getBounds());
         break;
       }
-    default:
-      throw new Error('Encountered an unsupported type: ' + props.type)
+      default:
+        throw new Error('Encountered an unsupported type: ' + props.type);
     }
-
   }
 }
 
 <template>
-  <div class="map-container"
-    {{LeafletModifier props=@props}}
-  ></div>
+  <div class="map-container" {{LeafletModifier props=@props}}></div>
 </template>

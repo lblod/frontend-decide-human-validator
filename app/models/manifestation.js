@@ -5,4 +5,5 @@ export default class ManifestationModel extends Model {
   @attr('date') issued;
   @attr('datetime') modified;
   @attr('string') web;
+  @attr('string') isExemplifiedBy;
 }

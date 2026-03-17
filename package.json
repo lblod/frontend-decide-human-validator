@@ -93,6 +93,7 @@
   "dependencies": {
     "ember-concurrency": "^4.0.6",
     "ember-data-table": "^2.1.0",
+    "ember-promise-helpers": "^2.0.0",
     "leaflet": "^1.9.4",
     "proj4": "^2.20.2"
   }

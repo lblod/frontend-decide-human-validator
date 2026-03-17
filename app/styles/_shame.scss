@@ -7,7 +7,33 @@
 }
 
 .map-container {
-    width: 600px;
-    height: 400px;
+  width: 600px;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* Workaround: Hide the endpoint selector field */
+.yasgui .controlbar {
+  float: left;
+}
+.yasgui .tabContextButton {
+  position: relative;
+  top: 0.4em;
+  left: -0.2em;
+}
+.yasgui .autocompleteWrapper {
+  display: none;
+}
+.au-c-icon.au-c-icon--link-external {
+  flex-shrink: 0;
+}
+
+td.ellipsis {
+  text-wrap: nowrap;
+  a {
+    width: 100%;
     overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+  }
 }
