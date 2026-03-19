@@ -1,11 +1,11 @@
 {
-  "name": "frontend-decide",
-  "version": "0.0.3",
+  "name": "frontend-decide-human-validator",
+  "version": "0.0.4",
   "private": true,
-  "description": "Frontend for the DECIDe app",
+  "description": "Frontend for human validation of AI in the DECIDe app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lblod/frontend-decide.git"
+    "url": "git+https://github.com/lblod/frontend-decide-human-validator.git"
   },
   "license": "MIT",
   "author": "redpencil.io",
