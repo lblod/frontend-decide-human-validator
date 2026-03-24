@@ -37,3 +37,13 @@ td.ellipsis {
     display: inline-block;
   }
 }
+.vertical-grow {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+#content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

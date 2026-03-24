@@ -11,11 +11,11 @@ export default class ExpressionModel extends Model {
   })
   isEmbodiedBy;
 
-  @hasMany('annotation', {
+  @hasMany('SpecificResource', {
     inverse: null,
     async: true,
   })
-  annotations;
+  isSourceOf;
 
   @belongsTo('work', {
     inverse: null,
