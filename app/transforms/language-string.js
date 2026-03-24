@@ -6,7 +6,7 @@ const LangString = function (content, lang) {
   this.content = content;
   this.language = lang;
   this.toString = function () {
-    if(!this.language){
+    if (!this.language) {
       return this['content'];
     }
     return `${this['content']} (${this['language']})`;
@@ -15,12 +15,12 @@ const LangString = function (content, lang) {
 
 export default class LangStringTransform extends Transform {
   deserialize(serialized) {
-    if (serialized != null){
-      if(typeof serialized === 'string'){
+    if (serialized != null) {
+      if (typeof serialized === 'string') {
         return new LangString(serialized, null);
       }
       return new LangString(serialized['content'], serialized['language']);
-    }else{
+    } else {
       return null;
     }
   }
@@ -28,7 +28,7 @@ export default class LangStringTransform extends Transform {
   serialize(deserialized) {
     assert(
       `Expected object but got ${typeOf(deserialized)}`,
-      !deserialized || typeOf(deserialized) === 'object'
+      !deserialized || typeOf(deserialized) === 'object',
     );
     return deserialized;
   }

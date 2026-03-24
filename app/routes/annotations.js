@@ -1,4 +1,3 @@
 import Route from '@ember/routing/route';
 
-export default class AnnotationsRoute extends Route {
-}
+export default class AnnotationsRoute extends Route {}

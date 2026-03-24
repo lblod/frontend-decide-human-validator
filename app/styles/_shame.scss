@@ -75,3 +75,6 @@ button.multi-line {
   top: -1em;
   position: relative;
 }
+button.user-selectable {
+  user-select: initial;
+}

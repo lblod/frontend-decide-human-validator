@@ -3,44 +3,59 @@ import { service } from '@ember/service';
 
 export default class ValidateRoute extends Route {
   @service store;
+
+  queryParams = {
+    page: { refreshModel: true },
+    size: { refreshModel: true },
+  };
+
   async model(params) {
-    const [expression, annotations] = await Promise.all([
+    const [expression, annotationResult] = await Promise.all([
       this.store.findRecord('expression', params.expression_id, {
         include: 'annotations,realizes,realizes.passed-by',
       }),
-      [
-        {
-          id: 1,
-          type: 'http://www.w3.org/ns/org#Organization',
-          value:
-            'Lorem ipsum gravida auctor lectus euismod morbi quam sed auctor lectus euismod morbi quam a cut off cut off cut off cut off...',
-        },
-        {
-          id: 2,
-          type: 'http://data.europa.eu/eli/ontology#title',
-          value:
-            'Punt 1: (secretariaat) Algemeen. Goedkeuring van de notulen van de openbare zitting d.d. 25/08/2025',
-        },
-        {
-          id: 3,
-          type: 'http://www.w3.org/ns/prov#wasDerivedFrom',
-          value:
-            'http://data.lblod.info/id/specific-resource/79773ec8-c84c-48e5-80fe-16df18848fb9',
-        },
-        {
-          id: 3,
-          type: 'https://w3id.org/airo#AILifecyclePhase',
-          value:
-            'http://data.lblod.info/id/specific-resource/79773ec8-c84c-48e5-80fe-16df18848fb9',
-        },
-      ],
+      fetch(
+        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}`,
+      ),
     ]);
-    return {
-      title:
-        'Punt 1: (secretariaat) Algemeen. Goedkeuring van de notulen van de openbare zitting d.d. 25/08/2025',
-      expression,
+
+    const {
       annotations,
-      annotationCount: 10,
+      annotationCount,
+      target: expressionData,
+    } = await annotationResult.json();
+
+    await this.store.query('annotation', {
+      filter: {
+        id: annotations.map((expression) => expression.id).join(','),
+      },
+      page: {
+        size: 999,
+      },
+    });
+
+    const annotationData = annotations.map((annotation) => {
+      annotation.model = this.store.peekRecord('annotation', annotation.id);
+      return annotation;
+    });
+    annotationData.meta = {
+      count: annotationCount,
+      pagination: {
+        // we can be a little rough with prev and next as the datatable checks the first and last anyway
+        prev: { number: params.page - 1, size: annotationCount },
+        next: { number: params.page + 1, size: annotationCount },
+        first: { number: 0, size: annotationCount },
+        last: {
+          number: Math.floor(annotationCount / params.size) - 1,
+          size: annotationCount,
+        },
+      },
+    };
+
+    return {
+      title: expressionData.title,
+      expression,
+      annotations: annotationData,
     };
   }
 }

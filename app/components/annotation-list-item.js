@@ -17,6 +17,14 @@ export default class AnnotationListItem extends Component {
     return this.args.annotation.value;
   }
 
+  get agentLink() {
+    return this.args.annotation.agent;
+  }
+
+  get agentName() {
+    return this.args.annotation.agentName || this.args.annotation.agent;
+  }
+
   @action
   showLocation() {
     console.log('TODO show location');
