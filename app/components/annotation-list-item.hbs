@@ -1,0 +1,28 @@
+<td>
+  {{! TODO }}
+  <AuLinkExternal
+    href="#"
+    @icon="link-external"
+    @newTab={{true}}
+    @iconAlignment="right"
+  >
+    NEL
+  </AuLinkExternal>
+</td>
+<td>
+  <AnnotationType @annotation={{@annotation}} />
+</td>
+<td>
+  <AuButton
+    @skin="link"
+    {{on "click" this.showLocation}}
+    class="multi-line"
+    title={{this.fullValue}}
+  >
+    {{this.value}}
+  </AuButton>
+</td>
+<td>
+  <ValidationThumbs @annotation={{@annotation}} />
+</td>
+{{yield}}

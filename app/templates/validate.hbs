@@ -1,5 +1,56 @@
-{{page-title "Expression"}}
-<p>
-  TODO
-</p>
-{{outlet}}
+{{page-title "AI Validation"}}
+
+<AuToolbar @border="bottom" @size="small" @skin="tint">
+  <nav aria-label="breadcrumbs" class="au-u-flex au-u-flex--between au-u-1-1">
+    <ol
+      class="au-c-list-horizontal au-c-list-horizontal--breadcrumbs au-u-margin-left-tiny au-u-flex--spaced-tiny"
+    >
+      <li class="au-c-list-horizontal__item">
+        <AuLink @route="expressions" @icon="arrow-left">Back to Decision List</AuLink>
+      </li>
+      <li class="vertical-separator"></li>
+      <li class="au-c-list-horizontal__item au-u-bold">
+        {{@model.title}}
+      </li>
+    </ol>
+  </nav>
+</AuToolbar>
+
+<div class="vertical-grow">
+  <div class="au-u-padding">
+    <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+    <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
+      <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
+      <AuLinkExternal
+        title={{@model.title}}
+        href={{await @model.expression.accessLink}}
+        @icon="link-external"
+        @newTab={{true}}
+        @iconAlignment="right"
+        class="ellipsis"
+      >
+        <span>{{@model.title}}</span>
+      </AuLinkExternal>
+    </div>
+  </div>
+  <AuDataTable
+    @content={{@model.annotations}}
+    @noDataMessage="No annotated decisions found"
+    @page={{this.page}}
+    @size={{this.size}}
+    as |t|
+  >
+    <t.content as |c|>
+      <c.header>
+        <th>AI model</th>
+        <th>Type</th>
+        <th>Discovered entity</th>
+        <th>Is this correct?</th>
+      </c.header>
+      <c.body as |annotation|>
+        <AnnotationListItem @annotation={{annotation}} />
+      </c.body>
+    </t.content>
+  </AuDataTable>
+  {{outlet}}
+</div>
