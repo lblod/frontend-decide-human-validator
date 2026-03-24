@@ -24,14 +24,15 @@ export default class ExpressionModel extends Model {
   realizes;
 
   get accessLink() {
-    return new Promise(async (resolve) => {
-      const manifestations = await this.isEmbodiedBy;
-      const firstManifestation = manifestations?.[0];
-      if(firstManifestation){
-        resolve(firstManifestation.isExemplifiedBy);
-      }else{
-        resolve(this.wasDerivedFrom);
-      }
+    return new Promise((resolve) => {
+      this.isEmbodiedBy.then((manifestations) => {
+        const firstManifestation = manifestations?.[0];
+        if (firstManifestation) {
+          resolve(firstManifestation.isExemplifiedBy);
+        } else {
+          resolve(this.wasDerivedFrom);
+        }
+      });
     });
   }
 }
