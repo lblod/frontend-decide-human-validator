@@ -3,9 +3,9 @@ import { prefixes } from '../utils/prefixes';
 
 export default class AnnotationLink extends Component {
   get linkLink() {
-    const type = this.args.annotation.link;
-    if (type.startsWith('http')) {
-      return type;
+    const link = this.args.annotation.link;
+    if (link.startsWith('http')) {
+      return link;
     }
     return '#';
   }
