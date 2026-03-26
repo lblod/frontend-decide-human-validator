@@ -4,6 +4,7 @@ export default class ExpressionModel extends Model {
   @attr('string') uri;
   @attr('language-string') title;
   @attr('string') wasDerivedFrom;
+  @attr('language-string') expressionContent;
 
   @hasMany('manifestation', {
     inverse: null,
