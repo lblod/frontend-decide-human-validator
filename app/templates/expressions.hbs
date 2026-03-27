@@ -17,15 +17,15 @@
       </c.header>
       <c.body as |expression|>
         <td class="ellipsis">
-          <AuLinkExternal
+          <AuLink
             title={{expression.title}}
-            href={{await expression.model.accessLink}}
-            @icon="link-external"
-            @newTab={{true}}
+            @model={{expression.id}}
+            @route="validate"
+            @icon="pencil"
             @iconAlignment="right"
           >
             <span>{{expression.title}}</span>
-          </AuLinkExternal>
+          </AuLink>
         </td>
         <td>
           {{#each expression.model.realizes.passedBy as |passed_by|}}
@@ -36,14 +36,14 @@
         </td>
         <td>{{expression.annotationCount}}</td>
         <td>
-          <AuLink
-            @icon="pencil"
+          <AuLinkExternal
+            @icon="link-external"
             @iconAlignment="right"
-            @model={{expression.id}}
-            @route="validate"
+            @newTab={{true}}
+            href={{await expression.model.accessLink}}
           >
-            Validate
-          </AuLink>
+            View decision
+          </AuLinkExternal>
         </td>
       </c.body>
     </t.content>
