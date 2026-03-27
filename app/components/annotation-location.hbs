@@ -1,0 +1,16 @@
+<AuCard
+  @shadow={{true}}
+  class="au-u-box au-u-flex-grow au-u-height-full au-u-overflow-auto au-u-z-1000"
+  {{on-click-outside @onClose exceptSelector="a,button"}}
+  as |c|
+>
+  <c.content>
+    <div class="pre-wrap">
+      {{this.expressionContentBefore}}<HighlightedAnnotation
+        @text={{this.expressionContentAt}}
+      />{{this.expressionContentAfter}}
+    </div>
+    {{yield}}
+  </c.content>
+
+</AuCard>

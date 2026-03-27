@@ -49,6 +49,12 @@ a.ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  &.multi-line {
+    white-space: wrap;
+    span {
+      white-space: wrap;
+    }
+  }
 }
 .vertical-grow {
   display: flex;
@@ -89,4 +95,17 @@ button.user-selectable {
 }
 .au-u-z-1000 {
   z-index: 1000;
+}
+
+.highlighted-annotation {
+  border: var(--au-blue-300) solid 1px;
+  background: var(--au-blue-100);
+  color: var(--au-blue-700);
+  font-weight: bold;
+  padding: 0 0.2em;
+  border-radius: 5px;
+  svg {
+    position: relative;
+    top: 0.2em;
+  }
 }
