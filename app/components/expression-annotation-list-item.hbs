@@ -1,0 +1,37 @@
+<td>
+  <AuLinkExternal
+    title={{@annotation.model.hasTarget.source.titleText}}
+    href={{await @annotation.model.hasTarget.source.accessLink}}
+    @icon="link-external"
+    @newTab={{true}}
+    @iconAlignment="right"
+    class="ellipsis multi-line"
+  >
+    <span>{{@annotation.model.hasTarget.source.shortenedTitleText}}</span>
+  </AuLinkExternal>
+
+</td>
+<td>
+  <AuLinkExternal
+    href={{this.agentLink}}
+    @icon="link-external"
+    @newTab={{true}}
+    @iconAlignment="right"
+  >
+    {{this.agentName}}
+  </AuLinkExternal>
+</td>
+<td>
+  <AuButton
+    @skin="link"
+    {{on "click" (fn @onSelect @annotation.model)}}
+    class="inline-block multi-line user-selectable"
+    title={{this.fullValue}}
+  >
+    {{this.value}}
+  </AuButton>
+</td>
+<td>
+  <ValidationThumbs @annotation={{@annotation}} />
+</td>
+{{yield}}{{yield}}
