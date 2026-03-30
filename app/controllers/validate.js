@@ -12,5 +12,10 @@ export default class ValidateController extends Controller {
   @action
   selectAnnotation(annotation) {
     this.selectedAnnotation = annotation;
+    setTimeout(() => {
+      document
+        .getElementsByClassName('highlighted-annotation')[0]
+        .scrollIntoView({ block: 'center' });
+    }, 100);
   }
 }

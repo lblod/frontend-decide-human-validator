@@ -5,9 +5,10 @@
   as |c|
 >
   <c.content>
-    <div class="pre-wrap">
+    <div class="pre-wrap relative">
       {{this.expressionContentBefore}}<HighlightedAnnotation
         @text={{this.expressionContentAt}}
+        @annotation={{@annotation}}
       />{{this.expressionContentAfter}}
     </div>
     {{yield}}
