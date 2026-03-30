@@ -49,14 +49,16 @@
             >{{@annotation.valueLink}}</span></AuLinkExternal>
         </div>
       {{else if this.showNoUriWarning}}
-        <AuAlert
-          @skin="warning"
-          @title="Warning"
-          @size="tiny"
-          class="au-u-margin-bottom-none au-u-margin-top-small"
-        >
-          No URI was linked to this entity yet.
-        </AuAlert>
+        <div class="au-u-margin-top-small">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >URI</AuHeading>
+          <div class="au-u-muted au-u-italic">
+            No URI was linked to this entity yet.
+          </div>
+        </div>
       {{/if}}
     </c.content>
   </AuCard></AuButton>
