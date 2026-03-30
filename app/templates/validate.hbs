@@ -65,7 +65,7 @@
     <AnnotationLocation
       @expression={{@model.expression}}
       @annotation={{this.selectedAnnotation}}
-      @location={{await this.selectedAnnotation.hasTarget.selector}}
+      @location={{await this.selectedAnnotation.model.hasTarget.selector}}
       @onClose={{fn this.selectAnnotation null}}
     />
   {{/if}}

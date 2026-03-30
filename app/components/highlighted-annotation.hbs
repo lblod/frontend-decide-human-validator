@@ -1,4 +1,62 @@
-<span class="highlighted-annotation">{{@text}}{{yield}}&nbsp;<AuIcon
-    @icon="eye"
-    @size="large"
-  /></span>
+{{! template-lint-disable no-at-ember-render-modifiers }}
+<AuButton
+  type="button"
+  @skin="naked"
+  class="highlighted-annotation"
+  {{did-update this.resetShowInfo @annotation}}
+  {{on "click" this.toggleShowInfo}}
+>{{@text}}{{yield}}&nbsp;<AuIcon @icon={{this.icon}} @size="large" /><AuCard
+    class={{concat "highlight-info " (if this.showInfo "visible")}}
+    {{on-click-outside
+      this.resetShowInfo
+      exceptSelector=".highlighted-annotation"
+    }}
+    @shadow="true"
+    {{align-callout @annotation}}
+    as |c|
+  >
+    <c.content class="au-u-padding-small">
+      <div>
+        <AuHeading
+          @level={{4}}
+          @skin={{4}}
+          class="au-u-muted au-u-margin-none"
+        >Type</AuHeading>
+        <AnnotationType @annotation={{@annotation}} />
+      </div>
+      <div class="au-u-margin-top-small">
+        <AuHeading
+          @level={{4}}
+          @skin={{4}}
+          class="au-u-muted au-u-margin-none"
+        >Label</AuHeading>
+        <div>{{@annotation.valueText}}</div>
+      </div>
+      {{#if @annotation.valueLink}}
+        <div class="au-u-margin-top-small">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >URI</AuHeading>
+          <AuLinkExternal
+            href={{@annotation.valueLink}}
+            newTab={{true}}
+            title={{@annotation.valueLink}}
+            class="ellipsis"
+          ><span
+              class="au-u-1-1 max-width-100"
+            >{{@annotation.valueLink}}</span></AuLinkExternal>
+        </div>
+      {{else if this.showNoUriWarning}}
+        <AuAlert
+          @skin="warning"
+          @title="Warning"
+          @size="tiny"
+          class="au-u-margin-bottom-none au-u-margin-top-small"
+        >
+          No URI was linked to this entity yet.
+        </AuAlert>
+      {{/if}}
+    </c.content>
+  </AuCard></AuButton>
