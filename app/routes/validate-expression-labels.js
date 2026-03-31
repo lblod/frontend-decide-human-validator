@@ -11,7 +11,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
 
   async model(params) {
     const annotationResult = await fetch(
-      `/annotation-review/annotations/expression?page=${params.page}&pageSize=${params.size}`,
+      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}`,
     );
 
     const { annotations, annotationCount } = await annotationResult.json();
