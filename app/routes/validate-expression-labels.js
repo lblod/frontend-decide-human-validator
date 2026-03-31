@@ -16,20 +16,10 @@ export default class ValidateExpressionLabelsRoute extends Route {
 
     const { annotations, annotationCount } = await annotationResult.json();
 
-    await this.store.query('annotation', {
-      filter: {
-        id: annotations.map((annotation) => annotation.id).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    const annotationData = annotations.map((annotation) => {
-      annotation.model = this.store.peekRecord('annotation', annotation.id);
-      return annotation;
-    });
-    annotationData.meta = {
+    const annotationData = await this.addAnnotationModels(annotations);
+    const annotationDataWithExpressions =
+      await this.addExpressionTargets(annotationData);
+    annotationDataWithExpressions.meta = {
       count: annotationCount,
       pagination: {
         // we can be a little rough with prev and next as the datatable checks the first and last anyway
@@ -44,7 +34,42 @@ export default class ValidateExpressionLabelsRoute extends Route {
     };
 
     return {
-      annotations: annotationData,
+      annotations: annotationDataWithExpressions,
     };
+  }
+
+  async addAnnotationModels(annotations) {
+    await this.store.query('annotation', {
+      filter: {
+        id: annotations.map((annotation) => annotation.id).join(','),
+      },
+      page: {
+        size: 999,
+      },
+    });
+
+    return annotations.map((annotation) => {
+      annotation.model = this.store.peekRecord('annotation', annotation.id);
+      return annotation;
+    });
+  }
+
+  async addExpressionTargets(annotations) {
+    await this.store.query('expression', {
+      filter: {
+        id: annotations.map((annotation) => annotation.targetId).join(','),
+      },
+      page: {
+        size: 999,
+      },
+    });
+
+    return annotations.map((annotation) => {
+      annotation.targetModel = this.store.peekRecord(
+        'expression',
+        annotation.targetId,
+      );
+      return annotation;
+    });
   }
 }

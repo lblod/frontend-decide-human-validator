@@ -1,15 +1,14 @@
 <td>
   <AuLinkExternal
-    title={{@annotation.model.hasTarget.source.titleText}}
-    href={{await @annotation.model.hasTarget.source.accessLink}}
+    title={{@annotation.targetModel.titleText}}
+    href={{await @annotation.targetModel.accessLink}}
     @icon="link-external"
     @newTab={{true}}
     @iconAlignment="right"
     class="ellipsis multi-line"
   >
-    <span>{{@annotation.model.hasTarget.source.shortenedTitleText}}</span>
+    <span>{{@annotation.targetModel.shortenedTitleText}}</span>
   </AuLinkExternal>
-
 </td>
 <td>
   <AuLinkExternal
