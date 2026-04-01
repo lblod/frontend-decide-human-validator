@@ -21,8 +21,21 @@ export default class ExpressionsRoute extends Route {
     const result = await response.json();
 
     const expressions = result.targets;
+    const orgFilter = {
+      filter: {
+        classification:
+          'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
+      },
+      page: {
+        size: 20,
+      },
+    };
+    if (params.selectedMunicipalityUri) {
+      orgFilter.filter[':uri:'] = params.selectedMunicipalityUri;
+    }
 
-    const [_, municipalityModels] = await Promise.all([
+    /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "_expressions" }]*/
+    const [_expressions, municipalityModels] = await Promise.all([
       this.store.query('expression', {
         filter: {
           id: expressions.map((expression) => expression.id).join(','),
@@ -32,15 +45,7 @@ export default class ExpressionsRoute extends Route {
           size: 999,
         },
       }),
-      this.store.query('organization', {
-        filter: {
-          classification:
-            'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
-        },
-        page: {
-          size: 999,
-        },
-      }),
+      this.store.query('organization', orgFilter),
     ]);
 
     const data = expressions.map((expression) => {
