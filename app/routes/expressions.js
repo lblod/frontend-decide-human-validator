@@ -34,8 +34,7 @@ export default class ExpressionsRoute extends Route {
       orgFilter.filter[':uri:'] = params.selectedMunicipalityUri;
     }
 
-    /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "_expressions" }]*/
-    const [_expressions, municipalityModels] = await Promise.all([
+    const [expressionModels, municipalityModels] = await Promise.all([
       this.store.query('expression', {
         filter: {
           id: expressions.map((expression) => expression.id).join(','),
@@ -49,7 +48,7 @@ export default class ExpressionsRoute extends Route {
     ]);
 
     const data = expressions.map((expression) => {
-      expression.model = this.store.peekRecord('expression', expression.id);
+      expression.model = expressionModels.find((m) => m.id === expression.id);
       return expression;
     });
 
