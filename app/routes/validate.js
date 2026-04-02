@@ -58,4 +58,10 @@ export default class ValidateRoute extends Route {
       annotations: annotationData,
     };
   }
+
+  resetController(controller, isExiting, transition) {
+    if (isExiting && transition.targetName !== 'validate') {
+      controller.set('page', 0);
+    }
+  }
 }
