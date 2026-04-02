@@ -8,4 +8,4 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 
 ## Links to other PR's
 
-- https://github.com/lblod/frontend-decide/pull/1
+- https://github.com/lblod/frontend-decide-human-validator/pull/1

@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'frontend-decide/tests/helpers';
+import { setupTest } from 'frontend-decide-human-validator/tests/helpers';
 
 module('Unit | Controller | application', function (hooks) {
   setupTest(hooks);

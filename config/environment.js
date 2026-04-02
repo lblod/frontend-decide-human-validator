@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'frontend-decide',
+    modulePrefix: 'frontend-decide-human-validator',
     environment,
     rootURL: '/',
     locationType: 'history',

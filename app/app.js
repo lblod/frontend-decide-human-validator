@@ -1,7 +1,7 @@
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
-import config from 'frontend-decide/config/environment';
+import config from 'frontend-decide-human-validator/config/environment';
 import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 
 if (macroCondition(isDevelopingApp())) {
