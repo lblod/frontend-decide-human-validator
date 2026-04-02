@@ -1,0 +1,11 @@
+<div class="au-u-flex au-u-flex--spaced">
+  <AuButton @skin="naked" {{on "click" this.approve}}>
+    <VoteThumbsUpIcon @fill={{if this.approved "#0055CC"}} />
+    <AuPill @skin="success">{{this.approvedCount}}</AuPill>
+  </AuButton>
+  <AuButton @skin="naked" {{on "click" this.reject}}>
+    <AuPill @skin="warning">{{this.rejectedCount}}</AuPill>
+    <VoteThumbsDownIcon @fill={{if this.rejected "#0055CC"}} />
+  </AuButton>
+</div>
+{{yield}}
