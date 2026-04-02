@@ -47,4 +47,9 @@ export default class ExpressionsRoute extends Route {
     };
     return data;
   }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+    this.controllerFor('validate').set('page', 0);
+  }
 }
