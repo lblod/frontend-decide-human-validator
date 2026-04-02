@@ -1,0 +1,52 @@
+{{page-title "Expressions"}}
+
+<div class="vertical-grow">
+  <AuDataTable
+    @content={{@model}}
+    @noDataMessage="No annotated decisions found"
+    @page={{this.page}}
+    @size={{this.size}}
+    as |t|
+  >
+    <t.content as |c|>
+      <c.header>
+        <th>Expression</th>
+        <th>Organization</th>
+        <th>Annotations</th>
+        <th>Action</th>
+      </c.header>
+      <c.body as |expression|>
+        <td class="ellipsis">
+          <AuLink
+            title={{expression.title}}
+            @model={{expression.id}}
+            @route="validate"
+            @icon="pencil"
+            @iconAlignment="right"
+          >
+            <span>{{expression.title}}</span>
+          </AuLink>
+        </td>
+        <td>
+          {{#each expression.model.realizes.passedBy as |passed_by|}}
+            {{passed_by.prefLabel}}
+          {{else}}
+            /
+          {{/each}}
+        </td>
+        <td>{{expression.annotationCount}}</td>
+        <td>
+          <AuLinkExternal
+            @icon="link-external"
+            @iconAlignment="right"
+            @newTab={{true}}
+            href={{await expression.model.accessLink}}
+          >
+            View decision
+          </AuLinkExternal>
+        </td>
+      </c.body>
+    </t.content>
+  </AuDataTable>
+  {{outlet}}
+</div>
