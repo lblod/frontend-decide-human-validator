@@ -40,7 +40,7 @@ export default class ExpressionsRoute extends Route {
         next: { number: params.page + 1, size: result.count },
         first: { number: 0, size: result.count },
         last: {
-          number: Math.floor(result.count / params.size) - 1,
+          number: Math.floor(result.count / params.size),
           size: result.count,
         },
       },
