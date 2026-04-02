@@ -37,6 +37,19 @@ td.ellipsis {
     display: inline-block;
   }
 }
+a.ellipsis {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  span {
+    white-space: nowrap;
+    max-width: calc(100% - 64px);
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 .vertical-grow {
   display: flex;
   flex-direction: column;
@@ -46,4 +59,24 @@ td.ellipsis {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.vertical-separator {
+  width: 1px;
+  height: 80%;
+  margin: 0.5em;
+  background-color: var(--au-divider-color);
+}
+.multi-line {
+  white-space: wrap;
+}
+button.multi-line {
+  height: auto;
+  position: relative;
+}
+button.user-selectable {
+  user-select: initial;
+}
+.inline-block {
+  display: inline-block;
 }
