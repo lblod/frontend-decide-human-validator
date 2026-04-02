@@ -72,9 +72,11 @@ a.ellipsis {
 }
 button.multi-line {
   height: auto;
-  top: -1em;
   position: relative;
 }
 button.user-selectable {
   user-select: initial;
+}
+.inline-block {
+  display: inline-block;
 }

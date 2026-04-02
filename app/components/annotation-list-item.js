@@ -5,7 +5,7 @@ const MAX_VALUE_LENGTH = 92;
 
 export default class AnnotationListItem extends Component {
   get value() {
-    const value = this.args.annotation.value;
+    const value = this.args.annotation.valueText;
     if (value && value.length > MAX_VALUE_LENGTH) {
       return value.substring(0, MAX_VALUE_LENGTH) + '...';
     } else {
