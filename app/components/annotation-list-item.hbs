@@ -18,9 +18,11 @@
 <td>
   <AuButton
     @skin="link"
-    {{on "click" this.showLocation}}
+    {{on "click" (fn @onSelect @annotation)}}
     class="inline-block multi-line user-selectable"
     title={{this.fullValue}}
+    @icon="eye"
+    @iconAlignment="right"
   >
     {{this.value}}
   </AuButton>

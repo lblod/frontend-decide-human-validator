@@ -1,5 +1,4 @@
 {{page-title "AI Validation"}}
-
 <AuToolbar @border="bottom" @size="small" @skin="tint">
   <nav aria-label="breadcrumbs" class="au-u-flex au-u-flex--between au-u-1-1">
     <ol
@@ -16,42 +15,58 @@
   </nav>
 </AuToolbar>
 
-<div class="vertical-grow">
-  <div class="au-u-padding">
-    <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
-    <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
-      <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
-      <AuLinkExternal
-        title={{@model.title}}
-        href={{await @model.expression.accessLink}}
-        @icon="link-external"
-        @newTab={{true}}
-        @iconAlignment="right"
-        class="ellipsis"
+<div class="au-u-flex au-u-height-full">
+  <div class="au-u-flex-grow au-u-height-full">
+
+    <div class="vertical-grow">
+      <div class="au-u-padding">
+        <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+        <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
+          <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
+          <AuLinkExternal
+            title={{@model.title}}
+            href={{await @model.expression.accessLink}}
+            @icon="link-external"
+            @newTab={{true}}
+            @iconAlignment="right"
+            class="ellipsis multi-line"
+          >
+            <span>{{@model.title}}</span>
+          </AuLinkExternal>
+        </div>
+      </div>
+      <AuDataTable
+        @content={{@model.annotations}}
+        @noDataMessage="No annotated decisions found"
+        @page={{this.page}}
+        @size={{this.size}}
+        as |t|
       >
-        <span>{{@model.title}}</span>
-      </AuLinkExternal>
+        <t.content as |c|>
+          <c.header>
+            <th>AI model</th>
+            <th>Link</th>
+            <th>Type</th>
+            <th>Discovered entity</th>
+            <th>Is this correct?</th>
+          </c.header>
+          <c.body as |annotation|>
+            <AnnotationListItem
+              @annotation={{annotation}}
+              @onSelect={{this.selectAnnotation}}
+            />
+          </c.body>
+        </t.content>
+      </AuDataTable>
+      {{outlet}}
     </div>
   </div>
-  <AuDataTable
-    @content={{@model.annotations}}
-    @noDataMessage="No annotated decisions found"
-    @page={{this.page}}
-    @size={{this.size}}
-    as |t|
-  >
-    <t.content as |c|>
-      <c.header>
-        <th>AI model</th>
-        <th>Link</th>
-        <th>Type</th>
-        <th>Discovered entity</th>
-        <th>Is this correct?</th>
-      </c.header>
-      <c.body as |annotation|>
-        <AnnotationListItem @annotation={{annotation}} />
-      </c.body>
-    </t.content>
-  </AuDataTable>
-  {{outlet}}
+  {{#if this.selectedAnnotation}}
+    <AnnotationLocation
+      @expression={{@model.expression}}
+      @annotation={{this.selectedAnnotation}}
+      @location={{await this.selectedAnnotation.model.hasTarget.selector}}
+      @onClose={{fn this.selectAnnotation null}}
+    />
+  {{/if}}
 </div>

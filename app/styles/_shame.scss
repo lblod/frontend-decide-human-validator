@@ -42,12 +42,19 @@ a.ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
+  white-space: nowrap;
   span {
     white-space: nowrap;
     max-width: calc(100% - 64px);
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  &.multi-line {
+    white-space: wrap;
+    span {
+      white-space: wrap;
+    }
   }
 }
 .vertical-grow {
@@ -79,4 +86,60 @@ button.user-selectable {
 }
 .inline-block {
   display: inline-block;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}
+.au-u-flex-grow {
+  flex-grow: 1;
+}
+.au-u-z-1000 {
+  z-index: 1000;
+}
+
+button.highlighted-annotation,
+button.highlighted-annotation:hover {
+  border: var(--au-blue-300) solid 1px;
+  background: var(--au-blue-100);
+  color: var(--au-blue-700);
+  font-weight: bold;
+  padding: 0 0.2em;
+  border-radius: 5px;
+  white-space: wrap;
+  position: relative;
+  line-height: normal;
+  overflow: visible;
+  height: auto;
+  .highlight-info {
+    position: absolute;
+    top: calc(100% + 0.5em);
+    left: 0;
+    width: 400px;
+    height: fit-content;
+    display: none;
+    text-align: left;
+    font-weight: normal;
+  }
+  .highlight-info.right {
+    left: auto;
+    right: 0;
+  }
+  .highlight-info.visible {
+    display: block;
+  }
+}
+.relative {
+  position: relative;
+}
+.max-width-100 {
+  max-width: 100% !important;
+}
+.annotation-location {
+  min-width: 40vw;
+}
+.close-button {
+  position: absolute;
+  top: 6px;
+  right: 0;
 }
