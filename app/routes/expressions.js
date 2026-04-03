@@ -29,6 +29,7 @@ export default class ExpressionsRoute extends Route {
       page: {
         size: 20,
       },
+      sort: 'pref-label',
     };
     if (params.selectedMunicipalityUri) {
       orgFilter.filter[':uri:'] = params.selectedMunicipalityUri;
