@@ -16,7 +16,14 @@
     as |c|
   >
     <c.content class="au-u-padding-small">
-      <div>
+      <AuButton
+        class="close-button"
+        @skin="link-secondary"
+        @icon="x"
+        @hideText={{true}}
+        {{on "click" this.resetShowInfo}}
+      >Close</AuButton>
+      <div class="au-u-margin-top-none">
         <AuHeading
           @level={{4}}
           @skin={{4}}

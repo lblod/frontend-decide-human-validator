@@ -4,8 +4,15 @@
   {{on-click-outside @onClose exceptSelector="a,button"}}
   as |c|
 >
-  <c.content>
-    <div class="pre-wrap relative">
+  <c.content class="relative">
+    <AuButton
+      class="close-button"
+      @skin="link-secondary"
+      @icon="x"
+      @hideText={{true}}
+      {{on "click" @onClose}}
+    >Close</AuButton>
+    <div class="pre-wrap relative au-u-margin-none">
       {{this.expressionContentBefore}}<HighlightedAnnotation
         @text={{this.expressionContentAt}}
         @annotation={{@annotation}}
