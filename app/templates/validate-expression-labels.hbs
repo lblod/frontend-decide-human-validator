@@ -1,23 +1,64 @@
 {{page-title "AI Validation"}}
 
-<AuToolbar @border="bottom" @size="small" @skin="tint">
-  <nav aria-label="breadcrumbs" class="au-u-flex au-u-flex--between au-u-1-1">
-    <ol
-      class="au-c-list-horizontal au-c-list-horizontal--breadcrumbs au-u-margin-left-tiny au-u-flex--spaced-tiny"
-    >
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="expressions" @icon="arrow-left">Back to Decision List</AuLink>
-      </li>
-    </ol>
-  </nav>
-</AuToolbar>
+<AuMainContainer as |main|>
+  <main.sidebar>
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content au-u-padding">
+        <AuHeading
+          @skin={{3}}
+          @level={{3}}
+          class="au-u-margin-top-none au-u-margin-bottom-small"
+        >
+          Filter annotations
+        </AuHeading>
+        <div>
+          <AuLabel for="decision-passed-by">
+            Concept Scheme
+          </AuLabel>
+          <PowerSelect
+            id="decision-passed-by"
+            @searchEnabled={{true}}
+            @searchField="prefLabel"
+            @search={{this.searchConceptScheme}}
+            @options={{@model.conceptSchemes}}
+            @selected={{this.selectedConceptScheme}}
+            @onChange={{this.changeSelectedConceptScheme}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.prefLabel}}
+          </PowerSelect>
+        </div>
+        {{#if @model.concepts}}
+          <div class="au-u-margin-top">
+            <AuLabel for="decision-passed-by">
+              {{this.selectedConceptScheme.prefLabel}}
+            </AuLabel>
+            <ul>
+              {{#each @model.concepts as |concept|}}
+                <li class="au-u-padding-tiny au-u-padding-top-none">
+                  <div class="au-u-flex">
+                    <AuCheckbox
+                      @name={{concept.prefLabel}}
+                      @value={{concept.id}}
+                      @checked={{this.isSelected concept}}
+                      @onChange={{this.toggleConcept concept}}
+                    >{{concept.prefLabel}}</AuCheckbox>
+                  </div>
 
-<div class="au-u-flex au-u-height-full">
-  <div class="au-u-flex-grow au-u-height-full">
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
 
-    <div class="vertical-grow">
-      <div class="au-u-padding">
-        <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+        <div class="au-u-margin-top-small au-u-text-right">
+          <AuButton
+            @icon="x"
+            @skin="naked"
+            {{on "click" this.resetFilter}}
+          >Reset Filter</AuButton>
+        </div>
       </div>
       <AuDataTable
         @content={{@model.annotations}}
@@ -40,13 +81,51 @@
       </AuDataTable>
       {{outlet}}
     </div>
-  </div>
-  {{#if this.selectedAnnotation}}
-    <AnnotationLocation
-      @expression={{@model.expression}}
-      @annotation={{this.selectedAnnotation}}
-      @location={{await this.selectedAnnotation.hasTarget.selector}}
-      @onClose={{fn this.selectAnnotation null}}
-    />
-  {{/if}}
-</div>
+  </main.sidebar>
+  <main.content>
+    <AuBodyContainer id="content">
+
+      <div class="au-u-flex au-u-height-full">
+        <div class="au-u-flex-grow au-u-height-full">
+
+          <div class="vertical-grow">
+            <div class="au-u-padding">
+              <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+            </div>
+            <AuDataTable
+              @content={{@model.annotations}}
+              @noDataMessage="No annotated decisions found"
+              @page={{this.page}}
+              @size={{this.size}}
+              as |t|
+            >
+              <t.content as |c|>
+                <c.header>
+                  <th>Decision name</th>
+                  <th>AI model</th>
+                  <th>Discovered entity</th>
+                  <th>Is this correct?</th>
+                </c.header>
+                <c.body as |annotation|>
+                  <ExpressionAnnotationListItem
+                    @annotation={{annotation}}
+                    @onSelect={{this.selectAnnotation}}
+                  />
+                </c.body>
+              </t.content>
+            </AuDataTable>
+            {{outlet}}
+          </div>
+        </div>
+        {{#if this.selectedAnnotation}}
+          <AnnotationLocation
+            @expression={{@model.expression}}
+            @annotation={{this.selectedAnnotation}}
+            @location={{await this.selectedAnnotation.hasTarget.selector}}
+            @onClose={{fn this.selectAnnotation null}}
+          />
+        {{/if}}
+      </div>
+    </AuBodyContainer>
+  </main.content>
+</AuMainContainer>

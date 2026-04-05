@@ -7,11 +7,25 @@ export default class ValidateExpressionLabelsRoute extends Route {
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
+    concepts: { refreshModel: true },
+    conceptScheme: { refreshModel: true },
+    owner: { refreshModel: true },
   };
 
   async model(params) {
+    let filter = '';
+    if (params.concepts) {
+      filter += `&filter[concept]=${params.concepts}`;
+    }
+    if (params.conceptScheme) {
+      filter += `&filter[conceptScheme]=${params.conceptScheme}`;
+    }
+    if (params.owner) {
+      filter += `&filter[owner]=${params.owner}`;
+    }
+
     const annotationResult = await fetch(
-      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}`,
+      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
     );
 
     const { annotations, annotationCount } = await annotationResult.json();
@@ -33,8 +47,36 @@ export default class ValidateExpressionLabelsRoute extends Route {
       },
     };
 
+    const schemeFilter = {};
+    if (params.conceptScheme) {
+      schemeFilter.filter = { id: params.conceptScheme };
+    }
+    const conceptSchemes = await this.store.query(
+      'conceptScheme',
+      schemeFilter,
+    );
+
+    let concepts = [];
+    let selectedConcepts = [];
+    if (params.conceptScheme) {
+      concepts = await this.store.query('concept', {
+        'filter[concept-scheme][id]': params.conceptScheme,
+        sort: 'pref-label',
+      });
+      const conceptIds = (params.concepts || '').split(',');
+      selectedConcepts = concepts.filter((concept) => {
+        return conceptIds.includes(concept.id);
+      });
+      if (selectedConcepts.length === 0) {
+        selectedConcepts = concepts;
+      }
+    }
+
     return {
       annotations: annotationDataWithExpressions,
+      conceptSchemes,
+      concepts,
+      selectedConcepts,
     };
   }
 
