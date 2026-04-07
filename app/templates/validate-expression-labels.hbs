@@ -13,27 +13,72 @@
         </AuHeading>
         <div>
           <AuLabel for="decision-passed-by">
-            Concept Scheme
+            Decision Year
           </AuLabel>
           <PowerSelect
-            id="decision-passed-by"
+            id="decision-year"
             @searchEnabled={{true}}
-            @searchField="prefLabel"
-            @search={{this.searchConceptScheme}}
-            @options={{@model.conceptSchemes}}
-            @selected={{this.selectedConceptScheme}}
-            @onChange={{this.changeSelectedConceptScheme}}
+            @searchField="label"
+            @options={{this.yearOptions}}
+            @selected={{this.selectedYear}}
+            @onChange={{this.changeYear}}
             @renderInPlace={{true}}
             as |option|
           >
-            {{option.prefLabel}}
+            {{option.label}}
           </PowerSelect>
         </div>
-        {{#if @model.concepts}}
+        {{#if this.showImpact}}
           <div class="au-u-margin-top">
             <AuLabel for="decision-passed-by">
-              {{this.selectedConceptScheme.prefLabel}}
+              Impact type
             </AuLabel>
+            <AuRadioGroup
+              @name="impact"
+              @selected={{this.impact}}
+              @onChange={{this.changeImpact}}
+              as |Group|
+            >
+              {{#each this.impactOptions as |impact|}}
+                <Group.Radio
+                  @value={{impact.value}}
+                >{{impact.label}}</Group.Radio>
+              {{/each}}
+            </AuRadioGroup>
+          </div>
+        {{/if}}
+        {{#if this.showCs}}
+          <div class="au-u-margin-top">
+            <AuLabel for="decision-passed-by">
+              Concept Scheme
+            </AuLabel>
+            <PowerSelect
+              id="decision-passed-by"
+              @searchEnabled={{true}}
+              @searchField="prefLabel"
+              @search={{this.searchConceptScheme}}
+              @options={{@model.conceptSchemes}}
+              @selected={{this.selectedConceptScheme}}
+              @onChange={{this.changeSelectedConceptScheme}}
+              @renderInPlace={{true}}
+              as |option|
+            >
+              {{option.prefLabel}}
+            </PowerSelect>
+          </div>
+        {{/if}}
+        {{#if @model.concepts}}
+          <div class="au-u-margin-top">
+            <div class="au-u-flex">
+              <AuLabel for="decision-passed-by">
+                {{this.selectedConceptScheme.prefLabel}}
+              </AuLabel>
+              {{#if this.canDeselectAllConcepts}}
+                <AuButton @skin="link" {{on "click" this.deselectAllConcepts}}>
+                  Deselect all
+                </AuButton>
+              {{/if}}
+            </div>
             <ul>
               {{#each @model.concepts as |concept|}}
                 <li class="au-u-padding-tiny au-u-padding-top-none">
@@ -60,31 +105,11 @@
           >Reset Filter</AuButton>
         </div>
       </div>
-      <AuDataTable
-        @content={{@model.annotations}}
-        @noDataMessage="No annotated decisions found"
-        @page={{this.page}}
-        @size={{this.size}}
-        as |t|
-      >
-        <t.content as |c|>
-          <c.header>
-            <th>Decision name</th>
-            <th>AI model</th>
-            <th>Discovered entity</th>
-            <th>Is this correct?</th>
-          </c.header>
-          <c.body as |annotation|>
-            <ExpressionAnnotationListItem @annotation={{annotation}} />
-          </c.body>
-        </t.content>
-      </AuDataTable>
       {{outlet}}
     </div>
   </main.sidebar>
   <main.content>
     <AuBodyContainer id="content">
-
       <div class="au-u-flex au-u-height-full">
         <div class="au-u-flex-grow au-u-height-full">
 
@@ -107,10 +132,7 @@
                   <th>Is this correct?</th>
                 </c.header>
                 <c.body as |annotation|>
-                  <ExpressionAnnotationListItem
-                    @annotation={{annotation}}
-                    @onSelect={{this.selectAnnotation}}
-                  />
+                  <ExpressionAnnotationListItem @annotation={{annotation}} />
                 </c.body>
               </t.content>
             </AuDataTable>

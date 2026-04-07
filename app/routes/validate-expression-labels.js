@@ -10,6 +10,11 @@ export default class ValidateExpressionLabelsRoute extends Route {
     concepts: { refreshModel: true },
     conceptScheme: { refreshModel: true },
     owner: { refreshModel: true },
+    showImpact: { refreshModel: false },
+    showCs: { refreshModel: false },
+    impact: { refreshModel: true },
+    year: { refreshModel: true },
+    dsAll: { refreshModel: true },
   };
 
   async model(params) {
@@ -22,6 +27,12 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     if (params.owner) {
       filter += `&filter[owner]=${params.owner}`;
+    }
+    if (params.year) {
+      filter += `&filter[year]=${params.year}`;
+    }
+    if (params.impact) {
+      filter += `&filter[impact]=${params.impact}`;
     }
 
     const annotationResult = await fetch(
@@ -67,7 +78,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       selectedConcepts = concepts.filter((concept) => {
         return conceptIds.includes(concept.id);
       });
-      if (selectedConcepts.length === 0) {
+      if (selectedConcepts.length === 0 && !params.dsAll) {
         selectedConcepts = concepts;
       }
     }

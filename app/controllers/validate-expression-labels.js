@@ -5,19 +5,69 @@ import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 
 export default class ValidateExpressionLabelsController extends Controller {
-  queryParams = ['page', 'size', 'concepts', 'conceptScheme', 'owner'];
+  queryParams = [
+    'page',
+    'size',
+    'concepts',
+    'conceptScheme',
+    'owner',
+    'showImpact',
+    'showCs',
+    'impact',
+    'year',
+    'dsAll',
+  ];
   @tracked page = 0;
   @tracked size = 8;
   @tracked concepts = undefined;
   @tracked conceptScheme = undefined;
   @tracked owner = undefined;
+  @tracked showImpact = false;
+  @tracked impact = undefined;
+  @tracked showCs = true;
+  @tracked year = undefined;
+  @tracked dsAll = false;
   @service store;
+
+  yearOptions = [
+    { label: 'Any', value: undefined },
+    { label: '2026', value: '2026' },
+    { label: '2025', value: '2025' },
+    { label: '2024', value: '2024' },
+    { label: '2023', value: '2023' },
+    { label: '2022', value: '2022' },
+    { label: '2021', value: '2021' },
+    { label: '2020', value: '2020' },
+  ];
+
+  impactOptions = [
+    {
+      value: '0e432b1b-87ad-4c32-9fc5-b151dd49f60d',
+      label: 'Positive',
+    },
+    {
+      value: '1e122909-a685-4c0f-8b61-d639173b0a58',
+      label: 'Negative',
+    },
+    { value: undefined, label: 'Any' },
+  ];
 
   get selectedConceptScheme() {
     return this.model.conceptSchemes.find((scheme) => {
       return scheme.id === this.conceptScheme;
     });
   }
+
+  get selectedYear() {
+    return this.yearOptions.find((year) => {
+      return year.value === this.year;
+    });
+  }
+
+  get canDeselectAllConcepts() {
+    return this.model.concepts?.length > 1;
+  }
+
   @action
   isSelected(concept) {
     return this.model.selectedConcepts.includes(concept);
@@ -50,7 +100,7 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   @action
   toggleConcept(concept) {
-    if (!this.concepts) {
+    if (!this.concepts && !this.dsAll) {
       setTimeout(() => {
         this.concepts = this.model.concepts
           .map((concept) => concept.id)
@@ -74,8 +124,29 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   @action
+  changeImpact(impact) {
+    this.impact = impact;
+  }
+
+  @action
+  changeYear(year) {
+    this.year = year.value;
+  }
+
+  @action
+  deselectAllConcepts() {
+    this.dsAll = true;
+    this.concepts = [];
+  }
+
+  @action
   resetFilter() {
     this.concepts = null;
-    this.conceptScheme = null;
+    if (this.showCs) {
+      this.conceptScheme = null;
+    }
+    this.impact = undefined;
+    this.year = undefined;
+    this.dsAll = false;
   }
 }
