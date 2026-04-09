@@ -27,7 +27,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
         next: { number: params.page + 1, size: annotationCount },
         first: { number: 0, size: annotationCount },
         last: {
-          number: Math.floor(annotationCount / params.size) - 1,
+          number: Math.floor(annotationCount / params.size),
           size: annotationCount,
         },
       },
