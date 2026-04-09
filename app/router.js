@@ -18,6 +18,8 @@ Router.map(function () {
     path: '/validate/:expression_id',
   });
 
+  this.route('validate-expression-labels');
+
   this.route('route-not-found', {
     path: '/*wildcard',
   });

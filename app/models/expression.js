@@ -1,10 +1,21 @@
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
+const MAX_SHORT_TITLE_LENGTH = 90;
 export default class ExpressionModel extends Model {
   @attr('string') uri;
   @attr('language-string') title;
   @attr('string') wasDerivedFrom;
   @attr('language-string') expressionContent;
+
+  get titleText() {
+    return this.title?.content ? this.title.content : this.title;
+  }
+
+  get shortenedTitleText() {
+    const title = this.titleText || '';
+    const shortened = title.substring(0, MAX_SHORT_TITLE_LENGTH).trim();
+    return shortened.length < title.length ? `${shortened}...` : shortened;
+  }
 
   @hasMany('manifestation', {
     inverse: null,
