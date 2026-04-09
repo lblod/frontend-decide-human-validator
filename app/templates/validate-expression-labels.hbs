@@ -34,10 +34,7 @@
             <th>Is this correct?</th>
           </c.header>
           <c.body as |annotation|>
-            <ExpressionAnnotationListItem
-              @annotation={{annotation}}
-              @onSelect={{this.selectAnnotation}}
-            />
+            <ExpressionAnnotationListItem @annotation={{annotation}} />
           </c.body>
         </t.content>
       </AuDataTable>

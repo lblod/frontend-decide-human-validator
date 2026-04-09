@@ -21,14 +21,14 @@
   </AuLinkExternal>
 </td>
 <td>
-  <AuButton
+  <AuLinkExternal
     @skin="link"
-    {{on "click" (fn @onSelect @annotation.model)}}
+    href={{this.fullValue}}
     class="inline-block multi-line user-selectable"
     title={{this.fullValue}}
   >
     {{this.value}}
-  </AuButton>
+  </AuLinkExternal>
 </td>
 <td>
   <ValidationThumbs @annotation={{@annotation}} />
