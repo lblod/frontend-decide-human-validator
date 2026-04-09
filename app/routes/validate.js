@@ -7,15 +7,20 @@ export default class ValidateRoute extends Route {
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
+    hideVoted: { refreshModel: true },
   };
 
   async model(params) {
+    let hideVoted = '';
+    if (params.hideVoted !== false) {
+      hideVoted = '&filter[ignoreAlreadyReviewed]=true';
+    }
     const [expression, annotationResult] = await Promise.all([
       this.store.findRecord('expression', params.expression_id, {
         include: 'annotations,realizes,realizes.passed-by',
       }),
       fetch(
-        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}`,
+        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}${hideVoted}`,
       ),
     ]);
 

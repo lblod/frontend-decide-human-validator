@@ -14,10 +14,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
     impact: { refreshModel: true },
     year: { refreshModel: true },
     dsAll: { refreshModel: true },
+    hideVoted: { refreshModel: true },
   };
 
   async model(params) {
     let filter = '';
+    if (params.hideVoted !== false) {
+      filter += '&filter[ignoreAlreadyReviewed]=true';
+    }
     if (params.concepts) {
       filter += `&filter[concept]=${params.concepts}`;
     }

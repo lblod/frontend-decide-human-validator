@@ -122,8 +122,14 @@
         <div class="au-u-flex-grow au-u-height-full">
 
           <div class="vertical-grow">
-            <div class="au-u-padding">
+            <div
+              class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
+            >
               <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+              <AuToggleSwitch
+                @checked={{this.hideVoted}}
+                @onChange={{this.toggleHideVoted}}
+              >Hide already reviewed entities</AuToggleSwitch>
             </div>
             <AuDataTable
               @content={{@model.annotations}}
