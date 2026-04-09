@@ -7,12 +7,12 @@ export default class ExpressionsRoute extends Route {
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
-    selectedMunicipalityUri: { refreshModel: true },
+    municipality: { refreshModel: true },
   };
 
   async model(params) {
-    const selectedMunicipalityFilter = params.selectedMunicipalityUri
-      ? `&filter[municipality]=${params.selectedMunicipalityUri}`
+    const selectedMunicipalityFilter = params.municipality
+      ? `&filter[municipality]=${params.municipality}`
       : null;
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
@@ -31,8 +31,8 @@ export default class ExpressionsRoute extends Route {
       },
       sort: 'pref-label',
     };
-    if (params.selectedMunicipalityUri) {
-      orgFilter.filter[':uri:'] = params.selectedMunicipalityUri;
+    if (params.municipality) {
+      orgFilter.filter[':uri:'] = params.municipality;
     }
 
     const [expressionModels, municipalityModels] = await Promise.all([

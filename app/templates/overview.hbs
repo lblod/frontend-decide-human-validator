@@ -1,0 +1,74 @@
+{{page-title "AI Validation Overview"}}
+
+<AuBodyContainer @scroll={{true}} class="au-u-padding">
+  <AuHeading @skin={{1}} @level={{1}}>
+    Overview of AI Validation Solutions
+  </AuHeading>
+  <p>
+    In the context of the DECIDe project, data is generated using AI-powered
+    solutions. This data is stored as annotations to keep its provenance
+    information: which AI agent created the data, at which point, with which
+    inputs, ... This validation interface allows human users to validate the
+    correctness of these annotations. As the annotations take a slightly
+    different format depending on the use case, they are presented in different
+    interfaces.
+  </p>
+
+  <div class="au-u-margin-top">
+    <AuHeading @skin={{3}} @level={{2}}>
+      Select municipality
+    </AuHeading>
+    <p>
+      Our dataset contains decisions from across multiple municipalities. Select
+      the municipality that you want to validate annotations for here
+    </p>
+
+    <div class="au-u-margin-top-small">
+
+      <AuLabel for="decision-passed-by">
+        Municipality
+      </AuLabel>
+      <PowerSelect
+        id="decision-passed-by"
+        @searchEnabled={{true}}
+        @searchField="prefLabel"
+        @search={{this.searchMunicipality}}
+        @options={{@model.municipalities}}
+        @selected={{this.selectedMunicipality}}
+        @onChange={{this.changeSelectedMunicipality}}
+        @renderInPlace={{true}}
+        as |option|
+      >
+        {{option.prefLabel}}
+      </PowerSelect>
+    </div>
+  </div>
+  {{#if this.selectedMunicipality}}
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-top">
+      {{#each @model.apps as |app|}}
+        <div class="au-o-grid__item au-u-1-2">
+          <AuCard class="au-u-padding" as |c|>
+            <c.header>
+              <AuHeading @skin={{4}} @level={{2}}>
+                {{app.title}}
+              </AuHeading>
+            </c.header>
+            <c.content>
+              {{app.description}}
+            </c.content>
+            <c.footer>
+              <AuLink @skin="button" @route={{app.route}} @query={{app.params}}>
+                Validate now
+              </AuLink>
+            </c.footer>
+          </AuCard>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <AuAlert @skin="info" @icon="circle-info" class="au-u-margin-top">
+      <p>Please select a municipality before starting to validate annotations</p>
+    </AuAlert>
+  {{/if}}
+  {{outlet}}
+</AuBodyContainer>
