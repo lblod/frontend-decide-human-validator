@@ -20,7 +20,7 @@ export default class ExpressionsController extends Controller {
 
   @action
   changeSelectedMunicipality(municipality) {
-    this.selectedMunicipalityUri = municipality.uri;
+    this.municipality = municipality.uri;
   }
 
   @action
