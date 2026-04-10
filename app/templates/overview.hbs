@@ -1,32 +1,30 @@
-{{page-title "AI Validation Overview"}}
+{{page-title "Validate AI Annotations"}}
 
 <AuBodyContainer @scroll={{true}} class="au-u-padding">
   <AuHeading @skin={{1}} @level={{1}}>
-    Overview of AI Validation Solutions
+    Validate AI Annotations
   </AuHeading>
   <p>
-    In the context of the DECIDe project, data is generated using AI-powered
-    solutions. This data is stored as annotations to keep its provenance
-    information: which AI agent created the data, at which point, with which
-    inputs, ... This validation interface allows human users to validate the
-    correctness of these annotations. As the annotations take a slightly
-    different format depending on the use case, they are presented in different
-    interfaces.
+    In the DECIDE project, AI tooling analyses the text of local decisions and
+    enriches them with annotations. These annotations may identify specific
+    concepts in the text (such as dates, locations, or mandatary roles), or map
+    a decision to one or more concept lists. This interface allows human users
+    to review and validate these AI-generated annotations.
   </p>
 
   <div class="au-u-margin-top">
     <AuHeading @skin={{3}} @level={{2}}>
-      Select municipality
+      Select a local authority
     </AuHeading>
     <p>
-      Our dataset contains decisions from across multiple municipalities. Select
-      the municipality that you want to validate annotations for here
+      The dataset contains decisions from multiple local authorities. Select the
+      local authority whose decision annotations you want to review.
     </p>
 
     <div class="au-u-margin-top-small">
 
       <AuLabel for="decision-passed-by">
-        Municipality
+        Local authority
       </AuLabel>
       <PowerSelect
         id="decision-passed-by"
@@ -58,7 +56,7 @@
             </c.content>
             <c.footer>
               <AuLink @skin="button" @route={{app.route}} @query={{app.params}}>
-                Validate now
+                Start validation
               </AuLink>
             </c.footer>
           </AuCard>
@@ -67,7 +65,7 @@
     </div>
   {{else}}
     <AuAlert @skin="info" @icon="circle-info" class="au-u-margin-top">
-      <p>Please select a municipality before starting to validate annotations</p>
+      <p>Select a local authority to start validating annotations.</p>
     </AuAlert>
   {{/if}}
   {{outlet}}

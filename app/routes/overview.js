@@ -27,9 +27,9 @@ export default class OverviewRoute extends Route {
       municipalities: await this.store.query('organization', orgFilter),
       apps: [
         {
-          title: 'Validate Decision SDGs',
+          title: 'Validate SDG mapping',
           description:
-            'Validate which Sustainable Development Goals are impacted (positively or negatively) by which decisions in the municipality',
+            'Review how local decisions impact Sustainable Development Goals (SDGs).',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
@@ -39,18 +39,18 @@ export default class OverviewRoute extends Route {
           },
         },
         {
-          title: 'Validate Decision Codelist mapping',
+          title: 'Validate codelist mapping',
           description:
-            'Validate by which decisions in the municipality relate to arbitrary codelist concepts.',
+            'Review how local decisions are mapped to predefined codelist concepts.',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
           },
         },
         {
-          title: 'Validate Decision Contents',
+          title: 'Validate text annotations',
           description:
-            'Validate the enrichments our AI agents found in the contents of the decisions of the selected municipality.',
+            'Review the annotations identified in the text of local decisions, such as dates, locations, or mandatary roles.',
           route: 'expressions',
           params: {
             municipality: params.municipality,
