@@ -7,7 +7,7 @@ export default class AnnotationLink extends Component {
     if (link?.startsWith('http')) {
       return link;
     }
-    return '#';
+    return null;
   }
 
   get linkText() {
