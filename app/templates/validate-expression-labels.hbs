@@ -1,16 +1,9 @@
-{{page-title "AI Validation"}}
+{{page-title "Validate AI annotations"}}
 
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content au-u-padding">
-        <AuHeading
-          @skin={{3}}
-          @level={{3}}
-          class="au-u-margin-top-none au-u-margin-bottom-small"
-        >
-          Filter annotations
-        </AuHeading>
         <div>
           <AuLabel for="decision-passed-by">
             Decision Year
@@ -125,7 +118,7 @@
             <div
               class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
             >
-              <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+              <AuHeading @level={{1}} @skin={{1}}>Validate AI Annotations</AuHeading>
               <AuToggleSwitch
                 @checked={{this.hideVoted}}
                 @onChange={{this.toggleHideVoted}}
@@ -142,7 +135,10 @@
                 <c.header>
                   <th>Decision name</th>
                   <th>AI model</th>
-                  <th>Discovered entity</th>
+                  <th>{{or
+                      this.selectedConceptScheme.prefLabel
+                      "Discovered entity"
+                    }}</th>
                   <th>Is this correct?</th>
                 </c.header>
                 <c.body as |annotation|>

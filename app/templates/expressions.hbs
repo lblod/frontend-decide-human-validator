@@ -13,7 +13,7 @@
         </AuHeading>
         <div>
           <AuLabel for="decision-passed-by">
-            Municipality
+            Local authority
           </AuLabel>
           <PowerSelect
             id="decision-passed-by"
@@ -41,7 +41,7 @@
   </main.sidebar>
   <main.content>
     <AuBodyContainer id="content" @scroll={{true}}>
-      <AuHeading size="large" class="au-u-padding">AI Validation</AuHeading>
+      <AuHeading size="large" class="au-u-padding">Validate AI annotations</AuHeading>
       <AuDataTable
         @content={{@model.expressions}}
         @noDataMessage="No annotated decisions found"
