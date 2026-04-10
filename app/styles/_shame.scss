@@ -143,6 +143,13 @@ button.highlighted-annotation:hover {
   top: 6px;
   right: 0;
 }
+
 td {
   vertical-align: middle;
+}
+.au-c-main-container__sidebar {
+  flex-grow: 0.2;
+}
+.ember-power-select-dropdown.ember-basic-dropdown-content--in-place {
+  z-index: 100;
 }
