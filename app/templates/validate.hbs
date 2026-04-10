@@ -15,54 +15,52 @@
   </nav>
 </AuToolbar>
 
-<div class="au-u-flex au-u-height-full">
-  <div class="au-u-flex-grow au-u-height-full">
-
-    <div class="vertical-grow">
-      <div class="au-u-padding">
-        <div
-          class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
-        >
-          <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
-          <AuToggleSwitch
-            @checked={{this.hideVoted}}
-            @onChange={{this.toggleHideVoted}}
-          >Hide already reviewed entities</AuToggleSwitch>
-        </div>
-        <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
-          <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
-          <DecisionLink
-            @expression={{@model.expression}}
-            @title={{@model.title}}
-          />
-        </div>
-      </div>
-      <AuDataTable
-        @content={{@model.annotations}}
-        @noDataMessage="No annotated decisions found"
-        @page={{this.page}}
-        @size={{this.size}}
-        as |t|
+<AuBodyContainer class="au-u-flex au-u-flex--row">
+  <AuBodyContainer @scroll={{true}}>
+    <div class="au-u-padding">
+      <div
+        class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
       >
-        <t.content as |c|>
-          <c.header>
-            <th>AI model</th>
-            <th>Link</th>
-            <th>Type</th>
-            <th>Discovered entity</th>
-            <th>Is this correct?</th>
-          </c.header>
-          <c.body as |annotation|>
-            <AnnotationListItem
-              @annotation={{annotation}}
-              @onSelect={{this.selectAnnotation}}
-            />
-          </c.body>
-        </t.content>
-      </AuDataTable>
-      {{outlet}}
+        <AuHeading @level={{1}} @skin={{1}}>AI Validation</AuHeading>
+        <AuToggleSwitch
+          @checked={{this.hideVoted}}
+          @onChange={{this.toggleHideVoted}}
+        >Hide already reviewed entities</AuToggleSwitch>
+      </div>
+      <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
+        <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
+        <DecisionLink
+          @expression={{@model.expression}}
+          @title={{@model.title}}
+        />
+      </div>
     </div>
-  </div>
+    <AuDataTable
+      @content={{@model.annotations}}
+      @noDataMessage="No annotated decisions found"
+      @page={{this.page}}
+      @size={{this.size}}
+      as |t|
+    >
+      <t.content as |c|>
+        <c.header>
+          <th>AI model</th>
+          <th>Link</th>
+          <th>Type</th>
+          <th>Discovered entity</th>
+          <th>Is this correct?</th>
+        </c.header>
+        <c.body as |annotation|>
+          <AnnotationListItem
+            @annotation={{annotation}}
+            @onSelect={{this.selectAnnotation}}
+          />
+        </c.body>
+      </t.content>
+    </AuDataTable>
+    {{outlet}}
+  </AuBodyContainer>
+
   {{#if this.selectedAnnotation}}
     <AnnotationLocation
       @expression={{@model.expression}}
@@ -71,4 +69,4 @@
       @onClose={{fn this.selectAnnotation null}}
     />
   {{/if}}
-</div>
+</AuBodyContainer>
