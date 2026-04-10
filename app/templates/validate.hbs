@@ -31,16 +31,10 @@
         </div>
         <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
           <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
-          <AuLinkExternal
-            title={{@model.title}}
-            href={{await @model.expression.accessLink}}
-            @icon="link-external"
-            @newTab={{true}}
-            @iconAlignment="right"
-            class="ellipsis multi-line"
-          >
-            <span>{{@model.title}}</span>
-          </AuLinkExternal>
+          <DecisionLink
+            @expression={{@model.expression}}
+            @title={{@model.title}}
+          />
         </div>
       </div>
       <AuDataTable

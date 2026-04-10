@@ -1,14 +1,5 @@
 <td>
-  <AuLinkExternal
-    title={{@annotation.targetModel.titleText}}
-    href={{await @annotation.targetModel.accessLink}}
-    @icon="link-external"
-    @newTab={{true}}
-    @iconAlignment="right"
-    class="ellipsis multi-line"
-  >
-    <span>{{@annotation.targetModel.shortenedTitleText}}</span>
-  </AuLinkExternal>
+  <DecisionLink @expression={{@annotation.targetModel}} />
 </td>
 <td>
   <AuLinkExternal

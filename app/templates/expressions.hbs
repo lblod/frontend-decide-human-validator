@@ -78,14 +78,18 @@
               </td>
               <td>{{expression.annotationCount}}</td>
               <td>
-                <AuLinkExternal
-                  @icon="link-external"
-                  @iconAlignment="right"
-                  @newTab={{true}}
-                  href={{await expression.model.accessLink}}
-                >
-                  View decision
-                </AuLinkExternal>
+                {{#if (await expression.model.accessLink)}}
+                  <AuLinkExternal
+                    @icon="link-external"
+                    @iconAlignment="right"
+                    @newTab={{true}}
+                    href={{await expression.model.accessLink}}
+                  >
+                    View decision
+                  </AuLinkExternal>
+                {{else}}
+                  <span>No decision link</span>
+                {{/if}}
               </td>
             </c.body>
           </t.content>

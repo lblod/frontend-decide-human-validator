@@ -1,0 +1,17 @@
+{{#if (await @expression.accessLink)}}
+  <AuLinkExternal
+    title={{or @title @expression.titleText}}
+    href={{await @expression.accessLink}}
+    @icon="link-external"
+    @newTab={{true}}
+    @iconAlignment="right"
+    class="ellipsis multi-line"
+  >
+    <span>{{or @title @expression.shortenedTitleText}}</span>
+  </AuLinkExternal>
+{{else}}
+  <span title={{or @title @expression.titleText}}>{{or
+      @title
+      @expression.shortenedTitleText
+    }}</span>
+{{/if}}
