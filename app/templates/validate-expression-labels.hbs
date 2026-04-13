@@ -78,6 +78,11 @@
                   Deselect all
                 </AuButton>
               {{/if}}
+              {{#if this.canSelectAllConcepts}}
+                <AuButton @skin="link" {{on "click" this.selectAllConcepts}}>
+                  Select all
+                </AuButton>
+              {{/if}}
             </div>
             <ul>
               {{#each @model.concepts as |concept|}}
@@ -86,8 +91,11 @@
                     <AuCheckbox
                       @name={{concept.prefLabel}}
                       @value={{concept.id}}
-                      @checked={{this.isSelected concept}}
-                      @onChange={{this.toggleConcept concept}}
+                      @checked={{this.isSelected
+                        @model.selectedConcepts
+                        concept
+                      }}
+                      @onChange={{fn this.toggleConcept concept}}
                     >{{concept.prefLabel}}</AuCheckbox>
                   </div>
 
@@ -101,8 +109,8 @@
           <AuButton
             @icon="x"
             @skin="naked"
-            {{on "click" this.resetFilter}}
-          >Reset Filter</AuButton>
+            {{on "click" this.resetFilters}}
+          >Reset Filters</AuButton>
         </div>
       </div>
       {{outlet}}

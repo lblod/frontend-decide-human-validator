@@ -9,7 +9,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
     size: { refreshModel: true },
     concepts: { refreshModel: true },
     conceptScheme: { refreshModel: true },
-    owner: { refreshModel: true },
     showImpact: { refreshModel: false },
     showCs: { refreshModel: false },
     impact: { refreshModel: true },
@@ -24,9 +23,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     if (params.conceptScheme) {
       filter += `&filter[conceptScheme]=${params.conceptScheme}`;
-    }
-    if (params.owner) {
-      filter += `&filter[owner]=${params.owner}`;
     }
     if (params.year) {
       filter += `&filter[year]=${params.year}`;
@@ -73,6 +69,9 @@ export default class ValidateExpressionLabelsRoute extends Route {
       concepts = await this.store.query('concept', {
         'filter[concept-scheme][id]': params.conceptScheme,
         sort: 'pref-label',
+        page: {
+          size: 9999,
+        },
       });
       const conceptIds = (params.concepts || '').split(',');
       selectedConcepts = concepts.filter((concept) => {

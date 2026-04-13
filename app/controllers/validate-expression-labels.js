@@ -10,7 +10,6 @@ export default class ValidateExpressionLabelsController extends Controller {
     'size',
     'concepts',
     'conceptScheme',
-    'owner',
     'showImpact',
     'showCs',
     'impact',
@@ -21,7 +20,6 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked size = 8;
   @tracked concepts = undefined;
   @tracked conceptScheme = undefined;
-  @tracked owner = undefined;
   @tracked showImpact = false;
   @tracked impact = undefined;
   @tracked showCs = true;
@@ -65,12 +63,19 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   get canDeselectAllConcepts() {
-    return this.model.concepts?.length > 1;
+    return this.model.concepts?.length > 1 && !this.dsAll;
   }
 
-  @action
-  isSelected(concept) {
-    return this.model.selectedConcepts.includes(concept);
+  get canSelectAllConcepts() {
+    return (
+      this.dsAll &&
+      this.model.concepts?.length > 0 &&
+      this.model.selectedConcepts.length === 0
+    );
+  }
+
+  isSelected(selectedConcepts, concept) {
+    return selectedConcepts.includes(concept);
   }
 
   @action
@@ -107,8 +112,11 @@ export default class ValidateExpressionLabelsController extends Controller {
           .filter((id) => id != concept.id)
           .join(',');
       });
+      this.dsAll = false;
       return;
     }
+    this.dsAll = false;
+
     let selectedConcepts = (this.concepts || '').split(',');
 
     if (selectedConcepts.includes(concept.id)) {
@@ -140,7 +148,13 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   @action
-  resetFilter() {
+  selectAllConcepts() {
+    this.dsAll = false;
+    this.concepts = [];
+  }
+
+  @action
+  resetFilters() {
     this.concepts = null;
     if (this.showCs) {
       this.conceptScheme = null;
