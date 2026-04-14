@@ -1,9 +1,13 @@
-<AuLinkExternal
-  href={{this.linkLink}}
-  newTab={{true}}
-  @icon="link-external"
-  @iconAlignment="right"
->
-  {{this.linkText}}
-</AuLinkExternal>
+{{#if this.linkLink}}
+  <AuLinkExternal
+    href={{this.linkLink}}
+    newTab={{true}}
+    @icon="link-external"
+    @iconAlignment="right"
+  >
+    {{this.linkText}}
+  </AuLinkExternal>
+{{else}}
+  <span>None</span>
+{{/if}}
 {{yield}}

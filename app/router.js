@@ -20,6 +20,8 @@ Router.map(function () {
 
   this.route('validate-expression-labels');
 
+  this.route('overview');
+
   this.route('route-not-found', {
     path: '/*wildcard',
   });

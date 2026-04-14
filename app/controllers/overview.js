@@ -3,10 +3,9 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
-export default class ExpressionsController extends Controller {
-  queryParams = ['page', 'size', 'municipality'];
-  @tracked page = 0;
-  @tracked size = 20;
+
+export default class OverviewController extends Controller {
+  queryParams = ['page', 'size', 'selectedMunicipalityUri'];
 
   @tracked municipality = null;
 
@@ -19,13 +18,8 @@ export default class ExpressionsController extends Controller {
   }
 
   @action
-  changeSelectedMunicipality(municipality) {
-    this.municipality = municipality.uri;
-  }
-
-  @action
-  resetFilter() {
-    this.municipality = null;
+  changeSelectedMunicipality(selected) {
+    this.municipality = selected.uri;
   }
 
   @action
