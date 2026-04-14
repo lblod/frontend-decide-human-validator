@@ -15,6 +15,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'impact',
     'year',
     'dsAll',
+    'hideVoted',
   ];
   @tracked page = 0;
   @tracked size = 8;
@@ -25,6 +26,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked showCs = true;
   @tracked year = undefined;
   @tracked dsAll = false;
+  @tracked hideVoted = true;
   @service store;
 
   yearOptions = [
@@ -162,5 +164,10 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.impact = undefined;
     this.year = undefined;
     this.dsAll = false;
+  }
+
+  @action
+  toggleHideVoted() {
+    this.hideVoted = !this.hideVoted;
   }
 }

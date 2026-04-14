@@ -3,9 +3,10 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class ValidateController extends Controller {
-  queryParams = ['page', 'size'];
+  queryParams = ['page', 'size', 'hideVoted'];
   @tracked page = 0;
   @tracked size = 8;
+  @tracked hideVoted = true;
 
   @tracked selectedAnnotation = null;
 
@@ -20,5 +21,10 @@ export default class ValidateController extends Controller {
         element.scrollIntoView({ block: 'center' });
       }
     }, 100);
+  }
+
+  @action
+  toggleHideVoted() {
+    this.hideVoted = !this.hideVoted;
   }
 }
