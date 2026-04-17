@@ -11,6 +11,7 @@ export default class OverviewRoute extends Route {
   async model(params) {
     const orgFilter = {
       filter: {
+        ['show-in-hvt']: true,
         classification:
           'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
       },
@@ -33,7 +34,7 @@ export default class OverviewRoute extends Route {
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
-            conceptScheme: '249ab17a-fddd-46a6-a80e-d8cfc49d9339',
+            conceptScheme: '785cfa4d-6d74-46ad-a99c-1acc176db89e',
             showImpact: true,
             showCs: false,
           },

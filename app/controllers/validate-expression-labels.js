@@ -97,6 +97,7 @@ export default class ValidateExpressionLabelsController extends Controller {
       .query('concept-scheme', {
         filter: {
           ['pref-label']: term,
+          ['show-in-hvt']: true,
         },
         page: {
           size: 20,

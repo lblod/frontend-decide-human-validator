@@ -67,12 +67,20 @@
                 {{this.selectedConceptScheme.prefLabel}}
               </AuLabel>
               {{#if this.canDeselectAllConcepts}}
-                <AuButton @skin="link" {{on "click" this.deselectAllConcepts}}>
+                <AuButton
+                  @skin="link"
+                  {{on "click" this.deselectAllConcepts}}
+                  class="au-u-flex-shrink-0"
+                >
                   Deselect all
                 </AuButton>
               {{/if}}
               {{#if this.canSelectAllConcepts}}
-                <AuButton @skin="link" {{on "click" this.selectAllConcepts}}>
+                <AuButton
+                  @skin="link"
+                  {{on "click" this.selectAllConcepts}}
+                  class="au-u-flex-shrink-0"
+                >
                   Select all
                 </AuButton>
               {{/if}}
@@ -89,7 +97,11 @@
                         concept
                       }}
                       @onChange={{fn this.toggleConcept concept}}
-                    >{{concept.prefLabel}}</AuCheckbox>
+                    >{{if
+                        concept.notation
+                        (concat concept.notation ": ")
+                        ""
+                      }}{{concept.prefLabel}}</AuCheckbox>
                   </div>
 
                 </li>
