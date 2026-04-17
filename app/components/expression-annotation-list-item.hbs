@@ -1,7 +1,4 @@
 <td>
-  <DecisionLink @expression={{@annotation.targetModel}} />
-</td>
-<td>
   <AuLinkExternal
     href={{this.agentLink}}
     @icon="link-external"
@@ -10,6 +7,9 @@
   >
     {{this.agentName}}
   </AuLinkExternal>
+</td>
+<td>
+  <DecisionLink @expression={{@annotation.targetModel}} />
 </td>
 <td>
   <AuLinkExternal
