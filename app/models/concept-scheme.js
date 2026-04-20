@@ -3,4 +3,5 @@ import Model, { attr } from '@ember-data/model';
 export default class ConceptSchemeModel extends Model {
   @attr('string') uri;
   @attr('string') prefLabel;
+  @attr('boolean') showInHVT;
 }

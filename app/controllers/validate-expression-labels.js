@@ -18,7 +18,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'hideVoted',
   ];
   @tracked page = 0;
-  @tracked size = 8;
+  @tracked size = 20;
   @tracked concepts = undefined;
   @tracked conceptScheme = undefined;
   @tracked showImpact = false;
@@ -97,6 +97,7 @@ export default class ValidateExpressionLabelsController extends Controller {
       .query('concept-scheme', {
         filter: {
           ['pref-label']: term,
+          ['show-in-hvt']: true,
         },
         page: {
           size: 20,

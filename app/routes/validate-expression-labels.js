@@ -58,12 +58,16 @@ export default class ValidateExpressionLabelsRoute extends Route {
       },
     };
 
-    const schemeFilter = {};
+    const schemeFilter = {
+      filter: {
+        'show-in-hvt': true,
+      },
+    };
     if (params.conceptScheme) {
-      schemeFilter.filter = { id: params.conceptScheme };
+      schemeFilter.filter.id = params.conceptScheme;
     }
     const conceptSchemes = await this.store.query(
-      'conceptScheme',
+      'concept-scheme',
       schemeFilter,
     );
 
@@ -72,7 +76,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     if (params.conceptScheme) {
       concepts = await this.store.query('concept', {
         'filter[concept-scheme][id]': params.conceptScheme,
-        sort: 'pref-label',
+        sort: 'notation',
         page: {
           size: 9999,
         },

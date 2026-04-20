@@ -10,7 +10,7 @@ export default class HighlightedAnnotation extends Component {
   }
 
   get showNoUriWarning() {
-    return !this.args.annotation.type.startsWith(
+    return !this.args.annotation.type?.startsWith(
       'http://www.w3.org/2001/XMLSchema#',
     );
   }

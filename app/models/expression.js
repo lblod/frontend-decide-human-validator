@@ -23,7 +23,7 @@ export default class ExpressionModel extends Model {
   })
   isEmbodiedBy;
 
-  @hasMany('SpecificResource', {
+  @hasMany('specific-resource', {
     inverse: null,
     async: true,
   })

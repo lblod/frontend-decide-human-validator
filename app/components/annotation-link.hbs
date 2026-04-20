@@ -5,7 +5,7 @@
     @icon="link-external"
     @iconAlignment="right"
   >
-    {{this.linkText}}
+    {{prefixed-url @annotation.link}}
   </AuLinkExternal>
 {{else}}
   <span>None</span>

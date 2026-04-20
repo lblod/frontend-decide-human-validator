@@ -1,24 +1,15 @@
 <td>
   <AuLinkExternal
-    title={{@annotation.targetModel.titleText}}
-    href={{await @annotation.targetModel.accessLink}}
-    @icon="link-external"
-    @newTab={{true}}
-    @iconAlignment="right"
-    class="ellipsis multi-line"
-  >
-    <span>{{@annotation.targetModel.shortenedTitleText}}</span>
-  </AuLinkExternal>
-</td>
-<td>
-  <AuLinkExternal
     href={{this.agentLink}}
     @icon="link-external"
     @newTab={{true}}
     @iconAlignment="right"
   >
-    {{this.agentName}}
+    {{prefixed-url this.agentName}}
   </AuLinkExternal>
+</td>
+<td>
+  <DecisionLink @expression={{@annotation.targetModel}} />
 </td>
 <td>
   <AuLinkExternal

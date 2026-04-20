@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 export default class ValidateController extends Controller {
   queryParams = ['page', 'size', 'hideVoted'];
   @tracked page = 0;
-  @tracked size = 8;
+  @tracked size = 20;
   @tracked hideVoted = true;
 
   @tracked selectedAnnotation = null;

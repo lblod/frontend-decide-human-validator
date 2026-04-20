@@ -12,12 +12,18 @@ export default class AnnotationLocation extends Component {
     if (!this.args.location) {
       return this.content;
     }
+    if (!this.content) {
+      return '';
+    }
     return this.content.substring(0, this.args.location.start);
   }
 
   get expressionContentAt() {
     if (!this.args.location) {
       return null;
+    }
+    if (!this.content) {
+      return '';
     }
     return this.content
       .substring(this.args.location.start, this.args.location.end)
@@ -27,6 +33,9 @@ export default class AnnotationLocation extends Component {
   get expressionContentAfter() {
     if (!this.args.location) {
       return null;
+    }
+    if (!this.content) {
+      return '';
     }
     return this.content.substring(this.args.location.end);
   }
