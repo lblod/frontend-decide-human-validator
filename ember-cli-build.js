@@ -7,6 +7,9 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: ['node_modules/@appuniversum/ember-appuniversum'], // just "node_modules" would also work, but it seems to slow (re)builds down a lot
     },
+    fingterprint: {
+      exclude: ['marker-icon.png', 'marker-shadow.png'],
+    },
     emberData: {
       deprecations: {
         // New projects can safely leave this deprecation disabled.
