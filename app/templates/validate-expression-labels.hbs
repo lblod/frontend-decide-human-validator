@@ -6,6 +6,16 @@
       <div class="au-c-sidebar__content au-u-padding">
         <div>
           <AuLabel for="decision-passed-by">
+            Title
+          </AuLabel>
+          <AuInput
+            id="title-search"
+            value={{this.search}}
+            {{on "input" (perform this.searchTitle)}}
+          />
+        </div>
+        <div class="au-u-margin-top-small">
+          <AuLabel for="decision-passed-by">
             Decision Year
           </AuLabel>
           <PowerSelect
