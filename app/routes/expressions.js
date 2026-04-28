@@ -8,15 +8,21 @@ export default class ExpressionsRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     municipality: { refreshModel: true },
+    title: { refreshModel: true },
   };
 
   async model(params) {
     const selectedMunicipalityFilter = params.municipality
       ? `&filter[municipality]=${params.municipality}`
       : null;
+
+    let titleFilter = '';
+    if (params.title && params.title.length > 3) {
+      titleFilter = `&filter[title]=${params.title}`;
+    }
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}`,
     );
     const result = await response.json();
 
@@ -70,6 +76,12 @@ export default class ExpressionsRoute extends Route {
     return {
       expressions: data,
       municipalities: municipalityModels,
+      search: params.title,
     };
+  }
+
+  setupController(controller, model) {
+    super.setupController(...arguments);
+    controller.search = model.search;
   }
 }
