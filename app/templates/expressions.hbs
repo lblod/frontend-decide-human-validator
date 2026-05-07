@@ -1,6 +1,6 @@
 {{page-title "Expressions"}}
 
-<AuMainContainer as |main|>
+<AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content au-u-padding">
@@ -13,7 +13,7 @@
         </AuHeading>
         <div>
           <AuLabel for="decision-passed-by">
-            Municipality
+            Local authority
           </AuLabel>
           <PowerSelect
             id="decision-passed-by"
@@ -40,44 +40,44 @@
     </div>
   </main.sidebar>
   <main.content>
-    <AuBodyContainer id="content">
-      <div class="vertical-grow">
-        <AuHeading size="large" class="au-u-padding">AI Validation</AuHeading>
-        <AuDataTable
-          @content={{@model.expressions}}
-          @noDataMessage="No annotated decisions found"
-          @page={{this.page}}
-          @size={{this.size}}
-          as |t|
-        >
-          <t.content as |c|>
-            <c.header>
-              <th>Expression</th>
-              <th>Organization</th>
-              <th>Annotations</th>
-              <th>Action</th>
-            </c.header>
-            <c.body as |expression|>
-              <td class="ellipsis">
-                <AuLink
-                  title={{expression.title}}
-                  @model={{expression.id}}
-                  @route="validate"
-                  @icon="pencil"
-                  @iconAlignment="right"
-                >
-                  <span>{{expression.title}}</span>
-                </AuLink>
-              </td>
-              <td>
-                {{#each expression.model.realizes.passedBy as |passed_by|}}
-                  {{passed_by.prefLabel}}
-                {{else}}
-                  /
-                {{/each}}
-              </td>
-              <td>{{expression.annotationCount}}</td>
-              <td>
+    <AuBodyContainer id="content" @scroll={{true}}>
+      <AuHeading size="large" class="au-u-padding">Validate AI annotations</AuHeading>
+      <AuDataTable
+        @content={{@model.expressions}}
+        @noDataMessage="No annotated decisions found"
+        @page={{this.page}}
+        @size={{this.size}}
+        as |t|
+      >
+        <t.content as |c|>
+          <c.header>
+            <th>Expression</th>
+            <th>Organization</th>
+            <th>Annotations</th>
+            <th>Action</th>
+          </c.header>
+          <c.body as |expression|>
+            <td class="ellipsis">
+              <AuLink
+                title={{expression.title}}
+                @model={{expression.id}}
+                @route="validate"
+                @icon="pencil"
+                @iconAlignment="right"
+              >
+                <span>{{or expression.title "<no title found>"}}</span>
+              </AuLink>
+            </td>
+            <td>
+              {{#each expression.model.realizes.passedBy as |passed_by|}}
+                {{passed_by.prefLabel}}
+              {{else}}
+                /
+              {{/each}}
+            </td>
+            <td>{{expression.annotationCount}}</td>
+            <td>
+              {{#if (await expression.model.accessLink)}}
                 <AuLinkExternal
                   @icon="link-external"
                   @iconAlignment="right"
@@ -86,12 +86,14 @@
                 >
                   View decision
                 </AuLinkExternal>
-              </td>
-            </c.body>
-          </t.content>
-        </AuDataTable>
-        {{outlet}}
-      </div>
+              {{else}}
+                <span>No decision link</span>
+              {{/if}}
+            </td>
+          </c.body>
+        </t.content>
+      </AuDataTable>
+      {{outlet}}
     </AuBodyContainer>
   </main.content>
 </AuMainContainer>

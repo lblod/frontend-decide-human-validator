@@ -23,6 +23,7 @@ export default class ExpressionsRoute extends Route {
     const expressions = result.targets;
     const orgFilter = {
       filter: {
+        ['show-in-hvt']: true,
         classification:
           'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
       },

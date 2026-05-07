@@ -57,16 +57,6 @@ a.ellipsis {
     }
   }
 }
-.vertical-grow {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-#content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
 
 .vertical-separator {
   width: 1px;
@@ -138,6 +128,14 @@ button.highlighted-annotation:hover {
 .annotation-location {
   min-width: 40vw;
 }
+@media (max-width: 63.9375em) {
+  .annotation-location {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80vw;
+  }
+}
 .close-button {
   position: absolute;
   top: 6px;
@@ -152,4 +150,11 @@ td {
 }
 .ember-power-select-dropdown.ember-basic-dropdown-content--in-place {
   z-index: 100;
+}
+
+@media (max-width: 63.9375em) {
+  .au-c-app > .au-c-body-container > .au-c-main-container {
+    height: calc(100% - 4.2rem);
+    overflow: auto;
+  }
 }

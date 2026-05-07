@@ -6,7 +6,7 @@ const LangString = function (content, lang) {
   this.content = content;
   this.language = lang;
   this.toString = function () {
-    if (!this.language) {
+    if (!this.language || this.language == 'en') {
       return this['content'];
     }
     return `${this['content']} (${this['language']})`;
