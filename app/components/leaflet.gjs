@@ -6,6 +6,14 @@ class LeafletModifier extends Modifier {
 
   /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "component" }]*/
   modify(element, positional, { component, props }) {
+    const icon = L.icon({
+      iconUrl: '/assets/images/marker-icon.png',
+      shadowUrl: '/assets/images/marker-shadow.png',
+      iconSize: [25, 41], // size of the icon
+      shadowSize: [41, 41], // size of the shadow
+      iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+      shadowAnchor: [12, 41], // the same for the shadow
+    });
     const map = L.map(element);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -20,7 +28,7 @@ class LeafletModifier extends Modifier {
       case 'POINT': {
         const latlng = props.coordinates[0];
         map.setView(latlng, 15);
-        L.marker(latlng).addTo(map);
+        L.marker(latlng, { icon }).addTo(map);
         break;
       }
       case 'LINESTRING': {

@@ -12,6 +12,11 @@
   overflow: hidden;
 }
 
+.highlight-info .map-container {
+  width: 376px;
+  height: 376px;
+  max-width: 100%;
+}
 /* Workaround: Hide the endpoint selector field */
 .yasgui .controlbar {
   float: left;

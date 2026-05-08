@@ -3,6 +3,7 @@
   type="button"
   @skin="naked"
   class="highlighted-annotation"
+  {{did-insert this.resetShowInfo @annotation}}
   {{did-update this.resetShowInfo @annotation}}
   {{on "click" this.toggleShowInfo}}
 >{{@text}}{{yield}}&nbsp;<AuIcon @icon={{this.icon}} @size="large" /><AuCard
@@ -65,6 +66,17 @@
           <div class="au-u-muted au-u-italic">
             No URI was linked to this entity yet.
           </div>
+        </div>
+      {{/if}}
+      {{! note this.showInfo is important for leaflet to correctly compute its size }}
+      {{#if (and this.showInfo this.geometry)}}
+        <div class="au-u-margin-top-small relative">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >Map</AuHeading>
+          <Leaflet @props={{this.geometry.wgs84Coord}} />
         </div>
       {{/if}}
     </c.content>
