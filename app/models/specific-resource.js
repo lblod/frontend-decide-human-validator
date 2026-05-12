@@ -1,4 +1,4 @@
-import Model, { belongsTo } from '@ember-data/model';
+import { belongsTo } from '@ember-data/model';
 import AnnotationTargetModel from './annotation-target';
 
 export default class SpecificResourceModel extends AnnotationTargetModel {
