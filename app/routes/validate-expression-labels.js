@@ -15,6 +15,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     year: { refreshModel: true },
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
+    title: { refreshModel: true },
   };
 
   async model(params) {
@@ -33,6 +34,9 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     if (params.impact) {
       filter += `&filter[impact]=${params.impact}`;
+    }
+    if (params.title && params.title.length > 3) {
+      filter += `&filter[title]=${params.title}`;
     }
 
     const annotationResult = await fetch(
@@ -95,6 +99,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       conceptSchemes,
       concepts,
       selectedConcepts,
+      search: params.title,
     };
   }
 
@@ -131,5 +136,10 @@ export default class ValidateExpressionLabelsRoute extends Route {
       );
       return annotation;
     });
+  }
+
+  setupController(controller, model) {
+    super.setupController(...arguments);
+    controller.search = model.search;
   }
 }

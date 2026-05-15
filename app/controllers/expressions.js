@@ -3,10 +3,14 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
+
+const SEARCH_TIMEOUT = 600;
 export default class ExpressionsController extends Controller {
-  queryParams = ['page', 'size', 'municipality'];
+  queryParams = ['page', 'size', 'municipality', 'title'];
   @tracked page = 0;
   @tracked size = 20;
+  @tracked title = undefined;
+  @tracked search = undefined;
 
   @tracked municipality = null;
 
@@ -26,6 +30,8 @@ export default class ExpressionsController extends Controller {
   @action
   resetFilter() {
     this.municipality = null;
+    this.title = null;
+    this.search = null;
   }
 
   @action
@@ -35,8 +41,13 @@ export default class ExpressionsController extends Controller {
     });
   }
 
+  searchTitle = restartableTask(async (e) => {
+    await timeout(SEARCH_TIMEOUT);
+    this.title = e.target.value;
+  });
+
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(600);
+    await timeout(SEARCH_TIMEOUT);
     this.store
       .query('organization', {
         filter: {

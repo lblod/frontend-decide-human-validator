@@ -29,6 +29,16 @@
             {{option.prefLabel}}
           </PowerSelect>
         </div>
+        <div class="au-u-margin-top-small">
+          <AuLabel for="decision-passed-by">
+            Title
+          </AuLabel>
+          <AuInput
+            id="title-search"
+            value={{this.search}}
+            {{on "input" (perform this.searchTitle)}}
+          />
+        </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton
             @icon="x"
