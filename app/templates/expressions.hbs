@@ -85,7 +85,10 @@
                 /
               {{/each}}
             </td>
-            <td>{{expression.annotationCount}}</td>
+            <td>{{or
+                expression.annotationReviewedCount
+                0
+              }}/{{expression.annotationCount}}</td>
             <td>
               {{#if (await expression.model.accessLink)}}
                 <AuLinkExternal

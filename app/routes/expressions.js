@@ -14,7 +14,7 @@ export default class ExpressionsRoute extends Route {
   async model(params) {
     const selectedMunicipalityFilter = params.municipality
       ? `&filter[municipality]=${params.municipality}`
-      : null;
+      : '';
 
     let titleFilter = '';
     if (params.title && params.title.length > 3) {
