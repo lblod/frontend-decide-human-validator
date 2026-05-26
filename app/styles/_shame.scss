@@ -132,6 +132,7 @@ button.highlighted-annotation:hover {
 }
 .annotation-location {
   min-width: 40vw;
+  max-width: 50vw;
 }
 @media (max-width: 63.9375em) {
   .annotation-location {

@@ -13,12 +13,12 @@ export default class ExpressionsRoute extends Route {
 
   async model(params) {
     const selectedMunicipalityFilter = params.municipality
-      ? `&filter[municipality]=${params.municipality}`
+      ? `&filter[municipality]=${encodeURIComponent(params.municipality)}`
       : '';
 
     let titleFilter = '';
     if (params.title && params.title.length > 3) {
-      titleFilter = `&filter[title]=${params.title}`;
+      titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
     }
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(

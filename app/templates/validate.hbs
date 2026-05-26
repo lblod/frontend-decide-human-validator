@@ -31,7 +31,7 @@
         <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
         <DecisionLink
           @expression={{@model.expression}}
-          @title={{@model.title}}
+          @title={{or @model.title @model.expression.fallbackTitle}}
         />
       </div>
     </div>

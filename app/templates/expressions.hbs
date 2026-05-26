@@ -75,7 +75,10 @@
                 @icon="pencil"
                 @iconAlignment="right"
               >
-                <span>{{or expression.title "<no title found>"}}</span>
+                <span>{{or
+                    expression.title
+                    expression.model.fallbackTitle
+                  }}</span>
               </AuLink>
             </td>
             <td>
