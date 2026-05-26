@@ -47,4 +47,12 @@ export default class ExpressionModel extends Model {
       });
     });
   }
+
+  get fallbackTitle() {
+    const fallback = this.expressionContent?.content?.trim()?.substring(0, 100);
+    if (fallback) {
+      return `<no title:> ${fallback}...`;
+    }
+    return '<no title found>';
+  }
 }
