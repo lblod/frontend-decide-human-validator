@@ -46,6 +46,7 @@ export default class OverviewRoute extends Route {
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
+            conceptScheme: undefined,
             showImpact: false,
             showCs: true,
           },
