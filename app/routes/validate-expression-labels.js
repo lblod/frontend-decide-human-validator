@@ -84,13 +84,20 @@ export default class ValidateExpressionLabelsRoute extends Route {
     let concepts = [];
     let selectedConcepts = [];
     if (params.conceptScheme) {
-      concepts = await this.store.query('concept', {
-        'filter[concept-scheme][id]': params.conceptScheme,
-        sort: 'notation',
-        page: {
-          size: 9999,
+      concepts = [
+        ...(await this.store.query('concept', {
+          'filter[concept-scheme][id]': params.conceptScheme,
+          sort: 'notation',
+          page: {
+            size: 9999,
+          },
+        })),
+        {
+          prefLabel: 'No Match',
+          id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
+          uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
         },
-      });
+      ];
       const conceptIds = (params.concepts || '').split(',');
       selectedConcepts = concepts.filter((concept) => {
         return conceptIds.includes(concept.id);
