@@ -180,10 +180,16 @@
                       this.selectedConceptScheme.prefLabel
                       "Discovered entity"
                     }}</th>
+                  {{#if this.showImpact}}
+                    <th>Impact</th>
+                  {{/if}}
                   <th>Is this correct?</th>
                 </c.header>
                 <c.body as |annotation|>
-                  <ExpressionAnnotationListItem @annotation={{annotation}} />
+                  <ExpressionAnnotationListItem
+                    @showImpact={{this.showImpact}}
+                    @annotation={{annotation}}
+                  />
                 </c.body>
               </t.content>
             </AuDataTable>

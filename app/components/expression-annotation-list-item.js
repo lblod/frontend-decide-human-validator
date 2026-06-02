@@ -41,4 +41,38 @@ export default class ExpressionAnnotationListItem extends Component {
   get agentName() {
     return this.args.annotation.agentName || this.args.annotation.agent;
   }
+
+  get impact() {
+    let impact = this.args.annotation.impact;
+    if (!impact) {
+      return null;
+    }
+    impact = impact
+      .split('http://mu.semte.ch/vocabularies/ext/impact/')
+      .join('');
+    return impact;
+  }
+
+  get impactText() {
+    switch (this.impact) {
+      case 'positive':
+        return '+';
+      case 'negative':
+        return '-';
+      case 'unknown':
+      default:
+        return '?';
+    }
+  }
+  get impactSkin() {
+    switch (this.impact) {
+      case 'positive':
+        return 'success';
+      case 'negative':
+        return 'error';
+      case 'unknown':
+      default:
+        return 'warning';
+    }
+  }
 }
