@@ -1,8 +1,13 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 const MAX_VALUE_LENGTH = 92;
 
 export default class ExpressionAnnotationListItem extends Component {
+  @tracked
+  showContent = false;
+
   get value() {
     if (
       this.args.annotation.valueText.startsWith(
@@ -74,5 +79,15 @@ export default class ExpressionAnnotationListItem extends Component {
       default:
         return 'warning';
     }
+  }
+
+  @action
+  openDecisionText() {
+    this.showContent = true;
+  }
+
+  @action
+  hideDecisionText() {
+    this.showContent = false;
   }
 }
