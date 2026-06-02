@@ -10,38 +10,7 @@
   </AuLinkExternal>
 </td>
 <td>
-  <div class="au-u-flex au-u-flex--between">
-    <DecisionLink @expression={{@annotation.targetModel}} />
-    <AuButton
-      class="au-u-flex-shrink-0 au-u-padding-right-none"
-      @skin="naked"
-      @icon="document"
-      @hideText={{true}}
-      {{on "click" this.openDecisionText}}
-    >Show Text</AuButton>
-  </div>
-  {{#if this.showContent}}
-    <AuCard
-      class="expression-content au-u-padding-small"
-      {{on-click-outside
-        this.hideDecisionText
-        exceptSelector=".expression-content"
-      }}
-      @shadow="true"
-    >
-      <AuButton
-        class="close-button"
-        @skin="link-secondary"
-        @icon="x"
-        @hideText={{true}}
-        {{on "click" this.hideDecisionText}}
-      >Close</AuButton>
-      <div>
-        {{@annotation.targetModel.trimmedExpressionContent}}
-      </div>
-
-    </AuCard>
-  {{/if}}
+  <DecisionLink @expression={{@annotation.targetModel}} />
 </td>
 <td>
   <AuLinkExternal

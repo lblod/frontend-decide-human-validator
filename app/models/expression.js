@@ -51,6 +51,12 @@ export default class ExpressionModel extends Model {
           resolve(this.wasDerivedFrom);
         }
       });
+    }).then((link) => {
+      if (link?.startsWith('http://internal-files')) {
+        return null;
+      } else {
+        return link;
+      }
     });
   }
 

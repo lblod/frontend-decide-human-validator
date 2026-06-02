@@ -181,3 +181,10 @@ td {
   overflow: auto;
   white-space: pre-wrap;
 }
+
+.document-text-button {
+  display: flex;
+  svg {
+    flex-shrink: 0;
+  }
+}
