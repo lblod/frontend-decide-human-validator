@@ -22,68 +22,71 @@
     }}
     @shadow="true"
     {{align-callout @annotation}}
+    as |c|
   >
-    <AuButton
-      class="close-button"
-      @skin="link-secondary"
-      @icon="x"
-      @hideText={{true}}
-      {{on "click" this.resetShowInfo}}
-    >Close</AuButton>
-    <div class="au-u-margin-top-none">
-      <AuHeading
-        @level={{4}}
-        @skin={{4}}
-        class="au-u-muted au-u-margin-none"
-      >Type</AuHeading>
-      <AnnotationType @annotation={{@annotation}} />
-    </div>
-    <div class="au-u-margin-top-small">
-      <AuHeading
-        @level={{4}}
-        @skin={{4}}
-        class="au-u-muted au-u-margin-none"
-      >Label</AuHeading>
-      <div>{{@annotation.valueText}}</div>
-    </div>
-    {{#if @annotation.valueLink}}
-      <div class="au-u-margin-top-small">
+    <c.content>
+      <AuButton
+        class="close-button"
+        @skin="link-secondary"
+        @icon="x"
+        @hideText={{true}}
+        {{on "click" this.resetShowInfo}}
+      >Close</AuButton>
+      <div class="au-u-margin-top-none">
         <AuHeading
           @level={{4}}
           @skin={{4}}
           class="au-u-muted au-u-margin-none"
-        >URI</AuHeading>
-        <AuLinkExternal
-          href={{@annotation.valueLink}}
-          newTab={{true}}
-          title={{@annotation.valueLink}}
-          class="ellipsis"
-        ><span
-            class="au-u-1-1 max-width-100"
-          >{{@annotation.valueLink}}</span></AuLinkExternal>
+        >Type</AuHeading>
+        <AnnotationType @annotation={{@annotation}} />
       </div>
-    {{else if this.showNoUriWarning}}
       <div class="au-u-margin-top-small">
         <AuHeading
           @level={{4}}
           @skin={{4}}
           class="au-u-muted au-u-margin-none"
-        >URI</AuHeading>
-        <div class="au-u-muted au-u-italic">
-          No URI was linked to this entity yet.
+        >Label</AuHeading>
+        <div>{{@annotation.valueText}}</div>
+      </div>
+      {{#if @annotation.valueLink}}
+        <div class="au-u-margin-top-small">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >URI</AuHeading>
+          <AuLinkExternal
+            href={{@annotation.valueLink}}
+            newTab={{true}}
+            title={{@annotation.valueLink}}
+            class="ellipsis"
+          ><span
+              class="au-u-1-1 max-width-100"
+            >{{@annotation.valueLink}}</span></AuLinkExternal>
         </div>
-      </div>
-    {{/if}}
-    {{! note this.showInfo is important for leaflet to correctly compute its size }}
-    {{#if (and this.showInfo this.geometry)}}
-      <div class="au-u-margin-top-small relative">
-        <AuHeading
-          @level={{4}}
-          @skin={{4}}
-          class="au-u-muted au-u-margin-none"
-        >Map</AuHeading>
-        <Leaflet @props={{this.geometry.wgs84Coord}} />
-      </div>
-    {{/if}}
+      {{else if this.showNoUriWarning}}
+        <div class="au-u-margin-top-small">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >URI</AuHeading>
+          <div class="au-u-muted au-u-italic">
+            No URI was linked to this entity yet.
+          </div>
+        </div>
+      {{/if}}
+      {{! note this.showInfo is important for leaflet to correctly compute its size }}
+      {{#if (and this.showInfo this.geometry)}}
+        <div class="au-u-margin-top-small relative">
+          <AuHeading
+            @level={{4}}
+            @skin={{4}}
+            class="au-u-muted au-u-margin-none"
+          >Map</AuHeading>
+          <Leaflet @props={{this.geometry.wgs84Coord}} />
+        </div>
+      {{/if}}
+    </c.content>
   </AuCard>
 </span>
