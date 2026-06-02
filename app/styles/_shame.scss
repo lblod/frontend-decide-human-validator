@@ -172,3 +172,19 @@ td {
     overflow: auto;
   }
 }
+.expression-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  z-index: 1000;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.document-text-button {
+  display: flex;
+  svg {
+    flex-shrink: 0;
+  }
+}

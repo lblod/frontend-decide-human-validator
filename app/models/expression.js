@@ -51,6 +51,12 @@ export default class ExpressionModel extends Model {
           resolve(this.wasDerivedFrom);
         }
       });
+    }).then((link) => {
+      if (link?.startsWith('http://internal-files')) {
+        return null;
+      } else {
+        return link;
+      }
     });
   }
 
@@ -60,5 +66,13 @@ export default class ExpressionModel extends Model {
       return `<no title:> ${fallback}...`;
     }
     return '<no title found>';
+  }
+
+  get trimmedExpressionContent() {
+    let content = this.expressionContent;
+    if (content?.content) {
+      content = content.content;
+    }
+    return content?.trim();
   }
 }
