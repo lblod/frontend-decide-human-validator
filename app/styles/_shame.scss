@@ -113,7 +113,7 @@ button.user-selectable {
   line-height: normal;
   overflow: visible;
   height: auto;
-  display: inline-auto;
+  display: inline-block;
   .highlight-info {
     position: absolute;
     top: calc(100% + 0.5em);

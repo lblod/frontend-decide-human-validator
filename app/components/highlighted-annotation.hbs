@@ -11,7 +11,11 @@
     /></AuButton>
 
   <AuCard
-    class={{concat "highlight-info " (if this.showInfo "visible")}}
+    class={{concat
+      "highlight-info "
+      (if this.showInfo "visible ")
+      (if @annotation.model.renderRight "right")
+    }}
     {{on-click-outside
       this.resetShowInfo
       exceptSelector=".highlighted-annotation"
