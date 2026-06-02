@@ -1,0 +1,11 @@
+{{page-title "Loading"}}
+<AuMainContainer class="au-u-height-full" as |main|>
+  <main.content class="au-u-flex au-u-flex--column au-u-flex--around">
+    <AuLoader
+      @inline={{this.inline}}
+      @hideMessage={{this.hideMessage}}
+      @centered={{this.centered}}
+    >Loading</AuLoader>,`
+    {{outlet}}
+  </main.content>
+</AuMainContainer>
