@@ -20,12 +20,22 @@ export default class OverviewRoute extends Route {
       },
       sort: 'pref-label',
     };
+    const municipalities = await this.store.query('organization', orgFilter);
+    const municipalitiesWithSelection = [...municipalities];
     if (params.municipality) {
       orgFilter.filter[':uri:'] = params.municipality;
+      const selected = await this.store.query('organization', orgFilter);
+      if (
+        selected &&
+        selected.length > 0 &&
+        !municipalitiesWithSelection.find((m) => m.id === selected[0].id)
+      ) {
+        municipalitiesWithSelection.push(selected[0]);
+      }
     }
 
     return {
-      municipalities: await this.store.query('organization', orgFilter),
+      municipalities: municipalitiesWithSelection,
       apps: [
         {
           title: 'Validate SDG mapping',
@@ -33,7 +43,7 @@ export default class OverviewRoute extends Route {
             'Review how local decisions impact Sustainable Development Goals (SDGs).',
           route: 'validate-expression-labels',
           params: {
-            owner: params.municipality,
+            municipality: params.municipality,
             conceptScheme: '785cfa4d-6d74-46ad-a99c-1acc176db89e',
             showImpact: true,
             showCs: false,

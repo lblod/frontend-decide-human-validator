@@ -15,13 +15,22 @@
 <td>
   <AuLinkExternal
     @skin="link"
-    href={{this.fullValue}}
+    href={{this.valueLink}}
     class="inline-block multi-line user-selectable"
     title={{this.fullValue}}
   >
     {{this.value}}
   </AuLinkExternal>
 </td>
+{{#if @showImpact}}
+  <td class="au-u-text-center">
+    {{#if this.impact}}
+      <AuPill @skin={{this.impactSkin}} title={{concat "impact: " this.impact}}>
+        {{this.impactText}}
+      </AuPill>
+    {{/if}}
+  </td>
+{{/if}}
 <td>
   <ValidationThumbs @annotation={{@annotation}} />
 </td>

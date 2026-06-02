@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ExpressionsRoute extends Route {
   @service store;
+  @service municipalities;
 
   queryParams = {
     page: { refreshModel: true },
@@ -12,9 +13,9 @@ export default class ExpressionsRoute extends Route {
   };
 
   async model(params) {
-    const selectedMunicipalityFilter = params.municipality
-      ? `&filter[municipality]=${encodeURIComponent(params.municipality)}`
-      : '';
+    const selectedMunicipalityFilter = this.municipalities.toMunicipalityFilter(
+      params.municipality,
+    );
 
     let titleFilter = '';
     if (params.title && params.title.length > 3) {
@@ -27,20 +28,6 @@ export default class ExpressionsRoute extends Route {
     const result = await response.json();
 
     const expressions = result.targets;
-    const orgFilter = {
-      filter: {
-        ['show-in-hvt']: true,
-        classification:
-          'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
-      },
-      page: {
-        size: 20,
-      },
-      sort: 'pref-label',
-    };
-    if (params.municipality) {
-      orgFilter.filter[':uri:'] = params.municipality;
-    }
 
     const [expressionModels, municipalityModels] = await Promise.all([
       this.store.query('expression', {
@@ -52,7 +39,7 @@ export default class ExpressionsRoute extends Route {
           size: 999,
         },
       }),
-      this.store.query('organization', orgFilter),
+      this.municipalities.getMunicipalities(params.municipality),
     ]);
 
     const data = expressions.map((expression) => {
