@@ -8,7 +8,13 @@ export default class ExpressionModel extends Model {
   @attr('language-string') expressionContent;
 
   get titleText() {
-    return this.title?.content ? this.title.content : this.title;
+    const title = this.title?.content ? this.title.content : this.title;
+    if (!title || title.trim().length === 0) {
+      const content =
+        this.expressionContent?.content || this.expressionContent || '';
+      return '<no title> ' + content.substring(0, MAX_SHORT_TITLE_LENGTH);
+    }
+    return title;
   }
 
   get shortenedTitleText() {
