@@ -1,12 +1,16 @@
 {{! template-lint-disable no-at-ember-render-modifiers }}
-<AuButton
-  type="button"
-  @skin="naked"
-  class="highlighted-annotation"
-  {{did-insert this.resetShowInfo @annotation}}
-  {{did-update this.resetShowInfo @annotation}}
-  {{on "click" this.toggleShowInfo}}
->{{@text}}{{yield}}&nbsp;<AuIcon @icon={{this.icon}} @size="large" /><AuCard
+<span class="highlighted-annotation"><AuButton
+    type="button"
+    @skin="naked"
+    {{did-insert this.resetShowInfo @annotation}}
+    {{did-update this.resetShowInfo @annotation}}
+    {{on "click" this.toggleShowInfo}}
+  >{{@text}}{{yield}}&nbsp;<AuIcon
+      @icon={{this.icon}}
+      @size="large"
+    /></AuButton>
+
+  <AuCard
     class={{concat "highlight-info " (if this.showInfo "visible")}}
     {{on-click-outside
       this.resetShowInfo
@@ -80,4 +84,5 @@
         </div>
       {{/if}}
     </c.content>
-  </AuCard></AuButton>
+  </AuCard>
+</span>

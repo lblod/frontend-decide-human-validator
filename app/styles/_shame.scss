@@ -93,8 +93,8 @@ button.user-selectable {
   z-index: 1000;
 }
 
-button.highlighted-annotation,
-button.highlighted-annotation:hover {
+.highlighted-annotation > button,
+.highlighted-annotation > button:hover {
   border: var(--au-blue-300) solid 1px;
   background: var(--au-blue-100);
   color: var(--au-blue-700);
@@ -106,6 +106,14 @@ button.highlighted-annotation:hover {
   line-height: normal;
   overflow: visible;
   height: auto;
+}
+.highlighted-annotation {
+  white-space: wrap;
+  position: relative;
+  line-height: normal;
+  overflow: visible;
+  height: auto;
+  display: inline-auto;
   .highlight-info {
     position: absolute;
     top: calc(100% + 0.5em);
