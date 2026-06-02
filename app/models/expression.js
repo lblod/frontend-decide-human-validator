@@ -61,4 +61,12 @@ export default class ExpressionModel extends Model {
     }
     return '<no title found>';
   }
+
+  get trimmedExpressionContent() {
+    let content = this.expressionContent;
+    if (content?.content) {
+      content = content.content;
+    }
+    return content?.trim();
+  }
 }

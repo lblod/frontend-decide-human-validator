@@ -28,20 +28,18 @@
         exceptSelector=".expression-content"
       }}
       @shadow="true"
-      as |c|
     >
-      <c.content class="au-u-padding-small">
-        <AuButton
-          class="close-button"
-          @skin="link-secondary"
-          @icon="x"
-          @hideText={{true}}
-          {{on "click" this.hideDecisionText}}
-        >Close</AuButton>
-        <div>
-          {{@annotation.targetModel.expressionContent}}
-        </div>
-      </c.content>
+      <AuButton
+        class="close-button"
+        @skin="link-secondary"
+        @icon="x"
+        @hideText={{true}}
+        {{on "click" this.hideDecisionText}}
+      >Close</AuButton>
+      <div>
+        {{@annotation.targetModel.trimmedExpressionContent}}
+      </div>
+
     </AuCard>
   {{/if}}
 </td>
