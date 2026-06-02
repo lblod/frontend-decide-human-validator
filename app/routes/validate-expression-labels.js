@@ -73,13 +73,20 @@ export default class ValidateExpressionLabelsRoute extends Route {
         'show-in-hvt': true,
       },
     };
-    if (params.conceptScheme) {
+    const conceptSchemes = [
+      ...(await this.store.query('concept-scheme', schemeFilter)),
+    ];
+    if (
+      params.conceptScheme &&
+      !conceptSchemes.find((s) => s.id == params.conceptScheme)
+    ) {
       schemeFilter.filter.id = params.conceptScheme;
+      const selectedScheme = await this.store.query(
+        'concept-scheme',
+        schemeFilter,
+      );
+      conceptSchemes.push(selectedScheme);
     }
-    const conceptSchemes = await this.store.query(
-      'concept-scheme',
-      schemeFilter,
-    );
 
     let concepts = [];
     let selectedConcepts = [];
