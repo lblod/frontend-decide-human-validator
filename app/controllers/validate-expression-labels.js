@@ -19,6 +19,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'dsAll',
     'hideVoted',
     'title',
+    'municipality',
   ];
   @tracked page = 0;
   @tracked size = 20;
@@ -32,7 +33,10 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked hideVoted = true;
   @tracked title = undefined;
   @tracked search = undefined;
+  @tracked municipality = null;
+
   @service store;
+  @service municipalities;
 
   yearOptions = [
     { label: 'Any', value: undefined },
@@ -56,6 +60,28 @@ export default class ValidateExpressionLabelsController extends Controller {
     },
     { value: undefined, label: 'Any' },
   ];
+
+  get selectedMunicipality() {
+    return this.model.municipalities.find((municipality) => {
+      return municipality.uri === this.municipality;
+    });
+  }
+
+  @action
+  changeSelectedMunicipality(municipality) {
+    this.municipality = municipality.uri;
+  }
+
+  @action
+  searchMunicipality(term) {
+    return new Promise((resolve, reject) => {
+      void this.municipalities.searchMunicipalities.perform(
+        term,
+        resolve,
+        reject,
+      );
+    });
+  }
 
   get selectedConceptScheme() {
     return this.model.conceptSchemes.find((scheme) => {

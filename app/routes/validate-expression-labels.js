@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
+  @service municipalities;
 
   queryParams = {
     page: { refreshModel: true },
@@ -16,6 +17,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
     title: { refreshModel: true },
+    municipality: { refreshModel: true },
   };
 
   async model(params) {
@@ -38,10 +40,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
     if (params.title && params.title.length > 3) {
       filter += `&filter[title]=${params.title}`;
     }
+    filter += this.municipalities.toMunicipalityFilter(params.municipality);
 
-    const annotationResult = await fetch(
-      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-    );
+    const [annotationResult, municipalityModels] = await Promise.all([
+      fetch(
+        `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
+      ),
+      this.municipalities.getMunicipalities(params.municipality),
+    ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
 
@@ -100,6 +106,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       concepts,
       selectedConcepts,
       search: params.title,
+      municipalities: municipalityModels,
     };
   }
 

@@ -6,6 +6,25 @@
       <div class="au-c-sidebar__content au-u-padding">
         <div>
           <AuLabel for="decision-passed-by">
+            Local authority
+          </AuLabel>
+          <PowerSelect
+            id="decision-passed-by"
+            @searchEnabled={{true}}
+            @searchField="prefLabel"
+            @search={{this.searchMunicipality}}
+            @options={{@model.municipalities}}
+            @selected={{this.selectedMunicipality}}
+            @onChange={{this.changeSelectedMunicipality}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.prefLabel}}
+          </PowerSelect>
+
+        </div>
+        <div class="au-u-margin-top-small">
+          <AuLabel for="decision-passed-by">
             Title
           </AuLabel>
           <AuInput
