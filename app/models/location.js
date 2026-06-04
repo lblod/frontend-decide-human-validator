@@ -1,6 +1,7 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import { attr, belongsTo } from '@ember-data/model';
+import AnnotationBodyModel from './annotation-body';
 
-export default class LocationModel extends Model {
+export default class LocationModel extends AnnotationBodyModel {
   @attr('string') label;
   @attr('string') exactMatch;
 
