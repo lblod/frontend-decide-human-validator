@@ -4,6 +4,8 @@ import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 
+const SEARCH_TIMEOUT = 600;
+
 export default class ValidateExpressionLabelsController extends Controller {
   queryParams = [
     'page',
@@ -16,6 +18,8 @@ export default class ValidateExpressionLabelsController extends Controller {
     'year',
     'dsAll',
     'hideVoted',
+    'title',
+    'municipality',
   ];
   @tracked page = 0;
   @tracked size = 20;
@@ -27,7 +31,12 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked year = undefined;
   @tracked dsAll = false;
   @tracked hideVoted = true;
+  @tracked title = undefined;
+  @tracked search = undefined;
+  @tracked municipality = null;
+
   @service store;
+  @service municipalities;
 
   yearOptions = [
     { label: 'Any', value: undefined },
@@ -51,6 +60,28 @@ export default class ValidateExpressionLabelsController extends Controller {
     },
     { value: undefined, label: 'Any' },
   ];
+
+  get selectedMunicipality() {
+    return this.model.municipalities.find((municipality) => {
+      return municipality.uri === this.municipality;
+    });
+  }
+
+  @action
+  changeSelectedMunicipality(municipality) {
+    this.municipality = municipality.uri;
+  }
+
+  @action
+  searchMunicipality(term) {
+    return new Promise((resolve, reject) => {
+      void this.municipalities.searchMunicipalities.perform(
+        term,
+        resolve,
+        reject,
+      );
+    });
+  }
 
   get selectedConceptScheme() {
     return this.model.conceptSchemes.find((scheme) => {
@@ -92,7 +123,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(600);
+    await timeout(SEARCH_TIMEOUT);
     this.store
       .query('concept-scheme', {
         filter: {
@@ -165,10 +196,17 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.impact = undefined;
     this.year = undefined;
     this.dsAll = false;
+    this.search = undefined;
+    this.title = undefined;
   }
 
   @action
   toggleHideVoted() {
     this.hideVoted = !this.hideVoted;
   }
+
+  searchTitle = restartableTask(async (e) => {
+    await timeout(SEARCH_TIMEOUT);
+    this.title = e.target.value;
+  });
 }

@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
+  @service municipalities;
 
   queryParams = {
     page: { refreshModel: true },
@@ -15,6 +16,8 @@ export default class ValidateExpressionLabelsRoute extends Route {
     year: { refreshModel: true },
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
+    title: { refreshModel: true },
+    municipality: { refreshModel: true },
   };
 
   async model(params) {
@@ -34,10 +37,17 @@ export default class ValidateExpressionLabelsRoute extends Route {
     if (params.impact) {
       filter += `&filter[impact]=${params.impact}`;
     }
+    if (params.title && params.title.length > 3) {
+      filter += `&filter[title]=${params.title}`;
+    }
+    filter += this.municipalities.toMunicipalityFilter(params.municipality);
 
-    const annotationResult = await fetch(
-      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-    );
+    const [annotationResult, municipalityModels] = await Promise.all([
+      fetch(
+        `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
+      ),
+      this.municipalities.getMunicipalities(params.municipality),
+    ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
 
@@ -63,24 +73,38 @@ export default class ValidateExpressionLabelsRoute extends Route {
         'show-in-hvt': true,
       },
     };
-    if (params.conceptScheme) {
+    const conceptSchemes = [
+      ...(await this.store.query('concept-scheme', schemeFilter)),
+    ];
+    if (
+      params.conceptScheme &&
+      !conceptSchemes.find((s) => s.id == params.conceptScheme)
+    ) {
       schemeFilter.filter.id = params.conceptScheme;
+      const selectedScheme = await this.store.query(
+        'concept-scheme',
+        schemeFilter,
+      );
+      conceptSchemes.push(selectedScheme);
     }
-    const conceptSchemes = await this.store.query(
-      'concept-scheme',
-      schemeFilter,
-    );
 
     let concepts = [];
     let selectedConcepts = [];
     if (params.conceptScheme) {
-      concepts = await this.store.query('concept', {
-        'filter[concept-scheme][id]': params.conceptScheme,
-        sort: 'notation',
-        page: {
-          size: 9999,
+      concepts = [
+        ...(await this.store.query('concept', {
+          'filter[concept-scheme][id]': params.conceptScheme,
+          sort: 'notation',
+          page: {
+            size: 9999,
+          },
+        })),
+        {
+          prefLabel: 'No Match',
+          id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
+          uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
         },
-      });
+      ];
       const conceptIds = (params.concepts || '').split(',');
       selectedConcepts = concepts.filter((concept) => {
         return conceptIds.includes(concept.id);
@@ -95,6 +119,8 @@ export default class ValidateExpressionLabelsRoute extends Route {
       conceptSchemes,
       concepts,
       selectedConcepts,
+      search: params.title,
+      municipalities: municipalityModels,
     };
   }
 
@@ -131,5 +157,10 @@ export default class ValidateExpressionLabelsRoute extends Route {
       );
       return annotation;
     });
+  }
+
+  setupController(controller, model) {
+    super.setupController(...arguments);
+    controller.search = model.search;
   }
 }

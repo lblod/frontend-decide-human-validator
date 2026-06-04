@@ -3,38 +3,31 @@ import { service } from '@ember/service';
 
 export default class ExpressionsRoute extends Route {
   @service store;
+  @service municipalities;
 
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
     municipality: { refreshModel: true },
+    title: { refreshModel: true },
   };
 
   async model(params) {
-    const selectedMunicipalityFilter = params.municipality
-      ? `&filter[municipality]=${params.municipality}`
-      : null;
+    const selectedMunicipalityFilter = this.municipalities.toMunicipalityFilter(
+      params.municipality,
+    );
+
+    let titleFilter = '';
+    if (params.title && params.title.length > 3) {
+      titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
+    }
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}`,
     );
     const result = await response.json();
 
     const expressions = result.targets;
-    const orgFilter = {
-      filter: {
-        ['show-in-hvt']: true,
-        classification:
-          'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
-      },
-      page: {
-        size: 20,
-      },
-      sort: 'pref-label',
-    };
-    if (params.municipality) {
-      orgFilter.filter[':uri:'] = params.municipality;
-    }
 
     const [expressionModels, municipalityModels] = await Promise.all([
       this.store.query('expression', {
@@ -46,7 +39,7 @@ export default class ExpressionsRoute extends Route {
           size: 999,
         },
       }),
-      this.store.query('organization', orgFilter),
+      this.municipalities.getMunicipalities(params.municipality),
     ]);
 
     const data = expressions.map((expression) => {
@@ -70,6 +63,12 @@ export default class ExpressionsRoute extends Route {
     return {
       expressions: data,
       municipalities: municipalityModels,
+      search: params.title,
     };
+  }
+
+  setupController(controller, model) {
+    super.setupController(...arguments);
+    controller.search = model.search;
   }
 }

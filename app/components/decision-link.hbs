@@ -10,8 +10,38 @@
     <span>{{or @title @expression.shortenedTitleText}}</span>
   </AuLinkExternal>
 {{else}}
-  <span title={{or @title @expression.titleText}}>{{or
-      @title
-      @expression.shortenedTitleText
-    }}</span>
+  <AuButton
+    @skin="naked"
+    title={{or @title @expression.titleText}}
+    @icon="document"
+    @iconAlignment="right"
+    class="au-u-regular ellipsis multi-line document-text-button"
+    {{on "click" this.openDecisionText}}
+  >
+    {{or @title @expression.shortenedTitleText}}
+  </AuButton>
+{{/if}}
+{{#if this.showContent}}
+  <AuCard
+    class="expression-content au-u-padding-small"
+    {{on-click-outside
+      this.hideDecisionText
+      exceptSelector=".expression-content"
+    }}
+    @shadow="true"
+    as |c|
+  >
+    <c.content>
+      <AuButton
+        class="close-button"
+        @skin="link-secondary"
+        @icon="x"
+        @hideText={{true}}
+        {{on "click" this.hideDecisionText}}
+      >Close</AuButton>
+      <div>
+        {{@expression.trimmedExpressionContent}}
+      </div>
+    </c.content>
+  </AuCard>
 {{/if}}

@@ -1,11 +1,6 @@
 # frontend-decide-human-validator
 
-> [!Warning]
-> This is a very early stage application, it is absolutely not production ready yet and it mostly there for quickly testing things for now
-> DO NOT under any circumstance look at any code here as production worthy code.
-
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is the frontend for the DECIDe human validation tool. It works in concert with the [annotation-review-service](https://github.com/lblod/annotation-review-service/). A specialized backend service was necessary as the Web Annotation Ontology this was built on offers so many degrees of freedom that it would have been hard to code efficiently using mu-cl-resources and the Ember store directly.
 
 ## Prerequisites
 
