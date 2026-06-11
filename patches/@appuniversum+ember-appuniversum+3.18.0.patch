@@ -1,0 +1,69 @@
+diff --git a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
+index 9167ef0..ab2e35d 100644
+--- a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
++++ b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
+@@ -1,9 +1,9 @@
+ <div class="au-c-pagination">
+   <p>
+-    <span class="au-u-hidden-visually">Rij </span><strong>{{this.startItem}}
++    <span class="au-u-hidden-visually">Row </span><strong>{{this.startItem}}
+       -
+       {{this.endItem}}</strong>
+-    van
++    of
+     {{this.totalItems}}
+   </p>
+   <ul class="au-c-pagination__list">
+@@ -15,8 +15,8 @@
+             @icon={{this.NavLeftIcon}}
+             {{on "click" (fn this.changePage this.links.prev)}}
+           >
+-            vorige
+-            <span class="au-u-hidden-visually"> {{this.pageSize}} rijen</span>
++            previous
++            <span class="au-u-hidden-visually"> {{this.pageSize}} rows</span>
+           </AuButton>
+         </li>
+       {{/unless}}
+@@ -28,8 +28,8 @@
+             @iconAlignment="right"
+             {{on "click" (fn this.changePage this.links.next)}}
+           >
+-            volgende
+-            <span class="au-u-hidden-visually"> {{this.pageSize}} rijen</span>
++            next
++            <span class="au-u-hidden-visually"> {{this.pageSize}} rows</span>
+           </AuButton>
+         </li>
+       {{/unless}}
+diff --git a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
+index f0a0c79..a822e6e 100644
+--- a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
++++ b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
+@@ -9,7 +9,7 @@
+       type="button"
+       {{on "click" this.inverseSorting}}
+     >
+-      <span class="au-u-hidden-visually">Oplopend sorteren</span>
++      <span class="au-u-hidden-visually">Sort ascending</span>
+       <AuIcon @icon={{this.NavUpIcon}} />
+     </button>
+   {{else if (eq this.order "asc")}}
+@@ -18,7 +18,7 @@
+       type="button"
+       {{on "click" this.inverseSorting}}
+     >
+-      <span class="au-u-hidden-visually">Aflopend sorteren</span>
++      <span class="au-u-hidden-visually">Sort descending</span>
+       <AuIcon @icon={{this.NavDownIcon}} />
+     </button>
+   {{else}}
+@@ -27,7 +27,7 @@
+       type="button"
+       {{on "click" this.inverseSorting}}
+     >
+-      <span class="au-u-hidden-visually">Sorteren</span>
++      <span class="au-u-hidden-visually">Sort</span>
+       <AuIcon @icon={{this.NavUpDownIcon}} />
+     </button>
+   {{/if}}

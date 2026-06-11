@@ -27,7 +27,8 @@
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\" --prefixColors auto",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^3.18.0",
@@ -79,6 +80,7 @@
     "eslint-plugin-qunit": "^8.1.2",
     "globals": "^15.15.0",
     "loader.js": "^4.7.0",
+    "patch-package": "^8.0.1",
     "prettier": "^3.5.3",
     "prettier-plugin-ember-template-tag": "^2.0.5",
     "qunit": "^2.24.1",
