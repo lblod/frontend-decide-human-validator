@@ -13,14 +13,27 @@ export default class ValidateController extends Controller {
   @action
   selectAnnotation(annotation) {
     this.selectedAnnotation = annotation;
-    setTimeout(() => {
-      const element = document.getElementsByClassName(
-        'highlighted-annotation',
-      )?.[0];
-      if (element?.scrollIntoView) {
-        element.scrollIntoView({ block: 'center' });
-      }
-    }, 100);
+    const scrollAnnotationIntoView = () => {
+      setTimeout(() => {
+        const element = document.getElementsByClassName(
+          'highlighted-annotation',
+        )?.[0];
+        if (element?.scrollIntoView && element?.checkVisibility()) {
+          element.scrollIntoView({ block: 'center' });
+        }
+      }, 10);
+    };
+    const observer = new MutationObserver((mut) => {
+      scrollAnnotationIntoView();
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+    scrollAnnotationIntoView();
+    // wait 1s for dom to settle and give up on scrolling after that
+    setTimeout(() => observer.disconnect(), 1000);
   }
 
   @action
