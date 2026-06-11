@@ -1,12 +1,18 @@
 {{#if this.linkLink}}
-  <AuLinkExternal
-    href={{this.linkLink}}
-    newTab={{true}}
-    @icon="link-external"
-    @iconAlignment="right"
-  >
-    {{prefixed-url @annotation.link}}
-  </AuLinkExternal>
+  <AuTooltip @placement="top" as |tooltip|>
+    <AuLinkExternal
+      {{tooltip.target}}
+      href={{this.linkLink}}
+      newTab={{true}}
+      @icon="link-external"
+      @iconAlignment="right"
+    >
+      {{prefixed-url @annotation.link}}
+    </AuLinkExternal>
+    <tooltip.Content>
+      {{this.linkComment}}
+    </tooltip.Content>
+  </AuTooltip>
 {{else}}
   <span>None</span>
 {{/if}}
