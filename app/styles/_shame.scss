@@ -166,6 +166,11 @@ td {
   z-index: 100;
 }
 
+@media (min-width: 63.9375em) {
+  main.au-c-main-container {
+    flex-wrap: nowrap;
+  }
+}
 @media (max-width: 63.9375em) {
   .au-c-app > .au-c-body-container > .au-c-main-container {
     height: calc(100% - 4.2rem);
