@@ -139,8 +139,8 @@ button.user-selectable {
   max-width: 100% !important;
 }
 .annotation-location {
-  min-width: 40vw;
-  max-width: 50vw;
+  width: 50vw;
+  min-width: 50vw;
 }
 @media (max-width: 63.9375em) {
   .annotation-location {
