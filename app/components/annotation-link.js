@@ -8,4 +8,11 @@ export default class AnnotationLink extends Component {
     }
     return null;
   }
+
+  get linkComment() {
+    return (
+      this.args.annotation.linkComment ||
+      'No information found about this predicate'
+    );
+  }
 }

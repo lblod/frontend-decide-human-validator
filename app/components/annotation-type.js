@@ -30,4 +30,10 @@ export default class AnnotationType extends Component {
     }
     return type;
   }
+
+  get typeComment() {
+    return (
+      this.args.annotation.typeComment || 'No information found about this type'
+    );
+  }
 }

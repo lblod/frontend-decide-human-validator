@@ -1,9 +1,15 @@
-<AuLinkExternal
-  href={{this.typeLink}}
-  newTab={{true}}
-  @icon="link-external"
-  @iconAlignment="right"
->
-  {{this.typeText}}
-</AuLinkExternal>
-{{yield}}
+<AuTooltip @placement="top" as |tooltip|>
+  <AuLinkExternal
+    {{tooltip.target}}
+    href={{this.typeLink}}
+    newTab={{true}}
+    @icon="link-external"
+    @iconAlignment="right"
+  >
+    {{this.typeText}}
+  </AuLinkExternal>
+  <tooltip.Content>
+    {{this.typeComment}}
+  </tooltip.Content>
+  {{yield}}
+</AuTooltip>
