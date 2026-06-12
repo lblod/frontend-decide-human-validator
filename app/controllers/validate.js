@@ -23,7 +23,7 @@ export default class ValidateController extends Controller {
         }
       }, 10);
     };
-    const observer = new MutationObserver((mut) => {
+    const observer = new MutationObserver(() => {
       scrollAnnotationIntoView();
     });
     observer.observe(document.body, {
