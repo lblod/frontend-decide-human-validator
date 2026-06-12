@@ -43,23 +43,43 @@ export default class ValidationThumbs extends Component {
 
   @action
   async approve() {
-    const response = await fetch(
-      `/annotation-review/review/${this.args.annotation.id}/approve`,
-      {
-        method: 'POST',
-      },
-    );
+    let response;
+    if (this.approved) {
+      response = await fetch(
+        `/annotation-review/review/${this.args.annotation.id}`,
+        {
+          method: 'DELETE',
+        },
+      );
+    } else {
+      response = await fetch(
+        `/annotation-review/review/${this.args.annotation.id}/approve`,
+        {
+          method: 'POST',
+        },
+      );
+    }
     await this.updateAnnotationComponentState(response);
   }
 
   @action
   async reject() {
-    const response = await fetch(
-      `/annotation-review/review/${this.args.annotation.id}/reject`,
-      {
-        method: 'POST',
-      },
-    );
+    let response;
+    if (this.rejected) {
+      response = await fetch(
+        `/annotation-review/review/${this.args.annotation.id}`,
+        {
+          method: 'DELETE',
+        },
+      );
+    } else {
+      response = await fetch(
+        `/annotation-review/review/${this.args.annotation.id}/reject`,
+        {
+          method: 'POST',
+        },
+      );
+    }
     await this.updateAnnotationComponentState(response);
   }
 }
