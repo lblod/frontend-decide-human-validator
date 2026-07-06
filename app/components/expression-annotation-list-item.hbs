@@ -32,6 +32,10 @@
   </td>
 {{/if}}
 <td>
-  <ValidationThumbs @annotation={{@annotation}} />
+  <ValidationThumbs
+    @annotation={{@annotation}}
+    @allowCorrection={{true}}
+    @conceptSchemeId={{@conceptSchemeId}}
+  />
 </td>
 {{yield}}{{yield}}

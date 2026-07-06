@@ -118,6 +118,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       annotations: annotationDataWithExpressions,
       conceptSchemes,
       concepts,
+      conceptSchemeId: params.conceptScheme,
       selectedConcepts,
       search: params.title,
       municipalities: municipalityModels,

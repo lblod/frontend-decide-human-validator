@@ -8,4 +8,41 @@
     <VoteThumbsDownIcon @fill={{if this.rejected "#0055CC"}} />
   </AuButton>
 </div>
+<AuModal
+  @modalOpen={{this.modalOpen}}
+  @closeModal={{this.cancelReject}}
+  @overflow={{true}}
+  @initialFocus="#au-confirm-reject"
+>
+  <:title>
+    Select correction
+  </:title>
+  <:body>
+    <PowerSelect
+      id="decision-passed-by"
+      @allowClear={{true}}
+      @searchEnabled={{true}}
+      @searchField="prefLabel"
+      @search={{this.searchConcept}}
+      @options={{this.concepts}}
+      @selected={{this.selectedConcept}}
+      @onChange={{this.changeConcept}}
+      @renderInPlace={{true}}
+      as |option|
+    >
+      {{option.prefLabel}}
+    </PowerSelect>
+  </:body>
+  <:footer>
+    <AuButton
+      id="au-confirm-reject"
+      {{on "click" this.confirmReject}}
+    >Confirm</AuButton>
+    <AuButton
+      @skin="secondary"
+      {{on "click" this.cancelReject}}
+    >Cancel</AuButton>
+  </:footer>
+
+</AuModal>
 {{yield}}
