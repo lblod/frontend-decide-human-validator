@@ -57,7 +57,8 @@ export default class ValidationThumbs extends Component {
   }
 
   async updateAnnotationComponentState(annotationResponse) {
-    const { counts, correctionId } = await annotationResponse.json();
+    const { counts, correctionId: _correctionId } =
+      await annotationResponse.json();
     this.approveCount = counts.approve || 0;
     this.rejectCount = counts.reject || 0;
     this.ownReview = counts.ownReview || false;
