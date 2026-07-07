@@ -18,20 +18,19 @@
     Select correction
   </:title>
   <:body>
-    <PowerSelect
+    <PowerSelectMultiple
       id="decision-passed-by"
       @allowClear={{true}}
       @searchEnabled={{true}}
       @searchField="prefLabel"
-      @search={{this.searchConcept}}
       @options={{this.concepts}}
-      @selected={{this.selectedConcept}}
-      @onChange={{this.changeConcept}}
+      @selected={{this.selectedConcepts}}
+      @onChange={{fn (mut this.selectedConcepts)}}
       @renderInPlace={{true}}
       as |option|
     >
       {{option.prefLabel}}
-    </PowerSelect>
+    </PowerSelectMultiple>
   </:body>
   <:footer>
     <AuButton

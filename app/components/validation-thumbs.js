@@ -10,7 +10,7 @@ export default class ValidationThumbs extends Component {
   @tracked rejectCount = undefined;
   @tracked ownReview = undefined;
   @tracked modalOpen = false;
-  @tracked selectedConcept = null;
+  @tracked selectedConcept = [];
 
   get concepts() {
     const filter = {};
@@ -69,19 +69,21 @@ export default class ValidationThumbs extends Component {
     const body = {
       correction: null,
     };
-    if (this.selectedConcept) {
-      body.correction = {
-        resourceUri: this.selectedConcept.uri,
-        // also possible by API but not in current frontend:
-        // statement: {
-        //   subject:
-        //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
-        //   predicate:
-        //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
-        //   object: 'yes',
-        //   type: 'text',
-        // },
-      };
+    if (this.selectedConcepts && this.selectedConcepts.length > 0) {
+      body.corrections = this.selectedConcepts.map((concept) => {
+        return {
+          resourceUri: concept.uri,
+        };
+      });
+      // also possible by API but not in current frontend:
+      // [{statement: {
+      //   subject:
+      //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
+      //   predicate:
+      //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
+      //   object: 'yes',
+      //   type: 'text',
+      // }}],
     }
     response = await fetch(
       `/annotation-review/review/${this.args.annotation.id}/reject`,
@@ -131,7 +133,7 @@ export default class ValidationThumbs extends Component {
     }
     if (this.canCorrect) {
       this.modalOpen = true;
-      this.selectedConcept = null;
+      this.selectedConcepts = [];
     } else {
       await this.confirmReject();
     }
@@ -145,10 +147,5 @@ export default class ValidationThumbs extends Component {
   @action
   async cancelReject() {
     this.modalOpen = false;
-  }
-
-  @action
-  changeConcept(concept) {
-    this.selectedConcept = concept;
   }
 }

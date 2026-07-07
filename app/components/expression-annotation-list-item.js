@@ -35,10 +35,15 @@ export default class ExpressionAnnotationListItem extends Component {
   }
 
   get agentLink() {
-    return this.args.annotation.agent;
+    return this.args.annotation.agent.startsWith('http://mu.semte.ch/sessions/')
+      ? null
+      : this.args.annotation.agent;
   }
 
   get agentName() {
+    if (this.args.annotation.agent.startsWith('http://mu.semte.ch/sessions/')) {
+      return 'Human correction';
+    }
     return this.args.annotation.agentName || this.args.annotation.agent;
   }
 
