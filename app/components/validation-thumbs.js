@@ -67,7 +67,7 @@ export default class ValidationThumbs extends Component {
   async rejectAnnotation() {
     let response;
     const body = {
-      correction: null,
+      corrections: null,
     };
     if (this.selectedConcepts && this.selectedConcepts.length > 0) {
       body.corrections = this.selectedConcepts.map((concept) => {
