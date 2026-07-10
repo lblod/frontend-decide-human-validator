@@ -141,15 +141,14 @@ export default class ValidateExpressionLabelsController extends Controller {
   toggleConcept(concept) {
     if (!this.concepts && !this.dsAll) {
       setTimeout(() => {
+        this.dsAll = false;
         this.concepts = this.model.concepts
           .map((concept) => concept.id)
           .filter((id) => id != concept.id)
           .join(',');
       });
-      this.dsAll = false;
       return;
     }
-    this.dsAll = false;
 
     let selectedConcepts = (this.concepts || '').split(',');
 
@@ -161,6 +160,7 @@ export default class ValidateExpressionLabelsController extends Controller {
       selectedConcepts.push(concept.id);
     }
     setTimeout(() => {
+      this.dsAll = false;
       this.concepts = selectedConcepts.filter((id) => !!id).join(',');
     });
   }
