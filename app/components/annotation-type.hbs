@@ -10,6 +10,10 @@
   </AuLinkExternal>
   <tooltip.Content>
     {{this.typeComment}}
+    {{#if this.exampleText}}
+      <br />
+      {{this.exampleText}}
+    {{/if}}
   </tooltip.Content>
   {{yield}}
 </AuTooltip>

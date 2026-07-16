@@ -36,4 +36,19 @@ export default class AnnotationType extends Component {
       this.args.annotation.typeComment || 'No information found about this type'
     );
   }
+
+  get exampleText() {
+    let type = this.args.annotation.type;
+
+    const example = {
+      'http://www.w3.org/2001/XMLSchema#date':
+        'YYYY-MM-DD for example 2026-02-25',
+    }[type];
+
+    if (!example) {
+      return null;
+    }
+
+    return `Value must be in the format of ${example}`;
+  }
 }
