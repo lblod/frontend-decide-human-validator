@@ -6,14 +6,14 @@ import { service } from '@ember/service';
 
 const SEARCH_TIMEOUT = 600;
 export default class ExpressionsController extends Controller {
-  queryParams = ['page', 'size', 'municipality', 'title'];
+  queryParams = ['page', 'size', 'municipality', 'predicates', 'title'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = undefined;
   @tracked search = undefined;
 
   @tracked municipality = null;
-  @tracked predicate = null;
+  @tracked predicates = null;
 
   @service store;
   @service municipalities;
@@ -24,14 +24,26 @@ export default class ExpressionsController extends Controller {
     });
   }
 
+  get selectedPredicates() {
+    return this.model.predicateOptions.filter((_option) => {
+      return this.predicates?.split(',').includes(_option.key);
+    });
+  }
+
   @action
   changeSelectedMunicipality(municipality) {
     this.municipality = municipality.uri;
   }
 
   @action
+  changeSelectedPredicates(predicates) {
+    this.predicates = predicates.map((_option) => _option.key).join(',');
+  }
+
+  @action
   resetFilter() {
     this.municipality = null;
+    this.predicates = null;
     this.title = null;
     this.search = null;
   }

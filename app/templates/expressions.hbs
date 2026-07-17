@@ -3,7 +3,7 @@
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
     <div class="au-c-sidebar">
-      <div class="au-c-sidebar__content au-u-padding">
+      <div class="au-c-sidebar__content au-u-padding au-o-flow--small">
         <AuHeading
           @skin={{3}}
           @level={{3}}
@@ -29,15 +29,33 @@
             {{option.prefLabel}}
           </PowerSelect>
         </div>
-        <div class="au-u-margin-top-small">
+        <div>
           <AuLabel for="decision-passed-by">
             Title
           </AuLabel>
           <AuInput
+            @width="block"
             id="title-search"
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
           />
+        </div>
+        <div>
+          <AuLabel for="decision-passed-by">
+            Predicate
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-predicate"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.predicateOptions}}
+            @selected={{this.selectedPredicates}}
+            @onChange={{this.changeSelectedPredicates}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.value}}
+          </PowerSelectMultiple>
         </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton

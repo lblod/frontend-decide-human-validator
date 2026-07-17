@@ -4,12 +4,13 @@ import { service } from '@ember/service';
 export default class ExpressionsRoute extends Route {
   @service store;
   @service municipalities;
+  @service('options') dropdownOptions;
 
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
     municipality: { refreshModel: true },
-    predicate: { refreshModel: true },
+    predicates: { refreshModel: true },
     title: { refreshModel: true },
   };
 
@@ -22,14 +23,14 @@ export default class ExpressionsRoute extends Route {
     if (params.title && params.title.length > 3) {
       titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
     }
-    let predicateFilter = '';
-    if (params.predicate) {
-      predicateFilter = `&filter[predicate]=${encodeURIComponent(params.predicate)}`;
+    let predicatesFilter = '';
+    if (params.predicates) {
+      predicatesFilter = `&filter[predicates]=${params.predicates}`;
     }
 
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicateFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicatesFilter}`,
     );
     const result = await response.json();
 
@@ -69,6 +70,7 @@ export default class ExpressionsRoute extends Route {
     return {
       expressions: data,
       municipalities: municipalityModels,
+      predicateOptions: await this.dropdownOptions.predicates(),
       search: params.title,
     };
   }
