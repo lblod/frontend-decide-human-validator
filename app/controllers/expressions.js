@@ -12,6 +12,7 @@ export default class ExpressionsController extends Controller {
     'municipality',
     'predicates',
     'aimodels',
+    'types',
     'title',
   ];
   @tracked page = 0;
@@ -21,7 +22,8 @@ export default class ExpressionsController extends Controller {
 
   @tracked municipality = null;
   @tracked predicates = null;
-  @tracked aiModels = null;
+  @tracked aimodels = null;
+  @tracked types = null;
 
   @service store;
   @service municipalities;
@@ -40,7 +42,13 @@ export default class ExpressionsController extends Controller {
 
   get selectedAiModels() {
     return this.model.aiModelOptions.filter((_option) => {
-      return this.aiModels?.split(',').includes(_option.key);
+      return this.aimodels?.split(',').includes(_option.key);
+    });
+  }
+
+  get selectedTypes() {
+    return this.model.typeOptions.filter((_option) => {
+      return this.types?.split(',').includes(_option.key);
     });
   }
 
@@ -56,14 +64,20 @@ export default class ExpressionsController extends Controller {
 
   @action
   changeSelectedAiModels(_models) {
-    this.predicates = _models.map((_option) => _option.key).join(',');
+    this.aimodels = _models.map((_option) => _option.key).join(',');
+  }
+
+  @action
+  changeSelectedTypes(_models) {
+    this.types = _models.map((_option) => _option.key).join(',');
   }
 
   @action
   resetFilter() {
     this.municipality = null;
     this.predicates = null;
-    this.aiModels = null;
+    this.aimodels = null;
+    this.types = null;
     this.title = null;
     this.search = null;
   }

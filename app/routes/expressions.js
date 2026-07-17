@@ -12,6 +12,7 @@ export default class ExpressionsRoute extends Route {
     municipality: { refreshModel: true },
     predicates: { refreshModel: true },
     aimodels: { refreshModel: true },
+    types: { refreshModel: true },
     title: { refreshModel: true },
   };
 
@@ -33,9 +34,14 @@ export default class ExpressionsRoute extends Route {
       byAiModelsFilter = `&filter[aiModels]=${params.aimodels}`;
     }
 
+    let valueTypesFilter = '';
+    if (params.types) {
+      valueTypesFilter = `&filter[valueTypes]=${params.types}`;
+    }
+
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicatesFilter}${byAiModelsFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
     );
     const result = await response.json();
 
@@ -77,6 +83,7 @@ export default class ExpressionsRoute extends Route {
       municipalities: municipalityModels,
       predicateOptions: await this.dropdownOptions.predicates(),
       aiModelOptions: await this.dropdownOptions.aiModels(),
+      typeOptions: await this.dropdownOptions.valueTypes(),
       search: params.title,
     };
   }

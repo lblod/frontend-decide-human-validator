@@ -14,4 +14,11 @@ export default class OptionsService extends Service {
 
     return results ?? [];
   }
+
+  async valueTypes() {
+    const response = await fetch(`/annotation-review/options/value-types`);
+    const results = await response.json();
+
+    return results ?? [];
+  }
 }

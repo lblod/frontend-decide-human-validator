@@ -41,7 +41,7 @@
           />
         </div>
         <div>
-          <AuLabel for="decision-passed-by">
+          <AuLabel for="expression-predicate">
             Predicate
           </AuLabel>
           <PowerSelectMultiple
@@ -58,8 +58,8 @@
           </PowerSelectMultiple>
         </div>
         <div>
-          <AuLabel for="decision-passed-by">
-            By AI model
+          <AuLabel for="expression-ai-model">
+            AI model
           </AuLabel>
           <PowerSelectMultiple
             id="expression-ai-model"
@@ -68,6 +68,23 @@
             @options={{@model.aiModelOptions}}
             @selected={{this.selectedAiModels}}
             @onChange={{this.changeSelectedAiModels}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.value}}
+          </PowerSelectMultiple>
+        </div>
+        <div>
+          <AuLabel for="expression-value-type">
+            Type
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-value-type"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.typeOptions}}
+            @selected={{this.selectedTypes}}
+            @onChange={{this.changeSelectedTypes}}
             @renderInPlace={{true}}
             as |option|
           >
