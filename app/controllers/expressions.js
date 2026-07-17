@@ -13,6 +13,7 @@ export default class ExpressionsController extends Controller {
   @tracked search = undefined;
 
   @tracked municipality = null;
+  @tracked predicate = null;
 
   @service store;
   @service municipalities;

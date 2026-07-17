@@ -9,6 +9,7 @@ export default class ExpressionsRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     municipality: { refreshModel: true },
+    predicate: { refreshModel: true },
     title: { refreshModel: true },
   };
 
@@ -21,9 +22,14 @@ export default class ExpressionsRoute extends Route {
     if (params.title && params.title.length > 3) {
       titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
     }
+    let predicateFilter = '';
+    if (params.predicate) {
+      predicateFilter = `&filter[predicate]=${encodeURIComponent(params.predicate)}`;
+    }
+
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicateFilter}`,
     );
     const result = await response.json();
 
