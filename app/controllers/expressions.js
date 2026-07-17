@@ -6,7 +6,14 @@ import { service } from '@ember/service';
 
 const SEARCH_TIMEOUT = 600;
 export default class ExpressionsController extends Controller {
-  queryParams = ['page', 'size', 'municipality', 'predicates', 'title'];
+  queryParams = [
+    'page',
+    'size',
+    'municipality',
+    'predicates',
+    'aimodels',
+    'title',
+  ];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = undefined;
@@ -14,6 +21,7 @@ export default class ExpressionsController extends Controller {
 
   @tracked municipality = null;
   @tracked predicates = null;
+  @tracked aiModels = null;
 
   @service store;
   @service municipalities;
@@ -30,20 +38,32 @@ export default class ExpressionsController extends Controller {
     });
   }
 
+  get selectedAiModels() {
+    return this.model.aiModelOptions.filter((_option) => {
+      return this.aiModels?.split(',').includes(_option.key);
+    });
+  }
+
   @action
   changeSelectedMunicipality(municipality) {
     this.municipality = municipality.uri;
   }
 
   @action
-  changeSelectedPredicates(predicates) {
-    this.predicates = predicates.map((_option) => _option.key).join(',');
+  changeSelectedPredicates(_predicates) {
+    this.predicates = _predicates.map((_option) => _option.key).join(',');
+  }
+
+  @action
+  changeSelectedAiModels(_models) {
+    this.predicates = _models.map((_option) => _option.key).join(',');
   }
 
   @action
   resetFilter() {
     this.municipality = null;
     this.predicates = null;
+    this.aiModels = null;
     this.title = null;
     this.search = null;
   }

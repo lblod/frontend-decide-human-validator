@@ -7,4 +7,11 @@ export default class OptionsService extends Service {
 
     return results ?? [];
   }
+
+  async aiModels() {
+    const response = await fetch(`/annotation-review/options/ai-models`);
+    const results = await response.json();
+
+    return results ?? [];
+  }
 }

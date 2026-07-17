@@ -57,6 +57,23 @@
             {{option.value}}
           </PowerSelectMultiple>
         </div>
+        <div>
+          <AuLabel for="decision-passed-by">
+            By AI model
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-ai-model"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.aiModelOptions}}
+            @selected={{this.selectedAiModels}}
+            @onChange={{this.changeSelectedAiModels}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.value}}
+          </PowerSelectMultiple>
+        </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton
             @icon="x"
