@@ -20,15 +20,24 @@ export default class ValidateRoute extends Route {
     }
     let predicatesFilter = '';
     if (params.predicates) {
-      predicatesFilter = `&filter[aPredicates]=${params.predicates}`;
+      const escaped = params.predicates
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      predicatesFilter = `&filter[aPredicates]=${escaped.join(',')}`;
     }
     let byAiModelsFilter = '';
     if (params.aimodels) {
-      byAiModelsFilter = `&filter[aAiModels]=${params.aimodels}`;
+      const escaped = params.aimodels
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      byAiModelsFilter = `&filter[aAiModels]=${escaped.join(',')}`;
     }
     let valueTypesFilter = '';
     if (params.types) {
-      valueTypesFilter = `&filter[aValueTypes]=${params.types}`;
+      const escaped = params.types
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      valueTypesFilter = `&filter[aValueTypes]=${escaped.join(',')}`;
     }
 
     const [expression, annotationResult] = await Promise.all([

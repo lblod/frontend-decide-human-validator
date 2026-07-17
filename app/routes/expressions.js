@@ -27,15 +27,24 @@ export default class ExpressionsRoute extends Route {
     }
     let predicatesFilter = '';
     if (params.predicates) {
-      predicatesFilter = `&filter[predicates]=${params.predicates}`;
+      const escaped = params.predicates
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      predicatesFilter = `&filter[predicates]=${escaped.join(',')}`;
     }
     let byAiModelsFilter = '';
     if (params.aimodels) {
-      byAiModelsFilter = `&filter[aiModels]=${params.aimodels}`;
+      const escaped = params.aimodels
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      byAiModelsFilter = `&filter[aiModels]=${escaped.join(',')}`;
     }
     let valueTypesFilter = '';
     if (params.types) {
-      valueTypesFilter = `&filter[valueTypes]=${params.types}`;
+      const escaped = params.types
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      valueTypesFilter = `&filter[valueTypes]=${escaped.join(',')}`;
     }
 
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
@@ -88,7 +97,7 @@ export default class ExpressionsRoute extends Route {
         predicates: params.predicates,
         aimodels: params.aimodels,
         types: params.types,
-      }
+      },
     };
   }
 
