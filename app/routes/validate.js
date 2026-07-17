@@ -8,6 +8,9 @@ export default class ValidateRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     hideVoted: { refreshModel: true },
+    predicates: { refreshModel: true },
+    aimodels: { refreshModel: true },
+    types: { refreshModel: true },
   };
 
   async model(params) {
@@ -15,12 +18,25 @@ export default class ValidateRoute extends Route {
     if (params.hideVoted !== false) {
       hideVoted = '&filter[ignoreAlreadyReviewed]=true';
     }
+    let predicatesFilter = '';
+    if (params.predicates) {
+      predicatesFilter = `&filter[aPredicates]=${params.predicates}`;
+    }
+    let byAiModelsFilter = '';
+    if (params.aimodels) {
+      byAiModelsFilter = `&filter[aAiModels]=${params.aimodels}`;
+    }
+    let valueTypesFilter = '';
+    if (params.types) {
+      valueTypesFilter = `&filter[aValueTypes]=${params.types}`;
+    }
+
     const [expression, annotationResult] = await Promise.all([
       this.store.findRecord('expression', params.expression_id, {
         include: 'annotations,realizes,realizes.passed-by',
       }),
       fetch(
-        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}${hideVoted}`,
+        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}${hideVoted}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
       ),
     ]);
 

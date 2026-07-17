@@ -3,7 +3,14 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class ValidateController extends Controller {
-  queryParams = ['page', 'size', 'hideVoted'];
+  queryParams = [
+    'page',
+    'size',
+    'hideVoted',
+    'predicates',
+    'aimodels',
+    'types',
+  ];
   @tracked page = 0;
   @tracked size = 20;
   @tracked hideVoted = true;

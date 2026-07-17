@@ -33,7 +33,6 @@ export default class ExpressionsRoute extends Route {
     if (params.aimodels) {
       byAiModelsFilter = `&filter[aiModels]=${params.aimodels}`;
     }
-
     let valueTypesFilter = '';
     if (params.types) {
       valueTypesFilter = `&filter[valueTypes]=${params.types}`;
@@ -85,6 +84,11 @@ export default class ExpressionsRoute extends Route {
       aiModelOptions: await this.dropdownOptions.aiModels(),
       typeOptions: await this.dropdownOptions.valueTypes(),
       search: params.title,
+      commonDetailPageParams: {
+        predicates: params.predicates,
+        aimodels: params.aimodels,
+        types: params.types,
+      }
     };
   }
 
