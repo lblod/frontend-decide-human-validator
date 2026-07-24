@@ -81,12 +81,18 @@
             {{option.value}}
           </PowerSelectMultiple>
         </div>
+        <div class="au-u-margin-top">
+          <AuCheckbox
+            @checked={{this.hideVoted}}
+            @onChange={{this.toggleHideVoted}}
+          >Hide already reviewed entities</AuCheckbox>
+        </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton
             @icon="x"
             @skin="naked"
             {{on "click" this.resetFilter}}
-          >Reset Filter</AuButton>
+          >Reset Filters</AuButton>
         </div>
       </div>
     </div>
@@ -99,10 +105,6 @@
             class="au-u-padding au-u-padding-left-none au-u-padding-right-none au-u-flex au-u-flex--vertical-center au-u-flex--between"
           >
             <AuHeading @level={{1}} @skin={{1}}>Validate AI Annotations</AuHeading>
-            <AuToggleSwitch
-              @checked={{this.hideVoted}}
-              @onChange={{this.toggleHideVoted}}
-            >Hide already reviewed entities</AuToggleSwitch>
           </div>
           <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
             <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
@@ -112,16 +114,6 @@
             />
           </div>
         </div>
-        {{#if this.hasActiveFilters}}
-          <AuAlert
-            @skin="warning"
-            @size="tiny"
-            @icon="circle-info"
-            class="au-u-margin-bottom-none au-u-padding-none au-u-text-center"
-          >
-            Filters are applied to this table
-          </AuAlert>
-        {{/if}}
         <AuDataTable
           @content={{@model.annotations}}
           @noDataMessage="No annotated decisions found"

@@ -77,6 +77,7 @@ export default class ValidateController extends Controller {
     this.predicates = null;
     this.aimodels = null;
     this.types = null;
+    this.hideVoted = true;
   }
 
   get selectedPredicates() {
