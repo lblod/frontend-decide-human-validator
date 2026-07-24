@@ -41,23 +41,6 @@
           />
         </div>
         <div>
-          <AuLabel for="expression-predicate">
-            Predicate
-          </AuLabel>
-          <PowerSelectMultiple
-            id="expression-predicate"
-            @searchEnabled={{true}}
-            @searchField="value"
-            @options={{@model.predicateOptions}}
-            @selected={{this.selectedPredicates}}
-            @onChange={{this.changeSelectedPredicates}}
-            @renderInPlace={{true}}
-            as |option|
-          >
-            {{option.value}}
-          </PowerSelectMultiple>
-        </div>
-        <div>
           <AuLabel for="expression-ai-model">
             AI model
           </AuLabel>
@@ -68,6 +51,23 @@
             @options={{@model.aiModelOptions}}
             @selected={{this.selectedAiModels}}
             @onChange={{this.changeSelectedAiModels}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.value}}
+          </PowerSelectMultiple>
+        </div>
+        <div>
+          <AuLabel for="expression-predicate">
+            Link
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-predicate"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.predicateOptions}}
+            @selected={{this.selectedPredicates}}
+            @onChange={{this.changeSelectedPredicates}}
             @renderInPlace={{true}}
             as |option|
           >
