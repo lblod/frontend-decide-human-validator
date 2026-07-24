@@ -15,26 +15,61 @@
   @initialFocus="#au-confirm-reject"
 >
   <:title>
-    Select correction
+    Add corrections
   </:title>
   <:body>
-    <PowerSelectMultiple
-      id="decision-passed-by"
-      @allowClear={{true}}
-      @searchEnabled={{true}}
-      @searchField="prefLabel"
-      @options={{this.concepts}}
-      @selected={{this.selectedConcepts}}
-      @onChange={{fn (mut this.selectedConcepts)}}
-      @renderInPlace={{true}}
-      as |option|
-    >
-      {{option.prefLabel}}
-    </PowerSelectMultiple>
+    {{#each this.corrections as |correction index|}}
+      <div class="au-u-margin-bottom au-u-flex au-u-width-full">
+        <div class="au-u-flex-grow">
+          <AuLabel>Concept</AuLabel>
+          <PowerSelect
+            @searchEnabled={{true}}
+            @searchField="prefLabel"
+            @options={{this.concepts}}
+            @selected={{correction.concept}}
+            @onChange={{fn this.editCorrectionConcept index}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.prefLabel}}
+          </PowerSelect>
+          <AuLabel>Impact</AuLabel>
+          <PowerSelect
+            @searchEnabled={{true}}
+            @searchField="prefLabel"
+            @options={{this.impacts}}
+            @selected={{correction.impact}}
+            @onChange={{fn this.editCorrectionImpact index}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{option.prefLabel}}
+          </PowerSelect>
+        </div>
+        <AuButton
+          @skin="naked"
+          @icon="x"
+          @hideText="true"
+          {{on "click" (fn this.removeCorrection index)}}
+        >Remove</AuButton>
+      </div>
+    {{else}}
+      No corrections were added
+    {{/each}}
+    <div class="au-u-margin-top">
+      <AuButton {{on "click" this.addCorrection}} @icon="plus">Add correction</AuButton>
+    </div>
+
+    {{#if this.hasDuplicateCorrection}}
+      <AuAlert @skin="error" class="au-u-margin-top">
+        The same concept is used multiple times as a correction.
+      </AuAlert>
+    {{/if}}
   </:body>
   <:footer>
     <AuButton
       id="au-confirm-reject"
+      @disabled={{this.hasDuplicateCorrection}}
       {{on "click" this.confirmReject}}
     >Confirm</AuButton>
     <AuButton

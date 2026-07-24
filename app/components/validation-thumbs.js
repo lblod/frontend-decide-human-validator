@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import EmberObject from '@ember/object';
 
 export default class ValidationThumbs extends Component {
   @service store;
@@ -10,7 +11,7 @@ export default class ValidationThumbs extends Component {
   @tracked rejectCount = undefined;
   @tracked ownReview = undefined;
   @tracked modalOpen = false;
-  @tracked selectedConcept = [];
+  @tracked corrections = [];
 
   get concepts() {
     const filter = {};
@@ -23,6 +24,22 @@ export default class ValidationThumbs extends Component {
         size: 999, // assume concept schemes are smaller than 999 concepts so we don't have to get fancy with the search function
       },
     });
+  }
+  get impacts() {
+    return [
+      {
+        prefLabel: 'Positive',
+        uri: 'http://mu.semte.ch/vocabularies/ext/impact/positive',
+      },
+      {
+        prefLabel: 'Negative',
+        uri: 'http://mu.semte.ch/vocabularies/ext/impact/negative',
+      },
+      {
+        prefLabel: 'Neutral',
+        uri: 'http://mu.semte.ch/vocabularies/ext/impact/neutral',
+      },
+    ];
   }
 
   get approvedCount() {
@@ -56,6 +73,20 @@ export default class ValidationThumbs extends Component {
     return this.args.allowCorrection;
   }
 
+  get hasDuplicateCorrection() {
+    const correctionsSeen = new Set();
+    let duplicate = false;
+    this.corrections.forEach((correction) => {
+      if (correctionsSeen.has(correction.concept)) {
+        duplicate = true;
+      } else {
+        correctionsSeen.add(correction.concept);
+      }
+    });
+
+    return duplicate;
+  }
+
   async updateAnnotationComponentState(annotationResponse) {
     const { counts, correctionId: _correctionId } =
       await annotationResponse.json();
@@ -69,12 +100,19 @@ export default class ValidationThumbs extends Component {
     const body = {
       corrections: null,
     };
-    if (this.selectedConcepts && this.selectedConcepts.length > 0) {
-      body.corrections = this.selectedConcepts.map((concept) => {
-        return {
-          resourceUri: concept.uri,
-        };
-      });
+    if (this.corrections && this.corrections.length > 0) {
+      body.corrections = this.corrections
+        .filter((correction) => {
+          return !!correction.concept;
+        })
+        .map((correction) => {
+          return {
+            resourceUris: [
+              correction.concept.uri,
+              correction.impact?.uri,
+            ].filter((r) => !!r),
+          };
+        });
       // also possible by API but not in current frontend:
       // [{statement: {
       //   subject:
@@ -133,7 +171,7 @@ export default class ValidationThumbs extends Component {
     }
     if (this.canCorrect) {
       this.modalOpen = true;
-      this.selectedConcepts = [];
+      this.corrections = [];
     } else {
       await this.confirmReject();
     }
@@ -148,4 +186,40 @@ export default class ValidationThumbs extends Component {
   async cancelReject() {
     this.modalOpen = false;
   }
+
+  @action
+  addCorrection() {
+    this.corrections = [
+      ...this.corrections,
+      new Selection({
+        impact: null,
+        concept: null,
+      }),
+    ];
+  }
+
+  @action
+  removeCorrection(index) {
+    this.corrections.splice(index, 1);
+    this.corrections = [...this.corrections];
+  }
+
+  @action
+  editCorrectionConcept(index, selected) {
+    this.corrections[index].concept = selected;
+    this.corrections = [...this.corrections];
+  }
+
+  @action
+  editCorrectionImpact(index, selected) {
+    this.corrections[index].impact = selected;
+    this.corrections = [...this.corrections];
+  }
+}
+
+class Selection extends EmberObject {
+  @tracked
+  impact = null;
+  @tracked
+  concept = null;
 }
