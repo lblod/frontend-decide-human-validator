@@ -35,6 +35,16 @@
         />
       </div>
     </div>
+    {{#if this.hasActiveFilters}}
+      <AuAlert
+        @skin="warning"
+        @size="tiny"
+        @icon="circle-info"
+        class="au-u-margin-bottom-none au-u-padding-none au-u-text-center"
+      >
+        Filters are applied to this table
+      </AuAlert>
+    {{/if}}
     <AuDataTable
       @content={{@model.annotations}}
       @noDataMessage="No annotated decisions found"

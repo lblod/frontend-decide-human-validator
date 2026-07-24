@@ -15,6 +15,10 @@ export default class ValidateController extends Controller {
   @tracked size = 20;
   @tracked hideVoted = true;
 
+  @tracked predicates = null;
+  @tracked aimodels = null;
+  @tracked types = null;
+
   @tracked selectedAnnotation = null;
 
   @action
@@ -46,5 +50,9 @@ export default class ValidateController extends Controller {
   @action
   toggleHideVoted() {
     this.hideVoted = !this.hideVoted;
+  }
+
+  get hasActiveFilters() {
+    return !!(this.predicates || this.aimodels || this.types);
   }
 }
