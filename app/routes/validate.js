@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateRoute extends Route {
   @service store;
+  @service('options') dropdownOptions;
 
   queryParams = {
     page: { refreshModel: true },
@@ -86,6 +87,14 @@ export default class ValidateRoute extends Route {
       title: expressionData.title,
       expression,
       annotations: annotationData,
+      predicateOptions: await this.dropdownOptions.predicates(),
+      aiModelOptions: await this.dropdownOptions.aiModels(),
+      typeOptions: await this.dropdownOptions.valueTypes(),
+      commonDetailPageParams: {
+        predicates: params.predicates,
+        aimodels: params.aimodels,
+        types: params.types,
+      },
     };
   }
 

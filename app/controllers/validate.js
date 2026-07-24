@@ -52,7 +52,48 @@ export default class ValidateController extends Controller {
     this.hideVoted = !this.hideVoted;
   }
 
-  get hasActiveFilters() {
-    return !!(this.predicates || this.aimodels || this.types);
+  @action
+  changeSelectedMunicipality(municipality) {
+    this.municipality = municipality.uri;
+  }
+
+  @action
+  changeSelectedPredicates(_predicates) {
+    this.predicates = _predicates.map((_option) => _option.key).join(',');
+  }
+
+  @action
+  changeSelectedAiModels(_models) {
+    this.aimodels = _models.map((_option) => _option.key).join(',');
+  }
+
+  @action
+  changeSelectedTypes(_models) {
+    this.types = _models.map((_option) => _option.key).join(',');
+  }
+
+  @action
+  resetFilter() {
+    this.predicates = null;
+    this.aimodels = null;
+    this.types = null;
+  }
+
+  get selectedPredicates() {
+    return this.model.predicateOptions.filter((_option) => {
+      return this.predicates?.split(',').includes(_option.key);
+    });
+  }
+
+  get selectedAiModels() {
+    return this.model.aiModelOptions.filter((_option) => {
+      return this.aimodels?.split(',').includes(_option.key);
+    });
+  }
+
+  get selectedTypes() {
+    return this.model.typeOptions.filter((_option) => {
+      return this.types?.split(',').includes(_option.key);
+    });
   }
 }
