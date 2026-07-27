@@ -14,4 +14,10 @@ export const prefixes = {
   xsd: 'http://www.w3.org/2001/XMLSchema#',
   time: 'http://www.w3.org/2006/time#',
   omg: 'https://data.vlaanderen.be/ns/omgevingsvergunning#',
+  locn: 'http://www.w3.org/ns/locn#',
+  comp: 'http://lblod.data.gift/id/components/',
+  adres: 'https://data.vlaanderen.be/ns/adres#',
+  tree: 'https://w3id.org/tree#',
+  schema: 'https://schema.oparl.org/',
+  'wikidata-e': 'http://www.wikidata.org/entity/',
 };

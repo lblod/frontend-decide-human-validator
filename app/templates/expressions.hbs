@@ -3,7 +3,7 @@
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
     <div class="au-c-sidebar">
-      <div class="au-c-sidebar__content au-u-padding">
+      <div class="au-c-sidebar__content au-u-padding au-o-flow--small">
         <AuHeading
           @skin={{3}}
           @level={{3}}
@@ -29,22 +29,74 @@
             {{option.prefLabel}}
           </PowerSelect>
         </div>
-        <div class="au-u-margin-top-small">
+        <div>
           <AuLabel for="decision-passed-by">
             Title
           </AuLabel>
           <AuInput
+            @width="block"
             id="title-search"
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
           />
+        </div>
+        <div>
+          <AuLabel for="expression-ai-model">
+            AI model
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-ai-model"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.aiModelOptions}}
+            @selected={{this.selectedAiModels}}
+            @onChange={{this.changeSelectedAiModels}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{prefixed-url option.value}}
+          </PowerSelectMultiple>
+        </div>
+        <div>
+          <AuLabel for="expression-predicate">
+            Link
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-predicate"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.predicateOptions}}
+            @selected={{this.selectedPredicates}}
+            @onChange={{this.changeSelectedPredicates}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{prefixed-url option.value}}
+          </PowerSelectMultiple>
+        </div>
+        <div>
+          <AuLabel for="expression-value-type">
+            Type
+          </AuLabel>
+          <PowerSelectMultiple
+            id="expression-value-type"
+            @searchEnabled={{true}}
+            @searchField="value"
+            @options={{@model.typeOptions}}
+            @selected={{this.selectedTypes}}
+            @onChange={{this.changeSelectedTypes}}
+            @renderInPlace={{true}}
+            as |option|
+          >
+            {{prefixed-url option.value}}
+          </PowerSelectMultiple>
         </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton
             @icon="x"
             @skin="naked"
             {{on "click" this.resetFilter}}
-          >Reset Filter</AuButton>
+          >Reset Filters</AuButton>
         </div>
       </div>
     </div>
@@ -74,6 +126,7 @@
                 @route="validate"
                 @icon="pencil"
                 @iconAlignment="right"
+                @query={{@model.commonDetailPageParams}}
               >
                 <span>{{or
                     expression.title
@@ -88,10 +141,10 @@
                 /
               {{/each}}
             </td>
-            <td>{{or
-                expression.annotationReviewedCount
+            <td>{{or expression.annotationReviewedCount 0}}/{{or
+                expression.annotationCount
                 0
-              }}/{{expression.annotationCount}}</td>
+              }}</td>
             <td>
               {{#if (await expression.model.accessLink)}}
                 <AuLinkExternal

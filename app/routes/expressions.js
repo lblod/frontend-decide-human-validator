@@ -4,11 +4,15 @@ import { service } from '@ember/service';
 export default class ExpressionsRoute extends Route {
   @service store;
   @service municipalities;
+  @service('options') dropdownOptions;
 
   queryParams = {
     page: { refreshModel: true },
     size: { refreshModel: true },
     municipality: { refreshModel: true },
+    predicates: { refreshModel: true },
+    aimodels: { refreshModel: true },
+    types: { refreshModel: true },
     title: { refreshModel: true },
   };
 
@@ -21,9 +25,31 @@ export default class ExpressionsRoute extends Route {
     if (params.title && params.title.length > 3) {
       titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
     }
+    let predicatesFilter = '';
+    if (params.predicates) {
+      const escaped = params.predicates
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      predicatesFilter = `&filter[predicates]=${escaped.join(',')}`;
+    }
+    let byAiModelsFilter = '';
+    if (params.aimodels) {
+      const escaped = params.aimodels
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      byAiModelsFilter = `&filter[aiModels]=${escaped.join(',')}`;
+    }
+    let valueTypesFilter = '';
+    if (params.types) {
+      const escaped = params.types
+        .split(',')
+        .map((_uri) => encodeURIComponent(_uri));
+      valueTypesFilter = `&filter[valueTypes]=${escaped.join(',')}`;
+    }
+
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
     );
     const result = await response.json();
 
@@ -63,7 +89,15 @@ export default class ExpressionsRoute extends Route {
     return {
       expressions: data,
       municipalities: municipalityModels,
+      predicateOptions: await this.dropdownOptions.predicates(),
+      aiModelOptions: await this.dropdownOptions.aiModels(),
+      typeOptions: await this.dropdownOptions.valueTypes(),
       search: params.title,
+      commonDetailPageParams: {
+        predicates: params.predicates,
+        aimodels: params.aimodels,
+        types: params.types,
+      },
     };
   }
 

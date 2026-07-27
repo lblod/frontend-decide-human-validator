@@ -1,0 +1,24 @@
+import Service from '@ember/service';
+
+export default class OptionsService extends Service {
+  async predicates() {
+    const response = await fetch(`/annotation-review/options/predicates`);
+    const results = await response.json();
+
+    return results ?? [];
+  }
+
+  async aiModels() {
+    const response = await fetch(`/annotation-review/options/ai-models`);
+    const results = await response.json();
+
+    return results ?? [];
+  }
+
+  async valueTypes() {
+    const response = await fetch(`/annotation-review/options/value-types`);
+    const results = await response.json();
+
+    return results ?? [];
+  }
+}

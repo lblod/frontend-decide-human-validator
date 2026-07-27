@@ -1,6 +1,6 @@
 {
   "name": "frontend-decide-human-validator",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "private": true,
   "description": "Frontend for human validation of AI in the DECIDe app",
   "repository": {
