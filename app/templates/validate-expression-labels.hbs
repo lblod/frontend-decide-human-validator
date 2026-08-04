@@ -6,7 +6,7 @@
       <div class="au-c-sidebar__content au-u-padding">
         <div>
           <AuLabel for="decision-passed-by">
-            Local authority
+            Province
           </AuLabel>
           <PowerSelect
             id="decision-passed-by"
@@ -25,12 +25,12 @@
         </div>
         <div class="au-u-margin-top-small">
           <AuLabel for="decision-passed-by">
-            Title
+            Description
           </AuLabel>
           <AuInput
-            id="title-search"
+            id="description-search"
             value={{this.search}}
-            {{on "input" (perform this.searchTitle)}}
+            {{on "input" (perform this.searchDescription)}}
           />
         </div>
         <!-- <div class="au-u-margin-top-small">

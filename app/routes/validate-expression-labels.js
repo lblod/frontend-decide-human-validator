@@ -17,6 +17,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
     title: { refreshModel: true },
+    description: { refreshModel: true },
     municipality: { refreshModel: true },
   };
 
@@ -39,6 +40,9 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     if (params.title && params.title.length > 3) {
       filter += `&filter[title]=${params.title}`;
+    }
+    if (params.description && params.description.length > 3) {
+      filter += `&filter[description]=${params.description}`;
     }
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
 

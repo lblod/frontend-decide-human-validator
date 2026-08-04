@@ -20,6 +20,7 @@
   >
     {{or @title @expression.shortenedTitleText}}
   </AuButton>
+  {{#if @expression.description}}{{@expression.description}}...{{/if}}
 {{/if}}
 {{#if this.showContent}}
   <AuCard

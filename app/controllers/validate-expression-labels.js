@@ -19,6 +19,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'dsAll',
     'hideVoted',
     'title',
+    'description',
     'municipality',
   ];
   @tracked page = 0;
@@ -32,6 +33,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked dsAll = false;
   @tracked hideVoted = true;
   @tracked title = undefined;
+  @tracked description = undefined;
   @tracked search = undefined;
   @tracked municipality = null;
 
@@ -198,6 +200,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.dsAll = false;
     this.search = undefined;
     this.title = undefined;
+    this.description = undefined;
   }
 
   @action
@@ -208,5 +211,10 @@ export default class ValidateExpressionLabelsController extends Controller {
   searchTitle = restartableTask(async (e) => {
     await timeout(SEARCH_TIMEOUT);
     this.title = e.target.value;
+  });
+
+  searchDescription = restartableTask(async (e) => {
+    await timeout(SEARCH_TIMEOUT);
+    this.description = e.target.value;
   });
 }

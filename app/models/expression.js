@@ -5,6 +5,7 @@ const MAX_SHORT_TITLE_LENGTH = 90;
 export default class ExpressionModel extends AnnotationTargetModel {
   @attr('string') uri;
   @attr('language-string') title;
+  @attr('language-string') description;
   @attr('string') wasDerivedFrom;
   @attr('language-string') expressionContent;
 
