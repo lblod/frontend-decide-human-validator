@@ -33,23 +33,6 @@
             {{on "input" (perform this.searchDescription)}}
           />
         </div>
-        <!-- <div class="au-u-margin-top-small">
-          <AuLabel for="decision-passed-by">
-            Decision Year
-          </AuLabel>
-          <PowerSelect
-            id="decision-year"
-            @searchEnabled={{true}}
-            @searchField="label"
-            @options={{this.yearOptions}}
-            @selected={{this.selectedYear}}
-            @onChange={{this.changeYear}}
-            @renderInPlace={{true}}
-            as |option|
-          >
-            {{option.label}}
-          </PowerSelect>
-        </div> -->
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
             <AuLabel for="decision-passed-by">
