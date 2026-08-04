@@ -33,7 +33,7 @@
             {{on "input" (perform this.searchTitle)}}
           />
         </div>
-        <div class="au-u-margin-top-small">
+        <!-- <div class="au-u-margin-top-small">
           <AuLabel for="decision-passed-by">
             Decision Year
           </AuLabel>
@@ -49,7 +49,7 @@
           >
             {{option.label}}
           </PowerSelect>
-        </div>
+        </div> -->
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
             <AuLabel for="decision-passed-by">
@@ -174,8 +174,7 @@
             >
               <t.content as |c|>
                 <c.header>
-                  <th>AI model</th>
-                  <th>Decision name</th>
+                  <th>Actie/Actieplan</th>
                   <th>{{or
                       this.selectedConceptScheme.prefLabel
                       "Discovered entity"
