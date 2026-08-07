@@ -1,6 +1,38 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
+// Natural sort helper so notations like "A2", "A3", "A20", "A3.1" sort in
+// the order a human expects, instead of alphabetically (which would put
+// "A20" right after "A2" and before "A3").
+function naturalCompare(a = '', b = '') {
+  const chunksA = String(a).match(/\d+|\D+/g) || [];
+  const chunksB = String(b).match(/\d+|\D+/g) || [];
+  const length = Math.max(chunksA.length, chunksB.length);
+
+  for (let i = 0; i < length; i++) {
+    const chunkA = chunksA[i] ?? '';
+    const chunkB = chunksB[i] ?? '';
+
+    if (chunkA === chunkB) continue;
+
+    const numA = Number(chunkA);
+    const numB = Number(chunkB);
+    const bothNumeric = chunkA !== '' && chunkB !== '' && !isNaN(numA) && !isNaN(numB);
+
+    if (bothNumeric) {
+      if (numA !== numB) return numA - numB;
+    } else {
+      return chunkA < chunkB ? -1 : 1;
+    }
+  }
+
+  return 0;
+}
+
+function compareByNotation(a, b) {
+  return naturalCompare(a?.notation, b?.notation);
+}
+
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
   @service municipalities;
@@ -103,12 +135,15 @@ export default class ValidateExpressionLabelsRoute extends Route {
             size: 9999,
           },
         })),
-        {
-          prefLabel: 'No Match',
-          id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
-          uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
-        },
       ];
+      // The API sorts alphabetically, which mis-orders notations like
+      // "A20" (before "A3"). Re-sort naturally on the client instead.
+      concepts.sort(compareByNotation);
+      concepts.push({
+        prefLabel: 'No Match',
+        id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
+        uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
+      });
       const conceptIds = (params.concepts || '').split(',');
       selectedConcepts = concepts.filter((concept) => {
         return conceptIds.includes(concept.id);
@@ -124,7 +159,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       concepts,
       conceptSchemeId: params.conceptScheme,
       selectedConcepts,
-      search: params.title,
+      search: params.description,
       municipalities: municipalityModels,
     };
   }
