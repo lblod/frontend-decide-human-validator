@@ -1,65 +1,79 @@
-{{#if (await @expression.accessLink)}}
-  <AuLinkExternal
-    title={{or @title @expression.titleText}}
-    href={{await @expression.accessLink}}
-    @icon="link-external"
-    @newTab={{true}}
-    @iconAlignment="right"
-    class="ellipsis multi-line"
-  >
-    <span>{{or @title @expression.shortenedTitleText}}</span>
-  </AuLinkExternal>
-{{else}}
-  <AuButton
-    @skin="naked"
-    title={{or @title @expression.titleText}}
-    @icon="document"
-    @iconAlignment="right"
-    class="au-u-regular ellipsis multi-line document-text-button"
-    {{on "click" this.openDecisionText}}
-  >
-    {{or @title @expression.shortenedTitleText}}
-  </AuButton>
-  {{#if @expression.expressionContent}}{{@expression.expressionContent}}{{/if}}
-{{/if}}
-{{#if this.showContent}}
-  <AuCard
-    class="expression-content au-u-padding-small"
-    {{on-click-outside
-      this.hideDecisionText
-      exceptSelector=".expression-content"
-    }}
-    @shadow="true"
-    as |c|
-  >
-    <c.content>
-      <AuButton
-        class="close-button"
-        @skin="link-secondary"
-        @icon="x"
-        @hideText={{true}}
-        {{on "click" this.hideDecisionText}}
-      >Close</AuButton>
-      <div>
-        <strong>Action:</strong>
-        {{@expression.trimmedExpressionContent}}
-      </div>
-      {{#if this.actionPlanContents.length}}
-        <div class="action-plan-content">
-          <strong>Part of Action Plan:</strong>
-          {{#each this.actionPlanContents as |content|}}
-            <div>{{content}}</div>
-          {{/each}}
-        </div>
-      {{/if}}
-      {{#if this.memberWorkContents.length}}
-        <strong>Related Actions:</strong>
-        <div class="member-work-content">
-          {{#each this.memberWorkContents as |content|}}
-            <div>{{content}}</div>
-          {{/each}}
-        </div>
-      {{/if}}
-    </c.content>
-  </AuCard>
-{{/if}}
+<div class="decision-link">
+  {{#if (await @expression.accessLink)}}
+    <AuLinkExternal
+      title={{or @title @expression.titleText}}
+      href={{await @expression.accessLink}}
+      @icon="link-external"
+      @newTab={{true}}
+      @iconAlignment="right"
+      class="ellipsis multi-line"
+    >
+      <span>{{or @title @expression.shortenedTitleText}}</span>
+    </AuLinkExternal>
+  {{else}}
+    <AuButton
+      @skin="naked"
+      title={{or @title @expression.titleText}}
+      @icon="document"
+      @iconAlignment="right"
+      class="au-u-regular ellipsis multi-line document-text-button"
+      {{on "click" this.openDecisionText}}
+    >
+      {{or @title @expression.shortenedTitleText}}
+    </AuButton>
+    {{#if @expression.expressionContent}}
+      <p class="decision-link__expression-content">{{@expression.expressionContent}}</p>
+    {{/if}}
+  {{/if}}
+
+  {{#if this.showContent}}
+    <AuCard
+      class="expression-content au-u-padding-small"
+      {{on-click-outside
+        this.hideDecisionText
+        exceptSelector=".expression-content"
+      }}
+      @shadow="true"
+      as |c|
+    >
+      <c.content>
+        <AuButton
+          class="close-button"
+          @skin="link-secondary"
+          @icon="x"
+          @hideText={{true}}
+          {{on "click" this.hideDecisionText}}
+        >Close</AuButton>
+
+        <p class="decision-link__section">
+          <strong>Current Action:</strong>
+          <ul class="decision-link__list">
+            <li><span class="decision-link__value">{{@expression.trimmedExpressionContent}}</span></li>
+          </ul>
+        </p>
+
+        {{#if this.actionPlanContents.length}}
+          <div class="decision-link__section action-plan-content">
+            <strong>Part of Action Plan:</strong>
+            <ul class="decision-link__list">
+              {{#each this.actionPlanContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
+        {{#if this.memberWorkContents.length}}
+          <div class="decision-link__section member-work-content">
+            <strong>Related Actions:</strong>
+            <ul class="decision-link__list">
+              {{#each this.memberWorkContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+      </c.content>
+    </AuCard>
+  {{/if}}
+</div>

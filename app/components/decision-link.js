@@ -44,8 +44,7 @@ export default class DecisionLink extends Component {
     );
 
     this.actionPlanContents = actionPlanExpressions
-      .map((expression) => expression.description)
-      .filter(Boolean);
+      .map((expression) => expression.description);
 
     const memberWorkLists = await Promise.all(
       complexWorks.map((complexWork) => complexWork.hasMember)
@@ -65,7 +64,9 @@ export default class DecisionLink extends Component {
 
     this.memberWorkContents = memberExpressions
       .map((expression) => expression.trimmedExpressionContent)
-      .filter(Boolean);
+      .filter((text) => {
+        return text !== this.args.expression?.trimmedExpressionContent;
+      });
   }
 
   @action

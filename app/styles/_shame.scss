@@ -181,15 +181,57 @@ td {
   position: fixed;
   top: 0;
   left: 0;
-  width: 50vw;
+  width: min(50vw, 42rem);
   z-index: 1000;
   overflow: auto;
-  white-space: pre-wrap;
+  // white-space: pre-wrap;
 }
 
 .document-text-button {
   display: flex;
   svg {
     flex-shrink: 0;
+  }
+}
+
+// decision-link component -------------------------------------------------
+td:has(.decision-link) {
+  vertical-align: top;
+}
+
+.decision-link__expression-content {
+  margin: 0.4rem 0 0;
+  line-height: 1.4;
+}
+
+.decision-link__section {
+  margin: 0 0 0.8rem;
+  line-height: 1.4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  strong {
+    margin-right: 0.4rem;
+  }
+}
+
+.decision-link__value {
+  white-space: pre-wrap;
+}
+
+.decision-link__list {
+  margin: 0.2rem 0 0;
+  padding-left: 1.6rem;
+  list-style: disc;
+
+  li {
+    margin-bottom: 0.2rem;
+    white-space: pre-wrap;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
