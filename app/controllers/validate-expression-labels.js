@@ -101,6 +101,10 @@ export default class ValidateExpressionLabelsController extends Controller {
     return this.model.concepts?.length > 1 && !this.dsAll;
   }
 
+  get canClearSearch() {
+    return this.search;
+  }
+
   get canSelectAllConcepts() {
     return (
       this.dsAll &&
@@ -181,6 +185,12 @@ export default class ValidateExpressionLabelsController extends Controller {
   deselectAllConcepts() {
     this.dsAll = true;
     this.concepts = [];
+  }
+
+  @action
+  clearSearch() {
+    this.search = undefined;
+    this.description = undefined;
   }
 
   @action

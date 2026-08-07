@@ -32,6 +32,15 @@
             value={{this.search}}
             {{on "input" (perform this.searchDescription)}}
           />
+          {{#if this.canClearSearch}}
+            <AuButton
+              @skin="link"
+              {{on "click" this.clearSearch}}
+              class="au-u-flex-shrink-0"
+            >
+              Clear
+            </AuButton>
+          {{/if}}
         </div>
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
