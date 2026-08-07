@@ -16,6 +16,9 @@ export default class DecisionLink extends Component {
   actionPlanContents = [];
 
   @tracked
+  policyGoalContents = [];
+
+  @tracked
   memberWorkContents = [];
 
   constructor(owner, args) {
@@ -44,6 +47,25 @@ export default class DecisionLink extends Component {
     );
 
     this.actionPlanContents = actionPlanExpressions
+      .map((expression) => expression.description);
+
+    const policyGoalLists = await Promise.all(
+      complexWorks.map((complexWork) => complexWork.isMemberOf)
+    );
+
+    const policyGoals = policyGoalLists.flatMap((list) =>
+      list?.toArray ? list.toArray() : (list ?? [])
+    );
+
+    const policyGoalExpressionLists = await Promise.all(
+      policyGoals.map((policyGoal) => policyGoal.isRealizedBy)
+    );
+
+    const policyGoalExpressions = policyGoalExpressionLists.flatMap((list) =>
+      list?.toArray ? list.toArray() : (list ?? [])
+    );
+
+    this.policyGoalContents = policyGoalExpressions
       .map((expression) => expression.description);
 
     const memberWorkLists = await Promise.all(

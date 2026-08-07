@@ -63,6 +63,17 @@
           </div>
         {{/if}}
 
+        {{#if this.policyGoalContents.length}}
+          <div class="decision-link__section policy-goal-content">
+            <strong>Part of Policy Goal:</strong>
+            <ul class="decision-link__list">
+              {{#each this.policyGoalContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
         {{#if this.memberWorkContents.length}}
           <div class="decision-link__section member-work-content">
             <strong>Related Actions:</strong>
