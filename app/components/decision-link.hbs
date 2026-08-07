@@ -41,8 +41,25 @@
         {{on "click" this.hideDecisionText}}
       >Close</AuButton>
       <div>
+        <strong>Action:</strong>
         {{@expression.trimmedExpressionContent}}
       </div>
+      {{#if this.actionPlanContents.length}}
+        <div class="action-plan-content">
+          <strong>Part of Action Plan:</strong>
+          {{#each this.actionPlanContents as |content|}}
+            <div>{{content}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if this.memberWorkContents.length}}
+        <strong>Related Actions:</strong>
+        <div class="member-work-content">
+          {{#each this.memberWorkContents as |content|}}
+            <div>{{content}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
     </c.content>
   </AuCard>
 {{/if}}

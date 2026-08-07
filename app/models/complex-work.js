@@ -1,5 +1,5 @@
 import Model, { attr, hasMany, belongsTo } from '@ember-data/model';
-import WorkModel from './annotation-target';
+import WorkModel from './work';
 
 export default class ComplexWorkModel extends WorkModel {
 
