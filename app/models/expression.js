@@ -38,8 +38,10 @@ export default class ExpressionModel extends AnnotationTargetModel {
   isSourceOf;
 
   @belongsTo('work', {
-    inverse: null,
+    inverse: 'isRealizedBy',
+    as: 'work',
     async: true,
+    polymorphic: true,
   })
   realizes;
 

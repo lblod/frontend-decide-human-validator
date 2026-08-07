@@ -7,7 +7,8 @@ export default class WorkModel extends Model {
   @attr('string') workType;
 
   @hasMany('expression', {
-    inverse: null,
+    inverse: 'realizes',
+    as: 'work',
     async: true,
     polymorphic: true,
   })
