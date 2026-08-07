@@ -31,8 +31,8 @@ export default class DecisionLink extends Component {
       return;
     }
 
-    const isPartOf = await work.isPartOf;
-    const complexWorks = isPartOf?.toArray ? isPartOf.toArray() : (isPartOf ?? []);
+    const isMemberOf = await work.isMemberOf;
+    const complexWorks = isMemberOf?.toArray ? isMemberOf.toArray() : (isMemberOf ?? []);
     this.complexWorks = complexWorks;
 
     const expressionLists = await Promise.all(
@@ -47,7 +47,7 @@ export default class DecisionLink extends Component {
       .map((expression) => expression.description);
 
     const memberWorkLists = await Promise.all(
-      complexWorks.map((complexWork) => complexWork.hasMember)
+      complexWorks.map((complexWork) => complexWork.members)
     );
 
     const memberWorks = memberWorkLists.flatMap((list) =>

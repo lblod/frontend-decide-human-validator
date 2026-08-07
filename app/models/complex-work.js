@@ -4,16 +4,24 @@ import WorkModel from './work';
 export default class ComplexWorkModel extends WorkModel {
 
   @hasMany('work', {
-    inverse: 'isPartOf',
+    inverse: 'isMemberOf',
     as: 'complex-work',
     async: true,
     polymorphic: true,
   })
-  hasMember;
+  members;
 
   @hasMany('complex-work', {
-    inverse: 'hasMember',
-    as: 'complex-work',
+    inverse: 'isPartOf',
+    as: 'work',
+    async: true,
+    polymorphic: true,
+  })
+  parts;
+
+  @hasMany('complex-work', {
+    inverse: 'hasPart',
+    as: 'work',
     async: true,
     polymorphic: true,
   })

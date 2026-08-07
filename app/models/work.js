@@ -21,7 +21,14 @@ export default class WorkModel extends Model {
   passedBy;
 
   @hasMany('complex-work', {
-    inverse: 'hasMember',
+    inverse: 'members',
+    as: 'work',
+    async: true,
+  })
+  isMemberOf;
+
+  @hasMany('complex-work', {
+    inverse: 'parts',
     as: 'work',
     async: true,
   })
