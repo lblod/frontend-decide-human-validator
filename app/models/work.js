@@ -2,10 +2,14 @@ import Model, { attr, hasMany, belongsTo } from '@ember-data/model';
 
 export default class WorkModel extends Model {
   @attr('string') uri;
+  @attr('string') title;
+  @attr('date') dateDocument;
+  @attr('string') workType;
 
-  @belongsTo('expression', {
+  @hasMany('expression', {
     inverse: null,
     async: true,
+    polymorphic: true,
   })
   isRealizedBy;
 
@@ -14,4 +18,11 @@ export default class WorkModel extends Model {
     async: true,
   })
   passedBy;
+
+  @hasMany('complex-work', {
+    inverse: 'hasMember',
+    as: 'work',
+    async: true,
+  })
+  isPartOf;
 }
