@@ -184,7 +184,6 @@ td {
   width: min(50vw, 42rem);
   z-index: 1000;
   overflow: auto;
-  // white-space: pre-wrap;
 }
 
 .document-text-button {
@@ -200,6 +199,10 @@ td:has(.decision-link) {
 }
 
 .decision-link__expression-content {
+  margin: 0.4rem 0 0;
+  line-height: 1.4;
+}
+.decision-link__organization-content {
   margin: 0.4rem 0 0;
   line-height: 1.4;
 }
@@ -228,7 +231,6 @@ td:has(.decision-link) {
 
   li {
     margin-bottom: 0.2rem;
-    white-space: pre-wrap;
 
     &:last-child {
       margin-bottom: 0;

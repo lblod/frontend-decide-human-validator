@@ -21,6 +21,12 @@ export default class DecisionLink extends Component {
   @tracked
   memberWorkContents = [];
 
+  @tracked
+  organizations = [];
+
+  @tracked
+  organizationTypes = [];
+
   constructor(owner, args) {
     super(owner, args);
     this.loadRelations();
@@ -32,6 +38,18 @@ export default class DecisionLink extends Component {
 
     if (!work) {
       return;
+    }
+
+    this.organizations = await work.passedBy;
+    this.organizationTypes = [];
+    for (let i = 0; i < this.organizations?.length; i++) {
+      if (this.organizations[i].classification === "http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001") {
+        this.organizationTypes.push('Gemeente');
+      } else if (this.organizations[i].classification === "http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000002") {
+        this.organizationTypes.push('OCMW');
+      } else {
+        this.organizationTypes.push(undefined);
+      }
     }
 
     const isMemberOf = await work.isMemberOf;

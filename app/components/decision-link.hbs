@@ -44,6 +44,19 @@
           @hideText={{true}}
           {{on "click" this.hideDecisionText}}
         >Close</AuButton>
+          {{#if this.organizations.length}}
+            <div class="decision-link__section organization-content">
+              <strong>Organization:</strong>
+              <ul class="decision-link__list">
+                {{#each this.organizations as |org index|}}
+                  <li>
+                    {{org.prefLabel}}
+                    {{#if (get this.organizationTypes index)}}({{get this.organizationTypes index}}){{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
 
         <p class="decision-link__section">
           <strong>Current Action:</strong>
