@@ -1,4 +1,4 @@
-import Model, { attr, hasMany, belongsTo } from '@ember-data/model';
+import { hasMany } from '@ember-data/model';
 import WorkModel from './work';
 
 export default class ComplexWorkModel extends WorkModel {
