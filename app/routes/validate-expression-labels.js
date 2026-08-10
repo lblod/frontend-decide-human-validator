@@ -36,6 +36,7 @@ function compareByNotation(a, b) {
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
   @service municipalities;
+  @service provinces;
 
   queryParams = {
     page: { refreshModel: true },
@@ -51,6 +52,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     title: { refreshModel: true },
     description: { refreshModel: true },
     municipality: { refreshModel: true },
+    province: { refreshModel: true },
   };
 
   async model(params) {
@@ -77,12 +79,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
       filter += `&filter[description]=${params.description}`;
     }
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
+    filter += this.provinces.toProvinceFilter(params.province);
 
-    const [annotationResult, municipalityModels] = await Promise.all([
+    const [annotationResult, municipalityModels, provinceModels] = await Promise.all([
       fetch(
         `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
       ),
       this.municipalities.getMunicipalities(params.municipality),
+      this.provinces.getProvinces(params.province),
     ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
@@ -161,6 +165,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       selectedConcepts,
       search: params.description,
       municipalities: municipalityModels,
+      provinces: provinceModels,
     };
   }
 

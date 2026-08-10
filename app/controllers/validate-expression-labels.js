@@ -21,6 +21,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'title',
     'description',
     'municipality',
+    'province',
   ];
   @tracked page = 0;
   @tracked size = 20;
@@ -36,9 +37,11 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked description = undefined;
   @tracked search = undefined;
   @tracked municipality = null;
+  @tracked province = null;
 
   @service store;
   @service municipalities;
+  @service provinces;
 
   yearOptions = [
     { label: 'Any', value: undefined },
@@ -69,15 +72,37 @@ export default class ValidateExpressionLabelsController extends Controller {
     });
   }
 
+  get selectedProvince() {
+    return this.model.provinces.find((province) => {
+      return province.uri === this.province;
+    });
+  }
+
   @action
   changeSelectedMunicipality(municipality) {
     this.municipality = municipality.uri;
   }
 
   @action
+  changeSelectedProvince(province) {
+    this.province = province.uri;
+  }
+
+  @action
   searchMunicipality(term) {
     return new Promise((resolve, reject) => {
       void this.municipalities.searchMunicipalities.perform(
+        term,
+        resolve,
+        reject,
+      );
+    });
+  }
+
+  @action
+  searchProvince(term) {
+    return new Promise((resolve, reject) => {
+      void this.provinces.searchProvinces.perform(
         term,
         resolve,
         reject,
@@ -103,6 +128,14 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   get canClearSearch() {
     return this.search;
+  }
+
+  get canClearMunicipality() {
+    return this.municipality;
+  }
+
+  get canClearProvince() {
+    return this.province;
   }
 
   get canSelectAllConcepts() {
@@ -194,6 +227,16 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   @action
+  clearMunicipality() {
+    this.municipality = undefined;
+  }
+
+  @action
+  clearProvince() {
+    this.province = undefined;
+  }
+
+  @action
   selectAllConcepts() {
     this.dsAll = false;
     this.concepts = [];
@@ -211,6 +254,8 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.search = undefined;
     this.title = undefined;
     this.description = undefined;
+    this.municipality = undefined;
+    this.province = undefined;
   }
 
   @action

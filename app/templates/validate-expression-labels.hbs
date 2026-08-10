@@ -5,23 +5,67 @@
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content au-u-padding">
         <div>
-          <AuLabel for="decision-passed-by">
+          <AuLabel for="decision-passed-by-province">
             Province
           </AuLabel>
-          <PowerSelect
-            id="decision-passed-by"
-            @searchEnabled={{true}}
-            @searchField="prefLabel"
-            @search={{this.searchMunicipality}}
-            @options={{@model.municipalities}}
-            @selected={{this.selectedMunicipality}}
-            @onChange={{this.changeSelectedMunicipality}}
-            @renderInPlace={{true}}
-            as |option|
-          >
-            {{option.prefLabel}}
-          </PowerSelect>
+          <div class="au-u-flex">
+            <div class="au-u-flex-grow">
+              <PowerSelect
+                id="decision-passed-by-province"
+                @searchEnabled={{true}}
+                @searchField="prefLabel"
+                @search={{this.searchProvince}}
+                @options={{@model.provinces}}
+                @selected={{this.selectedProvince}}
+                @onChange={{this.changeSelectedProvince}}
+                @renderInPlace={{true}}
+                as |option|
+              >
+                {{option.prefLabel}}
+              </PowerSelect>
+            </div>
 
+            {{#if this.canClearProvince}}
+              <AuButton
+                @skin="link"
+                {{on "click" this.clearProvince}}
+                class="au-u-flex-shrink-0"
+              >
+                Clear
+              </AuButton>
+            {{/if}}
+          </div>
+        </div>
+        <div class="au-u-margin-top-small">
+          <AuLabel for="decision-passed-by-municipality">
+            Municipality
+          </AuLabel>
+          <div class="au-u-flex">
+            <div class="au-u-flex-grow">
+              <PowerSelect
+                id="decision-passed-by-municipality"
+                @searchEnabled={{true}}
+                @searchField="prefLabel"
+                @search={{this.searchMunicipality}}
+                @options={{@model.municipalities}}
+                @selected={{this.selectedMunicipality}}
+                @onChange={{this.changeSelectedMunicipality}}
+                @renderInPlace={{true}}
+                as |option|
+              >
+                {{option.prefLabel}}
+              </PowerSelect>
+            </div>
+            {{#if this.canClearMunicipality}}
+              <AuButton
+                @skin="link"
+                {{on "click" this.clearMunicipality}}
+                class="au-u-flex-shrink-0"
+              >
+                Clear
+              </AuButton>
+            {{/if}}
+          </div>
         </div>
         <div class="au-u-margin-top-small">
           <AuLabel for="decision-passed-by">
@@ -166,7 +210,7 @@
             >
               <t.content as |c|>
                 <c.header>
-                  <th>Actie/Actieplan</th>
+                  <th>Actie</th>
                   <th>{{or
                       this.selectedConceptScheme.prefLabel
                       "Discovered entity"

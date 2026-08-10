@@ -8,7 +8,7 @@ export default class MunicipalitiesService extends Service {
     filter: {
       // ['show-in-hvt']: true,
       classification:
-        'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000000', //provincie
+        'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
     },
     page: {
       size: 20,
