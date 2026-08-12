@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="au-u-margin-top-small">
-          <AuLabel for="decision-passed-by">
+          <AuLabel for="description-search">
             Description
           </AuLabel>
           <AuInput
@@ -88,10 +88,11 @@
         </div>
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
-            <AuLabel for="decision-passed-by">
+            <AuLabel for="impact-filter">
               Impact type
             </AuLabel>
             <AuRadioGroup
+              id="impact-filter"
               @name="impact"
               @selected={{this.impact}}
               @onChange={{this.changeImpact}}
@@ -128,11 +129,12 @@
         {{#if @model.concepts}}
           <div class="au-u-margin-top">
             <div class="au-u-flex">
-              <AuLabel for="decision-passed-by">
+              <AuLabel for="deselect-all">
                 {{this.selectedConceptScheme.prefLabel}}
               </AuLabel>
               {{#if this.canDeselectAllConcepts}}
                 <AuButton
+                  id="deselect-all"
                   @skin="link"
                   {{on "click" this.deselectAllConcepts}}
                   class="au-u-flex-shrink-0"
