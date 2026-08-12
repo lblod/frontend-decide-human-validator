@@ -13,7 +13,6 @@ export default class ValidateExpressionLabelsController extends Controller {
     'concepts',
     'conceptScheme',
     'showImpact',
-    'showCs',
     'impact',
     'year',
     'dsAll',
@@ -29,7 +28,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked conceptScheme = undefined;
   @tracked showImpact = false;
   @tracked impact = undefined;
-  @tracked showCs = true;
+  @tracked showCs = false;
   @tracked year = undefined;
   @tracked dsAll = false;
   @tracked hideVoted = true;
@@ -169,6 +168,7 @@ export default class ValidateExpressionLabelsController extends Controller {
         filter: {
           ['pref-label']: term,
           ['show-in-hvt']: true,
+          ':id:': '6673ad10-0f68-5e7d-81b1-c74828de3879',
         },
         page: {
           size: 20,
@@ -246,9 +246,6 @@ export default class ValidateExpressionLabelsController extends Controller {
   @action
   resetFilters() {
     this.concepts = null;
-    if (this.showCs) {
-      this.conceptScheme = null;
-    }
     this.impact = undefined;
     this.year = undefined;
     this.dsAll = false;

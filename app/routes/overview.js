@@ -46,7 +46,7 @@ export default class OverviewRoute extends Route {
             owner: params.municipality,
             conceptScheme: '6673ad10-0f68-5e7d-81b1-c74828de3879',
             showImpact: false,
-            showCs: true,
+            showCs: false,
           },
         },
       ],
