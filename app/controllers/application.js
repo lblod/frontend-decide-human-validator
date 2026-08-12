@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
 
 export default class ApplicationController extends Controller {
-  appTitle = 'Decide App';
+  appTitle = 'VMM AI Validatie App';
 }

@@ -1,47 +1,109 @@
-{{#if (await @expression.accessLink)}}
-  <AuLinkExternal
-    title={{or @title @expression.titleText}}
-    href={{await @expression.accessLink}}
-    @icon="link-external"
-    @newTab={{true}}
-    @iconAlignment="right"
-    class="ellipsis multi-line"
-  >
-    <span>{{or @title @expression.shortenedTitleText}}</span>
-  </AuLinkExternal>
-{{else}}
-  <AuButton
-    @skin="naked"
-    title={{or @title @expression.titleText}}
-    @icon="document"
-    @iconAlignment="right"
-    class="au-u-regular ellipsis multi-line document-text-button"
-    {{on "click" this.openDecisionText}}
-  >
-    {{or @title @expression.shortenedTitleText}}
-  </AuButton>
-{{/if}}
-{{#if this.showContent}}
-  <AuCard
-    class="expression-content au-u-padding-small"
-    {{on-click-outside
-      this.hideDecisionText
-      exceptSelector=".expression-content"
-    }}
-    @shadow="true"
-    as |c|
-  >
-    <c.content>
-      <AuButton
-        class="close-button"
-        @skin="link-secondary"
-        @icon="x"
-        @hideText={{true}}
-        {{on "click" this.hideDecisionText}}
-      >Close</AuButton>
-      <div>
-        {{@expression.trimmedExpressionContent}}
-      </div>
-    </c.content>
-  </AuCard>
-{{/if}}
+<div class="decision-link">
+  {{#if (await @expression.accessLink)}}
+    <AuLinkExternal
+      title={{or @title @expression.titleText}}
+      href={{await @expression.accessLink}}
+      @icon="link-external"
+      @newTab={{true}}
+      @iconAlignment="right"
+      class="ellipsis multi-line"
+    >
+      <span>{{or @title @expression.shortenedTitleText}}</span>
+    </AuLinkExternal>
+  {{else}}
+    <AuButton
+      @skin="naked"
+      title={{or @title @expression.titleText}}
+      @icon="document"
+      @iconAlignment="right"
+      class="au-u-regular ellipsis multi-line document-text-button"
+      {{on "click" this.openDecisionText}}
+    >
+      {{or @title @expression.shortenedTitleText}}
+    </AuButton>
+    {{#if @expression.expressionContent}}
+      <p class="decision-link__expression-content">{{@expression.expressionContent}}</p>
+    {{else if @expression.description}}
+      <p class="decision-link__expression-content">{{@expression.description}}</p>
+    {{/if}}
+  {{/if}}
+
+  {{#if this.showContent}}
+    <AuCard
+      class="expression-content au-u-padding-small"
+      {{on-click-outside
+        this.hideDecisionText
+        exceptSelector=".expression-content"
+      }}
+      @shadow="true"
+      as |c|
+    >
+      <c.content>
+        <AuButton
+          class="close-button"
+          @skin="link-secondary"
+          @icon="x"
+          @hideText={{true}}
+          {{on "click" this.hideDecisionText}}
+        >Close</AuButton>
+          {{#if this.organizations.length}}
+            <div class="decision-link__section organization-content">
+              <strong>Organisatie:</strong>
+              <ul class="decision-link__list">
+                {{#each this.organizations as |org index|}}
+                  <li>
+                    {{org.prefLabel}}
+                    {{#if (get this.organizationTypes index)}}({{get this.organizationTypes index}}){{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
+
+        <p class="decision-link__section">
+          <strong>Huidige Actie:</strong>
+          <ul class="decision-link__list">
+            {{#if @expression.trimmedExpressionContent}}
+               <li><span class="decision-link__value">{{@expression.trimmedExpressionContent}}</span></li>
+            {{else if @expression.description}}
+               <li><span class="decision-link__value">{{@expression.description}}</span></li>
+            {{/if}}
+          </ul>
+        </p>
+
+        {{#if this.actionPlanContents.length}}
+          <div class="decision-link__section action-plan-content">
+            <strong>Deel van Actieplan:</strong>
+            <ul class="decision-link__list">
+              {{#each this.actionPlanContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
+        {{#if this.policyGoalContents.length}}
+          <div class="decision-link__section policy-goal-content">
+            <strong>Deel van beleidsdoelstelling:</strong>
+            <ul class="decision-link__list">
+              {{#each this.policyGoalContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
+        {{#if this.memberWorkContents.length}}
+          <div class="decision-link__section member-work-content">
+            <strong>Acties uit hetzelde actieplan:</strong>
+            <ul class="decision-link__list">
+              {{#each this.memberWorkContents as |content|}}
+                <li>{{content}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+      </c.content>
+    </AuCard>
+  {{/if}}
+</div>

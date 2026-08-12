@@ -13,13 +13,14 @@ export default class ValidateExpressionLabelsController extends Controller {
     'concepts',
     'conceptScheme',
     'showImpact',
-    'showCs',
     'impact',
     'year',
     'dsAll',
     'hideVoted',
     'title',
+    'description',
     'municipality',
+    'province',
   ];
   @tracked page = 0;
   @tracked size = 20;
@@ -27,16 +28,19 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked conceptScheme = undefined;
   @tracked showImpact = false;
   @tracked impact = undefined;
-  @tracked showCs = true;
+  @tracked showCs = false;
   @tracked year = undefined;
   @tracked dsAll = false;
   @tracked hideVoted = true;
   @tracked title = undefined;
+  @tracked description = undefined;
   @tracked search = undefined;
   @tracked municipality = null;
+  @tracked province = null;
 
   @service store;
   @service municipalities;
+  @service provinces;
 
   yearOptions = [
     { label: 'Any', value: undefined },
@@ -67,15 +71,38 @@ export default class ValidateExpressionLabelsController extends Controller {
     });
   }
 
+  get selectedProvince() {
+    return this.model.provinces.find((province) => {
+      return province.uri === this.province;
+    });
+  }
+
   @action
   changeSelectedMunicipality(municipality) {
     this.municipality = municipality.uri;
   }
 
   @action
+  changeSelectedProvince(province) {
+    this.province = province.uri;
+  }
+
+  @action
   searchMunicipality(term) {
     return new Promise((resolve, reject) => {
       void this.municipalities.searchMunicipalities.perform(
+        term,
+        resolve,
+        reject,
+        this.selectedProvince?.uri,
+      );
+    });
+  }
+
+  @action
+  searchProvince(term) {
+    return new Promise((resolve, reject) => {
+      void this.provinces.searchProvinces.perform(
         term,
         resolve,
         reject,
@@ -97,6 +124,18 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   get canDeselectAllConcepts() {
     return this.model.concepts?.length > 1 && !this.dsAll;
+  }
+
+  get canClearSearch() {
+    return this.search;
+  }
+
+  get canClearMunicipality() {
+    return this.municipality;
+  }
+
+  get canClearProvince() {
+    return this.province;
   }
 
   get canSelectAllConcepts() {
@@ -129,6 +168,7 @@ export default class ValidateExpressionLabelsController extends Controller {
         filter: {
           ['pref-label']: term,
           ['show-in-hvt']: true,
+          ':id:': '6673ad10-0f68-5e7d-81b1-c74828de3879',
         },
         page: {
           size: 20,
@@ -182,6 +222,22 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   @action
+  clearSearch() {
+    this.search = undefined;
+    this.description = undefined;
+  }
+
+  @action
+  clearMunicipality() {
+    this.municipality = undefined;
+  }
+
+  @action
+  clearProvince() {
+    this.province = undefined;
+  }
+
+  @action
   selectAllConcepts() {
     this.dsAll = false;
     this.concepts = [];
@@ -190,14 +246,14 @@ export default class ValidateExpressionLabelsController extends Controller {
   @action
   resetFilters() {
     this.concepts = null;
-    if (this.showCs) {
-      this.conceptScheme = null;
-    }
     this.impact = undefined;
     this.year = undefined;
     this.dsAll = false;
     this.search = undefined;
     this.title = undefined;
+    this.description = undefined;
+    this.municipality = undefined;
+    this.province = undefined;
   }
 
   @action
@@ -208,5 +264,10 @@ export default class ValidateExpressionLabelsController extends Controller {
   searchTitle = restartableTask(async (e) => {
     await timeout(SEARCH_TIMEOUT);
     this.title = e.target.value;
+  });
+
+  searchDescription = restartableTask(async (e) => {
+    await timeout(SEARCH_TIMEOUT);
+    this.description = e.target.value;
   });
 }

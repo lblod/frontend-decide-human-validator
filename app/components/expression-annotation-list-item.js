@@ -9,7 +9,7 @@ export default class ExpressionAnnotationListItem extends Component {
         'http://mu.semte.ch/vocabularies/ext/no-match-found',
       )
     ) {
-      return 'No Match';
+      return 'Geen match';
     }
     const value = this.args.annotation.valueText;
     if (value && value.length > MAX_VALUE_LENGTH) {

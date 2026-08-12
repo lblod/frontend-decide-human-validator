@@ -38,36 +38,15 @@ export default class OverviewRoute extends Route {
       municipalities: municipalitiesWithSelection,
       apps: [
         {
-          title: 'Validate SDG mapping',
+          title: 'Valideer VAP linking',
           description:
-            'Review how local decisions impact Sustainable Development Goals (SDGs).',
-          route: 'validate-expression-labels',
-          params: {
-            municipality: params.municipality,
-            conceptScheme: '785cfa4d-6d74-46ad-a99c-1acc176db89e',
-            showImpact: true,
-            showCs: false,
-          },
-        },
-        {
-          title: 'Validate codelist mapping',
-          description:
-            'Review how local decisions are mapped to predefined codelist concepts.',
+            'Valideer de gegenereerde links tussen lokale actieplannen en het Vlaams Klimaatadaptatieplan (VAP) voor 2030.',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
-            conceptScheme: undefined,
+            conceptScheme: '6673ad10-0f68-5e7d-81b1-c74828de3879',
             showImpact: false,
-            showCs: true,
-          },
-        },
-        {
-          title: 'Validate text annotations',
-          description:
-            'Review the annotations identified in the text of local decisions, such as dates, locations, or mandatary roles.',
-          route: 'expressions',
-          params: {
-            municipality: params.municipality,
+            showCs: false,
           },
         },
       ],

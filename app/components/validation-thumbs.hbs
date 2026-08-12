@@ -15,7 +15,7 @@
   @initialFocus="#au-confirm-reject"
 >
   <:title>
-    Add corrections
+    Voeg correcties toe
   </:title>
   <:body>
     {{#each this.corrections as |correction index|}}
@@ -54,10 +54,10 @@
         >Remove</AuButton>
       </div>
     {{else}}
-      No corrections were added
+      Nog geen correcties toegevoegd
     {{/each}}
     <div class="au-u-margin-top">
-      <AuButton {{on "click" this.addCorrection}} @icon="plus">Add correction</AuButton>
+      <AuButton {{on "click" this.addCorrection}} @icon="plus">Correctie toevoegen</AuButton>
     </div>
 
     {{#if this.hasDuplicateCorrection}}
@@ -71,11 +71,11 @@
       id="au-confirm-reject"
       @disabled={{this.hasDuplicateCorrection}}
       {{on "click" this.confirmReject}}
-    >Confirm</AuButton>
+    >Bevestigen</AuButton>
     <AuButton
       @skin="secondary"
       {{on "click" this.cancelReject}}
-    >Cancel</AuButton>
+    >Annuleren</AuButton>
   </:footer>
 
 </AuModal>

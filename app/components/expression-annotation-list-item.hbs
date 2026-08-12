@@ -1,19 +1,4 @@
 <td>
-  {{#if this.agentLink}}
-    <AuLinkExternal
-      title={{this.agentLink}}
-      href={{this.agentLink}}
-      @icon="link-external"
-      @newTab={{true}}
-      @iconAlignment="right"
-    >
-      {{prefixed-url this.agentName}}
-    </AuLinkExternal>
-  {{else}}
-    {{prefixed-url this.agentName}}
-  {{/if}}
-</td>
-<td>
   <DecisionLink @expression={{@annotation.targetModel}} />
 </td>
 <td>
