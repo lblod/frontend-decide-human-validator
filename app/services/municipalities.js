@@ -11,7 +11,7 @@ export default class MunicipalitiesService extends Service {
         'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
     },
     page: {
-      size: 20,
+      size: 500,
     },
     sort: 'pref-label',
   };
@@ -47,7 +47,6 @@ export default class MunicipalitiesService extends Service {
       .query('organization', {
         filter: {
           ['pref-label']: term,
-          ['show-in-hvt']: true,
           classification:
             'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001',
         },
