@@ -144,7 +144,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       // "A20" (before "A3"). Re-sort naturally on the client instead.
       concepts.sort(compareByNotation);
       concepts.push({
-        prefLabel: 'No Match',
+        prefLabel: 'Geen match',
         id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
         uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
       });

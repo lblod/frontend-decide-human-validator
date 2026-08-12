@@ -1,4 +1,4 @@
-{{page-title "Validate AI Annotations"}}
+{{page-title "AI Annotatie Validator"}}
 
 <AuToolbar @border="bottom" @size="small" @skin="tint">
   <nav aria-label="breadcrumbs" class="au-u-flex au-u-flex--between au-u-1-1">
@@ -85,7 +85,7 @@
           <AuCheckbox
             @checked={{this.hideVoted}}
             @onChange={{this.toggleHideVoted}}
-          >Hide already reviewed entities</AuCheckbox>
+          >Verberg reeds gevalideerde items</AuCheckbox>
         </div>
         <div class="au-u-margin-top-small au-u-text-right">
           <AuButton
@@ -104,7 +104,7 @@
           <div
             class="au-u-padding au-u-padding-left-none au-u-padding-right-none au-u-flex au-u-flex--vertical-center au-u-flex--between"
           >
-            <AuHeading @level={{1}} @skin={{1}}>Validate AI Annotations</AuHeading>
+            <AuHeading @level={{1}} @skin={{1}}>AI Annotatie Validator</AuHeading>
           </div>
           <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
             <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
@@ -127,7 +127,7 @@
               <th>Link</th>
               <th>Type</th>
               <th>Discovered entity</th>
-              <th>Is this correct?</th>
+              <th>Is dit correct?</th>
             </c.header>
             <c.body as |annotation|>
               <AnnotationListItem

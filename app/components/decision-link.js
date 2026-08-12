@@ -103,7 +103,7 @@ export default class DecisionLink extends Component {
     );
 
     this.memberWorkContents = memberExpressions
-      .map((expression) => expression.trimmedExpressionContent)
+      .map((expression) => expression.trimmedExpressionContent || expression.description)
       .filter((text) => {
         return text !== this.args.expression?.trimmedExpressionContent;
       });

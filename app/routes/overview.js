@@ -38,9 +38,9 @@ export default class OverviewRoute extends Route {
       municipalities: municipalitiesWithSelection,
       apps: [
         {
-          title: 'Validate VAP mapping',
+          title: 'Valideer VAP linking',
           description:
-            'Review how actions and action plans are mapped to the Flemish Climate Adaptation Plan (VAP) for 2030.',
+            'Valideer de gegenereerde links tussen lokale actieplannen en het Vlaams Klimaatadaptatieplan (VAP) voor 2030.',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,

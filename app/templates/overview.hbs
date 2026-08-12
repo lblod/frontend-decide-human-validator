@@ -1,18 +1,17 @@
-{{page-title "Validate AI Annotations"}}
+{{page-title "AI Annotatie Validator"}}
 
 <AuBodyContainer @scroll={{true}} class="au-u-padding">
   <AuHeading @skin={{1}} @level={{1}}>
-    Validate AI Annotations
+    AI Annotatie Validator
   </AuHeading>
   <p>
-    In the VMM project, AI tooling analyses the text of action plans in the multi-year plans of local government organisations, and maps
-    them to a concept list containing the action points of the <AuLinkExternal
+    Binnen het VMM project worden de actieplannen uit de meerjarenplannen van de lokale besturen geanalyseerd d.m.v AI, met als doel lokale acties te linken aan het  <AuLinkExternal
       href="https://www.vlaanderen.be/publicaties/vlaams-klimaatadaptatieplan-vlaanderen-wapenen-tegen-de-klimaatverandering"
       @newTab={{true}}
     >
-      Flemish Climate Adaptation Plan
-    </AuLinkExternal>. This interface allows human users
-    to review and validate these AI-generated annotations.
+      Vlaams Klimaatadaptatieplan (VAP)
+    </AuLinkExternal>.
+    Deze interface laat menselijke gebruikers toe om deze gegenereerde links te valideren en indien nodig te corrigeren.
   </p>
 
     <div class="au-o-grid au-o-grid--tiny au-u-margin-top">
@@ -29,7 +28,7 @@
             </c.content>
             <c.footer>
               <AuLink @skin="button" @route={{app.route}} @query={{app.params}}>
-                Start validation
+                Start validatie
               </AuLink>
             </c.footer>
           </AuCard>
