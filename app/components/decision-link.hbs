@@ -23,6 +23,8 @@
     </AuButton>
     {{#if @expression.expressionContent}}
       <p class="decision-link__expression-content">{{@expression.expressionContent}}</p>
+    {{else if @expression.description}}
+      <p class="decision-link__expression-content">{{@expression.description}}</p>
     {{/if}}
   {{/if}}
 
@@ -61,7 +63,11 @@
         <p class="decision-link__section">
           <strong>Current Action:</strong>
           <ul class="decision-link__list">
-            <li><span class="decision-link__value">{{@expression.trimmedExpressionContent}}</span></li>
+            {{#if @expression.trimmedExpressionContent}}
+               <li><span class="decision-link__value">{{@expression.trimmedExpressionContent}}</span></li>
+            {{else if @expression.description}}
+               <li><span class="decision-link__value">{{@expression.description}}</span></li>
+            {{/if}}
           </ul>
         </p>
 
