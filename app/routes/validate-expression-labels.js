@@ -85,7 +85,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       fetch(
         `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
       ),
-      this.municipalities.getMunicipalities(params.municipality),
+      this.municipalities.getMunicipalities(params.municipality, params.province),
       this.provinces.getProvinces(params.province),
     ]);
 

@@ -95,6 +95,7 @@ export default class ValidateExpressionLabelsController extends Controller {
         term,
         resolve,
         reject,
+        this.selectedProvince?.uri,
       );
     });
   }
