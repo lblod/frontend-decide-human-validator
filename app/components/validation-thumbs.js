@@ -128,9 +128,9 @@ export default class ValidationThumbs extends Component {
       // also possible by API but not in current frontend:
       // [{statement: {
       //   subject:
-      //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
+      //     'http://lblod.data.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
       //   predicate:
-      //     'http://data.lblod.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
+      //     'http://lblod.data.gift/id/concept/c7c2f6a3bc20fef280dd77a408af5412',
       //   object: 'yes',
       //   type: 'text',
       // }}],
