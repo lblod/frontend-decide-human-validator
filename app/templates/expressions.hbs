@@ -105,10 +105,9 @@
     <AuBodyContainer id="content" @scroll={{true}}>
       <AuHeading size="large" class="au-u-padding">Validate AI annotations</AuHeading>
       <InfiniteTableResults
-        @items={{@model.expressions}}
         @noDataMessage="No annotated decisions found"
-        @page={{this.page}}
         @size={{this.size}}
+        @onLoadMore={{this.fetchExpressions}}
       >
         <:headers>
           <th>Expression</th>

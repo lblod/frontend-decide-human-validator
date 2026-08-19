@@ -19,32 +19,11 @@ export default class ExpressionsRoute extends Route {
   };
 
   async model(params) {
-    // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
-    const { expressions, meta } =
-      await this.annotationReviewApi.fetchTargetExpressions(params);
-
-    const [expressionModels, municipalityModels] = await Promise.all([
-      this.store.query('expression', {
-        filter: {
-          id: expressions.map((expression) => expression.id).join(','),
-        },
-        include: 'realizes,realizes.passed-by,is-embodied-by',
-        page: {
-          size: 999,
-        },
-      }),
-      this.municipalities.getMunicipalities(params.municipality),
-    ]);
-
-    const data = expressions.map((expression) => {
-      expression.model = expressionModels.find((m) => m.id === expression.id);
-      return expression;
-    });
-    data.meta = meta;
-
     return {
-      expressions: data,
-      municipalities: municipalityModels,
+      params: params,
+      municipalities: await this.municipalities.getMunicipalities(
+        params.municipality,
+      ),
       predicateOptions: await this.dropdownOptions.predicates(),
       aiModelOptions: await this.dropdownOptions.aiModels(),
       typeOptions: await this.dropdownOptions.valueTypes(),

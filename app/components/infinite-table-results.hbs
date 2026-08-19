@@ -1,8 +1,8 @@
 <AuDataTable
-  @content={{@items}}
+  @content={{this.items}}
   @noDataMessage={{@noDataMessage}}
-  @page={{@page}}
-  @size={{@size}}
+  @page={{this.page}}
+  @hidePagination={{true}}
   as |t|
 >
   <t.content as |c|>
@@ -11,6 +11,15 @@
     </c.header>
     <c.body as |row|>
       {{yield row to="row"}}
+      {{#if (eq row this.lastVisibleItemTrigger)}}
+        {{! template-lint-disable no-inline-styles }}
+        <td style="padding:0;border:0;" {{this.observeIfNearEnd}}></td>
+      {{/if}}
     </c.body>
   </t.content>
 </AuDataTable>
+{{#if this.fetchResults.isRunning}}
+  <div class="au-u-flex au-u-flex--center">
+    <AuLoader @hideMessage={{true}} @centered={{true}} />
+  </div>
+{{/if}}

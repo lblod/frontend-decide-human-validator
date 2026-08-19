@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
@@ -16,7 +17,7 @@ export default class ExpressionsController extends Controller {
     'title',
   ];
   @tracked page = 0;
-  @tracked size = 20;
+  @tracked size = 5;
   @tracked title = undefined;
   @tracked search = undefined;
 
@@ -27,6 +28,7 @@ export default class ExpressionsController extends Controller {
 
   @service store;
   @service municipalities;
+  @service annotationReviewApi;
 
   get selectedMunicipality() {
     return this.model.municipalities.find((municipality) => {
@@ -97,4 +99,26 @@ export default class ExpressionsController extends Controller {
     await timeout(SEARCH_TIMEOUT);
     this.title = e.target.value;
   });
+
+  fetchExpressions = async (page) => {
+    const params = { ...this.model.params, page };
+
+    const { expressions, meta } =
+      await this.annotationReviewApi.fetchTargetExpressions(params);
+
+    const expressionModels = await this.store.query('expression', {
+      filter: {
+        id: expressions.map((expression) => expression.id).join(','),
+      },
+      include: 'realizes,realizes.passed-by,is-embodied-by',
+    });
+
+    const items = expressions.map((expression) => {
+      expression.model = expressionModels.find((m) => m.id === expression.id);
+      return expression;
+    });
+    items.meta = meta;
+
+    return items;
+  };
 }
