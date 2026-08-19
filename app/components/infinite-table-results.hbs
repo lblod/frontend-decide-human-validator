@@ -1,0 +1,16 @@
+<AuDataTable
+  @content={{@items}}
+  @noDataMessage={{@noDataMessage}}
+  @page={{@page}}
+  @size={{@size}}
+  as |t|
+>
+  <t.content as |c|>
+    <c.header>
+      {{yield to="headers"}}
+    </c.header>
+    <c.body as |row|>
+      {{yield row to="row"}}
+    </c.body>
+  </t.content>
+</AuDataTable>
