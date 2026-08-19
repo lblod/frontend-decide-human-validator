@@ -1,3 +1,12 @@
+<AuToolbar @size="mediums" as |Group|>
+  <Group />
+  <Group>
+    Showing
+    {{this.items.length}}
+    of
+    {{this.totalCount}}
+  </Group>
+</AuToolbar>
 <AuDataTable
   @content={{this.items}}
   @noDataMessage={{@noDataMessage}}

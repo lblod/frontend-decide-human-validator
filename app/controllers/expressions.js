@@ -17,7 +17,7 @@ export default class ExpressionsController extends Controller {
     'title',
   ];
   @tracked page = 0;
-  @tracked size = 5;
+  @tracked size = 20;
   @tracked title = undefined;
   @tracked search = undefined;
 

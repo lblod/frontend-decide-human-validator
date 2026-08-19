@@ -8,11 +8,15 @@ import { task } from 'ember-concurrency';
 export default class InfiniteTableResults extends Component {
   @tracked page = 0;
   @tracked hasMore = false;
+  @tracked totalCount = null;
   @tracked items = [];
 
   get lastVisibleItemTrigger() {
-    const loadMoreWhenLastItemsAreVisible = 2;
-    return this.items[this.items.length - loadMoreWhenLastItemsAreVisible];
+    const fiftyProcentShown = 0.5;
+    const offset = this.args.size
+      ? Math.max(2, Math.floor(this.args.size * fiftyProcentShown))
+      : 2;
+    return this.items[this.items.length - offset];
   }
 
   constructor() {
@@ -30,6 +34,7 @@ export default class InfiniteTableResults extends Component {
     if (newItems.length) {
       this.items = [...this.items, ...newItems];
     }
+    this.totalCount = items.meta?.count ?? this.items.length;
   });
 
   observeIfNearEnd = modifier((element) => {
