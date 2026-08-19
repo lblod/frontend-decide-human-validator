@@ -32,7 +32,6 @@ export default class InfiniteTableResults extends Component {
   }
 
   fetchResults = task({ enqueue: true }, async (page) => {
-    console.log('fetch results for page', page);
     const items = await this.args.onLoadMore?.(page);
 
     const newItems = items ?? [];

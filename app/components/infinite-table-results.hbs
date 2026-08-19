@@ -18,16 +18,29 @@
     <c.header>
       {{yield to="headers"}}
     </c.header>
-    <c.body as |row|>
-      {{yield row to="row"}}
-      {{#if (eq row this.lastVisibleItemTrigger)}}
-        {{! template-lint-disable no-inline-styles }}
-        <td style="padding:0;border:0;" {{this.observeIfNearEnd}}></td>
-      {{/if}}
-    </c.body>
+    {{#if (and this.fetchResults.isRunning (eq this.items.length 0))}}
+      <tr>
+        <td colspan="100%">
+          <div class="au-u-flex au-u-flex--center">
+            <AuLoader @hideMessage={{not @loadingMessage}} @centered={{true}}>
+              <p class="au-u-muted au-u-h6">{{@loadingMessage}}</p>
+            </AuLoader>
+          </div>
+        </td>
+      </tr>
+
+    {{else}}
+      <c.body as |row|>
+        {{yield row to="row"}}
+        {{#if (eq row this.lastVisibleItemTrigger)}}
+          {{! template-lint-disable no-inline-styles }}
+          <td style="padding:0;border:0;" {{this.observeIfNearEnd}}></td>
+        {{/if}}
+      </c.body>
+    {{/if}}
   </t.content>
 </AuDataTable>
-{{#if this.fetchResults.isRunning}}
+{{#if (and this.fetchResults.isRunning (not (eq this.items.length 0)))}}
   <div class="au-u-flex au-u-flex--center">
     <AuLoader @hideMessage={{true}} @centered={{true}} />
   </div>
