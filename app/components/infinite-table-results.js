@@ -21,7 +21,14 @@ export default class InfiniteTableResults extends Component {
 
   constructor() {
     super(...arguments);
-    this.fetchResults.perform(this.page);
+    if (this.args.initialState) {
+      this.items = this.args.initialState.items;
+      this.page = this.args.initialState.page;
+      this.hasMore = this.args.initialState.hasMore;
+      this.totalCount = this.args.initialState.totalCount;
+    } else {
+      this.fetchResults.perform(this.page);
+    }
   }
 
   fetchResults = task({ enqueue: true }, async (page) => {
@@ -35,6 +42,13 @@ export default class InfiniteTableResults extends Component {
       this.items = [...this.items, ...newItems];
     }
     this.totalCount = items.meta?.count ?? 'unknown';
+
+    this.args.onItemsUpdated?.({
+      items: this.items,
+      page: this.page,
+      hasMore: this.hasMore,
+      totalCount: this.totalCount,
+    });
   });
 
   observeIfNearEnd = modifier((element) => {

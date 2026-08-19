@@ -39,5 +39,18 @@ export default class ExpressionsRoute extends Route {
   setupController(controller, model) {
     super.setupController(...arguments);
     controller.search = model.search;
+
+    const newFingerprint = [
+      model.params.municipality,
+      model.params.predicates,
+      model.params.aimodels,
+      model.params.types,
+      model.params.title,
+    ].join('|');
+
+    if (controller._paramsFingerprint !== newFingerprint) {
+      controller.resetInfiniteCache();
+      controller._paramsFingerprint = newFingerprint;
+    }
   }
 }

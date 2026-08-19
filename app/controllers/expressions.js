@@ -100,6 +100,19 @@ export default class ExpressionsController extends Controller {
     this.title = e.target.value;
   });
 
+  _cachedInfiniteState = null;
+  _paramsFingerprint = null;
+
+  @action
+  onItemsUpdated(snapshot) {
+    this._cachedInfiniteState = snapshot;
+  }
+
+  resetInfiniteCache() {
+    this._cachedInfiniteState = null;
+    this._paramsFingerprint = null;
+  }
+
   fetchExpressions = async (page) => {
     const params = { ...this.model.params, page };
 

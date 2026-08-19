@@ -105,6 +105,8 @@
     <AuBodyContainer id="content" @scroll={{true}}>
       <AuHeading size="large" class="au-u-padding">Validate AI annotations</AuHeading>
       <InfiniteTableResults
+        @initialState={{this._cachedInfiniteState}}
+        @onItemsUpdated={{this.onItemsUpdated}}
         @noDataMessage="No annotated decisions found"
         @size={{this.size}}
         @onLoadMore={{this.fetchExpressions}}
