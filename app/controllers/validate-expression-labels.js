@@ -223,24 +223,21 @@ export default class ValidateExpressionLabelsController extends Controller {
       },
     });
 
-    await this.store.query('expression', {
+    const expressionModels = await this.store.query('expression', {
       filter: {
         id: annotations.map((annotation) => annotation.targetId).join(','),
       },
+      include: 'realizes,realizes.passed-by,is-embodied-by',
     });
 
-    const annotationsWithExpression = annotations.map((annotation) => {
-      annotation.targetModel = this.store.peekRecord(
-        'expression',
-        annotation.targetId,
+    const items = annotations.map((annotation) => {
+      annotation.model = annotationModels.find((m) => m.id === annotation.id);
+      annotation.targetModel = expressionModels.find(
+        (e) => e.id === annotation.targetId,
       );
       return annotation;
     });
 
-    const items = annotationsWithExpression.map((annotation) => {
-      annotation.model = annotationModels.find((m) => m.id === annotation.id);
-      return annotation;
-    });
     items.meta = meta;
 
     return items;
