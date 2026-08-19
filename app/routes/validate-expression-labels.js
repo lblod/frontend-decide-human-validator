@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
   @service municipalities;
+  @service('options') dropdownOptions;
   @service annotationReviewApi;
 
   queryParams = {
@@ -22,25 +23,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
   };
 
   async model(params) {
-    const schemeFilter = {
-      filter: {
-        'show-in-hvt': true,
-      },
-    };
-    const conceptSchemes = [
-      ...(await this.store.query('concept-scheme', schemeFilter)),
-    ];
-    if (
-      params.conceptScheme &&
-      !conceptSchemes.find((s) => s.id == params.conceptScheme)
-    ) {
-      schemeFilter.filter.id = params.conceptScheme;
-      const selectedScheme = await this.store.query(
-        'concept-scheme',
-        schemeFilter,
-      );
-      conceptSchemes.push(selectedScheme);
-    }
+    const conceptSchemes = await this.dropdownOptions.hvtConceptSchemes();
 
     let concepts = [];
     let selectedConcepts = [];
