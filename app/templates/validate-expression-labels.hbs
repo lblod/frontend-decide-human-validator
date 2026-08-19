@@ -165,35 +165,31 @@
                 @onChange={{this.toggleHideVoted}}
               >Hide already reviewed entities</AuToggleSwitch>
             </div>
-            <AuDataTable
-              @content={{@model.annotations}}
+            <InfiniteTableResults
               @noDataMessage="No annotated decisions found"
-              @page={{this.page}}
               @size={{this.size}}
-              as |t|
+              @onLoadMore={{this.fetchExpressionLabels}}
             >
-              <t.content as |c|>
-                <c.header>
-                  <th>AI model</th>
-                  <th>Decision name</th>
-                  <th>{{or
-                      this.selectedConceptScheme.prefLabel
-                      "Discovered entity"
-                    }}</th>
-                  {{#if this.showImpact}}
-                    <th>Impact</th>
-                  {{/if}}
-                  <th>Is this correct?</th>
-                </c.header>
-                <c.body as |annotation|>
-                  <ExpressionAnnotationListItem
-                    @showImpact={{this.showImpact}}
-                    @annotation={{annotation}}
-                    @conceptSchemeId={{this.model.conceptSchemeId}}
-                  />
-                </c.body>
-              </t.content>
-            </AuDataTable>
+              <:headers>
+                <th>AI model</th>
+                <th>Decision name</th>
+                <th>{{or
+                    this.selectedConceptScheme.prefLabel
+                    "Discovered entity"
+                  }}</th>
+                {{#if this.showImpact}}
+                  <th>Impact</th>
+                {{/if}}
+                <th>Is this correct?</th>
+              </:headers>
+              <:row as |annotation|>
+                <ExpressionAnnotationListItem
+                  @showImpact={{this.showImpact}}
+                  @annotation={{annotation}}
+                  @conceptSchemeId={{this.model.conceptSchemeId}}
+                />
+              </:row>
+            </InfiniteTableResults>
             {{outlet}}
           </div>
         </div>

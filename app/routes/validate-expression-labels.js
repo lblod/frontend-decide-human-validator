@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
   @service municipalities;
+  @service annotationReviewApi;
 
   queryParams = {
     page: { refreshModel: true },
@@ -21,53 +22,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
   };
 
   async model(params) {
-    let filter = '';
-    if (params.hideVoted !== false) {
-      filter += '&filter[ignoreAlreadyReviewed]=true';
-    }
-    if (params.concepts) {
-      filter += `&filter[concept]=${params.concepts}`;
-    }
-    if (params.conceptScheme) {
-      filter += `&filter[conceptScheme]=${params.conceptScheme}`;
-    }
-    if (params.year) {
-      filter += `&filter[year]=${params.year}`;
-    }
-    if (params.impact) {
-      filter += `&filter[impact]=${params.impact}`;
-    }
-    if (params.title && params.title.length > 3) {
-      filter += `&filter[title]=${params.title}`;
-    }
-    filter += this.municipalities.toMunicipalityFilter(params.municipality);
-
-    const [annotationResult, municipalityModels] = await Promise.all([
-      fetch(
-        `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-      ),
-      this.municipalities.getMunicipalities(params.municipality),
-    ]);
-
-    const { annotations, annotationCount } = await annotationResult.json();
-
-    const annotationData = await this.addAnnotationModels(annotations);
-    const annotationDataWithExpressions =
-      await this.addExpressionTargets(annotationData);
-    annotationDataWithExpressions.meta = {
-      count: annotationCount,
-      pagination: {
-        // we can be a little rough with prev and next as the datatable checks the first and last anyway
-        prev: { number: params.page - 1, size: annotationCount },
-        next: { number: params.page + 1, size: annotationCount },
-        first: { number: 0, size: annotationCount },
-        last: {
-          number: Math.floor(annotationCount / params.size),
-          size: annotationCount,
-        },
-      },
-    };
-
     const schemeFilter = {
       filter: {
         'show-in-hvt': true,
@@ -115,49 +69,16 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
 
     return {
-      annotations: annotationDataWithExpressions,
+      params: params,
       conceptSchemes,
       concepts,
       conceptSchemeId: params.conceptScheme,
       selectedConcepts,
       search: params.title,
-      municipalities: municipalityModels,
+      municipalities: await this.municipalities.getMunicipalities(
+        params.municipality,
+      ),
     };
-  }
-
-  async addAnnotationModels(annotations) {
-    await this.store.query('annotation', {
-      filter: {
-        id: annotations.map((annotation) => annotation.id).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.model = this.store.peekRecord('annotation', annotation.id);
-      return annotation;
-    });
-  }
-
-  async addExpressionTargets(annotations) {
-    await this.store.query('expression', {
-      filter: {
-        id: annotations.map((annotation) => annotation.targetId).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.targetModel = this.store.peekRecord(
-        'expression',
-        annotation.targetId,
-      );
-      return annotation;
-    });
   }
 
   setupController(controller, model) {

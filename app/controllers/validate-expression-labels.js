@@ -37,6 +37,7 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   @service store;
   @service municipalities;
+  @service annotationReviewApi;
 
   yearOptions = [
     { label: 'Any', value: undefined },
@@ -209,4 +210,39 @@ export default class ValidateExpressionLabelsController extends Controller {
     await timeout(SEARCH_TIMEOUT);
     this.title = e.target.value;
   });
+
+  fetchExpressionLabels = async (page) => {
+    const params = { ...this.model.params, page };
+
+    const { annotations, meta } =
+      await this.annotationReviewApi.fetchTargetExpressionLabels(params);
+
+    const annotationModels = await this.store.query('annotation', {
+      filter: {
+        id: annotations.map((annotation) => annotation.id).join(','),
+      },
+    });
+
+    await this.store.query('expression', {
+      filter: {
+        id: annotations.map((annotation) => annotation.targetId).join(','),
+      },
+    });
+
+    const annotationsWithExpression = annotations.map((annotation) => {
+      annotation.targetModel = this.store.peekRecord(
+        'expression',
+        annotation.targetId,
+      );
+      return annotation;
+    });
+
+    const items = annotationsWithExpression.map((annotation) => {
+      annotation.model = annotationModels.find((m) => m.id === annotation.id);
+      return annotation;
+    });
+    items.meta = meta;
+
+    return items;
+  };
 }

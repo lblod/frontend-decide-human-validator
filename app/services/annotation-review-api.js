@@ -42,7 +42,7 @@ export default class AnnotationReviewApiService extends Service {
       return {
         expressions: result?.targets ?? [],
         meta: this.createMetaObjectForCount(
-          result.count ?? 0,
+          result.count,
           queryParams.page ?? 0,
           queryParams.size ?? 20,
         ),
@@ -54,7 +54,56 @@ export default class AnnotationReviewApiService extends Service {
     }
   }
 
+  async fetchTargetExpressionLabels(queryParams) {
+    let filter = '';
+    if (queryParams.hideVoted !== false) {
+      filter += '&filter[ignoreAlreadyReviewed]=true';
+    }
+    if (queryParams.concepts) {
+      filter += `&filter[concept]=${queryParams.concepts}`;
+    }
+    if (queryParams.conceptScheme) {
+      filter += `&filter[conceptScheme]=${queryParams.conceptScheme}`;
+    }
+    if (queryParams.year) {
+      filter += `&filter[year]=${queryParams.year}`;
+    }
+    if (queryParams.impact) {
+      filter += `&filter[impact]=${queryParams.impact}`;
+    }
+    if (queryParams.title && queryParams.title.length > 3) {
+      filter += `&filter[title]=${queryParams.title}`;
+    }
+    filter += this.municipalities.toMunicipalityFilter(
+      queryParams.municipality,
+    );
+
+    try {
+      const annotationResult = await fetch(
+        `/annotation-review/annotations/expression-label?page=${queryParams.page}&pageSize=${queryParams.size}${filter}`,
+      );
+
+      const { annotations, annotationCount } = await annotationResult.json();
+
+      return {
+        annotations: annotations ?? [],
+        meta: this.createMetaObjectForCount(
+          annotationCount,
+          queryParams.page ?? 0,
+          queryParams.size ?? 20,
+        ),
+      };
+    } catch (_error) {
+      throw Error(
+        `Could not fetch target expression labels from annotation-review-api`,
+      );
+    }
+  }
+
   createMetaObjectForCount(count, page, size) {
+    if (!count) {
+      return null;
+    }
     return {
       count: count,
       pagination: {

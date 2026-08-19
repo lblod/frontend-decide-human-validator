@@ -34,7 +34,7 @@ export default class InfiniteTableResults extends Component {
     if (newItems.length) {
       this.items = [...this.items, ...newItems];
     }
-    this.totalCount = items.meta?.count ?? this.items.length;
+    this.totalCount = items.meta?.count ?? 'unknown';
   });
 
   observeIfNearEnd = modifier((element) => {
