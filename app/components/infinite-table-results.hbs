@@ -1,12 +1,14 @@
-<AuToolbar @size="medium" as |Group|>
-  <Group />
-  <Group>
-    Showing
-    {{this.items.length}}
-    of
-    {{this.totalCount}}
-  </Group>
-</AuToolbar>
+{{#if @showPageCount}}
+  <AuToolbar @size="medium" as |Group|>
+    <Group />
+    <Group>
+      Showing
+      {{this.items.length}}
+      of
+      {{this.totalCount}}
+    </Group>
+  </AuToolbar>
+{{/if}}
 <AuDataTable
   @content={{this.items}}
   @noDataMessage={{@noDataMessage}}
