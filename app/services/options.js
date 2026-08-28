@@ -6,6 +6,7 @@ export default class OptionsService extends Service {
   _predicates = [];
   _aiModels = [];
   _valueTypes = [];
+  _hvtConceptSchemes = [];
 
   async predicates() {
     if (this._predicates?.length >= 1) {
@@ -44,5 +45,24 @@ export default class OptionsService extends Service {
     this._valueTypes = results ?? [];
 
     return this._valueTypes;
+  }
+
+    async hvtConceptSchemes() {
+    if (this._hvtConceptSchemes?.length >= 1) {
+      return this._hvtConceptSchemes;
+    }
+
+    const schemeFilter = {
+      filter: {
+        'show-in-hvt': true,
+      },
+    };
+
+    this._hvtConceptSchemes = await this.store.query(
+      'concept-scheme',
+      schemeFilter,
+    );
+
+    return this._hvtConceptSchemes;
   }
 }

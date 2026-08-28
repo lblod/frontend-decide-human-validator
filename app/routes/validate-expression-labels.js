@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
   @service municipalities;
+  @service('options') dropdownOptions;
 
   queryParams = {
     page: { refreshModel: true },
@@ -42,12 +43,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
 
-    const [annotationResult, municipalityModels] = await Promise.all([
-      fetch(
-        `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-      ),
-      this.municipalities.getMunicipalities(params.municipality),
-    ]);
+    const [annotationResult, municipalityModels, conceptSchemes] =
+      await Promise.all([
+        fetch(
+          `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
+        ),
+        this.municipalities.getMunicipalities(params.municipality),
+        this.dropdownOptions.hvtConceptSchemes(),
+      ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
 
@@ -67,26 +70,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
         },
       },
     };
-
-    const schemeFilter = {
-      filter: {
-        'show-in-hvt': true,
-      },
-    };
-    const conceptSchemes = [
-      ...(await this.store.query('concept-scheme', schemeFilter)),
-    ];
-    if (
-      params.conceptScheme &&
-      !conceptSchemes.find((s) => s.id == params.conceptScheme)
-    ) {
-      schemeFilter.filter.id = params.conceptScheme;
-      const selectedScheme = await this.store.query(
-        'concept-scheme',
-        schemeFilter,
-      );
-      conceptSchemes.push(selectedScheme);
-    }
 
     let concepts = [];
     let selectedConcepts = [];
