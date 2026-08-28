@@ -129,7 +129,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
       filter: {
         id: annotations.map((annotation) => annotation.targetId).join(','),
       },
-      include: 'realizes,realizes.passed-by,is-embodied-by',
       page: {
         size: 999,
       },
