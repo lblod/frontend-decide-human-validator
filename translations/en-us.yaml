@@ -9,16 +9,13 @@
   "general-cancel": "Cancel",
   "general-close": "Close",
 
-  # TODO: nl -> en
-  "general-page-not-found-title": "Oeps, die pagina vonden we niet terug",
-  "general-page-not-found-message": "De pagina die u zoekt, vonden we niet terug.",
+  "general-page-not-found-title": "Oops, this page as not found",
+  "general-page-not-found-message": "The page you are look for was not found.",
 
   "application-page-title": "DecideFrontend",
 
-  "loading-page-title": "Loading",
-
   "overview-page-title": "Validate AI Annotations",
-  "overview-description": "In the DECIDE project, AI tooling analyses the text of local decisions and enriches them with annotations. These annotations may identify specific concepts in the text (such as dates, locations, or mandatary roles), or map a decision to one or more concept lists. This interface allows human users to review and validate these AI-generated annotations.",
+  "overview-description": "In the DECIDe project, AI tooling analyses the text of local decisions and enriches them with annotations. These annotations may identify specific concepts in the text (such as dates, locations, or mandatary roles), or map a decision to one or more concept lists. This interface allows human users to review and validate these AI-generated annotations.",
   "overview-select-local-authority": "Select a local authority",
   "overview-dataset-message": "The dataset contains decisions from multiple local authorities. Select the local authority whose decision annotations you want to review.",
   "overview-start-validation": "Start validation",
@@ -99,8 +96,7 @@
   "expression-annotation-human-correction": "Human correction",
   "expression-annotation-no-match": "No Match",
 
-  # TODO: nl -> en
-  "oops-back-home": "Terug naar de startpagina",
+  "oops-back-home": "Back to home page",
   "oops-general-error": "Showing something went wrong",
 
   "year-label-any": "Any",

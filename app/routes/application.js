@@ -10,6 +10,6 @@ export default class ApplicationRoute extends Route {
 
   #setupIntl() {
     // TODO: Determine locale dynamically?
-    this.intl.setLocale(['en-us']);
+    this.intl.setLocale(['en-us', 'nl-be']);
   }
 }
