@@ -8,6 +8,7 @@
   "general-confirm": "Confirm",
   "general-cancel": "Cancel",
   "general-close": "Close",
+  "general-select-locale": "Select language",
 
   "general-page-not-found-title": "Oops, this page as not found",
   "general-page-not-found-message": "The page you are look for was not found.",

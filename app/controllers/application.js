@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 import { service } from '@ember/service';
 
 export default class ApplicationController extends Controller {
@@ -8,4 +9,13 @@ export default class ApplicationController extends Controller {
   // To change the string actually displayed, modify the entries in
   // the translation files.
   appTitle = 'general-app-title';
+
+  get availableLocales() {
+    return this.intl.locales;
+  }
+
+  @action
+  changeLocale(locale) {
+    this.intl.setLocale(locale);
+  }
 }
