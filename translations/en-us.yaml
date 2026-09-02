@@ -108,4 +108,13 @@
   "year-label-2022": "2022",
   "year-label-2021": "2021",
   "year-label-2020": "2020",
+
+  "au-table-row": "Row",
+  "au-table-rows": "rows",
+  "au-table-next": "next",
+  "au-table-previous": "previous",
+  "au-table-of": "of",
+  "au-table-sort": "Sort",
+  "au-table-sort-ascending": "Sort ascending",
+  "au-table-sort-descending": "Sort descending",
 }

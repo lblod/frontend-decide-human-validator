@@ -109,4 +109,13 @@
   "year-label-2022": "2022",
   "year-label-2021": "2021",
   "year-label-2020": "2020",
+
+  "au-table-row": "Rij",
+  "au-table-rows": "rijen",
+  "au-table-next": "volgende",
+  "au-table-previous": "vorige",
+  "au-table-of": "van",
+  "au-table-sort": "Sorteer",
+  "au-table-sort-ascending": "Oplopend sorteren",
+  "au-table-sort-descending": "Aflopend sorteren",
 }
