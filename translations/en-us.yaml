@@ -97,6 +97,8 @@
   "expression-annotation-human-correction": "Human correction",
   "expression-annotation-no-match": "No Match",
 
+  "expressions-codelist-language-message": "The AI tools mapped decisions to concepts solely based on an English description.  Therefore, the concept labels below are also shown only in English.",
+
   "oops-back-home": "Back to home page",
   "oops-general-error": "Showing something went wrong",
 

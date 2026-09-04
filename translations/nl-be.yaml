@@ -94,6 +94,8 @@
   "expression-annotation-human-correction": "Menselijke correctie",
   "expression-annotation-no-match": "Geen overeenkomst",
 
+  "expressions-codelist-language-message": "De AI tools hebben beslissingen aan concepten gerelateerd op basis van een Engelstalige beschrijving van de concepten. Om die reden toont onderstaande lijst de conceptlabels ook enkel in het Engels.",
+
   "expressions-impact-positive-label": "Positief",
   "expressions-impact-negative-label": "Negatief",
   "expressions-impact-any-label": "Alle",
