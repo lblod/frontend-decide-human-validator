@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import stringForLocale from '../helpers/locale-language-string';
 
 export default class AnnotationLink extends Component {
   @service intl;
@@ -14,7 +15,10 @@ export default class AnnotationLink extends Component {
 
   get linkComment() {
     return (
-      this.args.annotation.linkComment || this.intl.t('annotation-link-no-info')
+      stringForLocale(
+        this.args.annotation.linkComments,
+        this.intl.primaryLocale,
+      ) || this.intl.t('annotation-link-no-info')
     );
   }
 }

@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { prefixes } from '../utils/prefixes';
 import { service } from '@ember/service';
+import stringForLocale from '../helpers/locale-language-string';
 
 export default class AnnotationType extends Component {
   @service intl;
@@ -36,7 +37,10 @@ export default class AnnotationType extends Component {
 
   get typeComment() {
     return (
-      this.args.annotation.typeComment || this.intl.t('annotation-type-no-info')
+      stringForLocale(
+        this.args.annotation.typeComments,
+        this.intl.primaryLocale,
+      ) || this.intl.t('annotation-type-no-info')
     );
   }
 
