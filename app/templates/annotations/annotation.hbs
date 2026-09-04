@@ -1,39 +1,39 @@
-{{page-title "Annotation"}}
+{{page-title (t "annotation-page-title")}}
 
 <AuTable>
-  <:title>Geo annotation</:title>
+  <:title>{{t "annotation-title-geo"}}</:title>
   <:body>
     <tr>
-      <td>Resource UUID</td>
+      <td>{{t "annotation-resource-uuid"}}</td>
       <td>{{@model.annotation.id}}</td>
     </tr>
     <tr>
-      <td>Motivation</td>
+      <td>{{t "annotation-motivation"}}</td>
       <td>{{@model.annotation.motivatedBy}}</td>
     </tr>
     <tr>
-      <td>Confidence</td>
+      <td>{{t "annotation-confidence"}}</td>
       <td>{{@model.annotation.confidence}}</td>
     </tr>
   </:body>
 </AuTable>
 
 <AuTable>
-  <:title>Location</:title>
+  <:title>{{t "annotation-location-title"}}</:title>
   <:body>
     <tr>
-      <td>Label</td>
+      <td>{{t "annotation-location-label-column"}}</td>
       <td>{{@model.location.label}}</td>
     </tr>
     <tr>
-      <td>Exact match</td>
+      <td>{{t "annotation-location-match-column"}}</td>
       <td>
         {{#if @model.location.exactMatch}}
           <AuLinkExternal href={{@model.location.exactMatch}}>
             {{@model.location.exactMatch}}
           </AuLinkExternal>
         {{else}}
-          N/A
+          {{t "general-not-applicable"}}
         {{/if}}
       </td>
     </tr>
@@ -41,14 +41,14 @@
 </AuTable>
 
 <AuTable>
-  <:title>Geometry</:title>
+  <:title>{{t "annotation-geometry-title"}}</:title>
   <:body>
     <tr>
-      <td>EPSG:31370 (Belgian Lambert 72)</td>
+      <td>{{t "annotation-geometry-coord"}}</td>
       <td>{{@model.geometry.asWKT}}</td>
     </tr>
     <tr>
-      <td>Map</td>
+      <td>{{t "annotation-geometry-map-column"}}</td>
       <td>
         <Leaflet @props={{@model.geometry.wgs84Coord}} />
       </td>

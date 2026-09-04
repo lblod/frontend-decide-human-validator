@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
+import { service } from '@ember/service';
 
 export default class AnnotationLink extends Component {
+  @service intl;
+
   get linkLink() {
     const link = this.args.annotation.link;
     if (link?.startsWith('http')) {
@@ -11,8 +14,7 @@ export default class AnnotationLink extends Component {
 
   get linkComment() {
     return (
-      this.args.annotation.linkComment ||
-      'No information found about this predicate'
+      this.args.annotation.linkComment || this.intl.t('annotation-link-no-info')
     );
   }
 }

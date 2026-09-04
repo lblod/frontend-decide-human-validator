@@ -13,7 +13,9 @@
       @icon="x"
       @hideText={{true}}
       {{on "click" @onClose}}
-    >Close</AuButton>
+    >
+      {{t "general-close"}}
+    </AuButton>
     <div class="pre-wrap relative au-u-margin-none">
       {{this.expressionContentBefore}}<HighlightedAnnotation
         @text={{this.expressionContentAt}}

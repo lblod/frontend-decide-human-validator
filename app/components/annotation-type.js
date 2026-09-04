@@ -1,7 +1,10 @@
 import Component from '@glimmer/component';
 import { prefixes } from '../utils/prefixes';
+import { service } from '@ember/service';
 
 export default class AnnotationType extends Component {
+  @service intl;
+
   get typeLink() {
     const type = this.args.annotation.type;
     if (!type) {
@@ -33,7 +36,7 @@ export default class AnnotationType extends Component {
 
   get typeComment() {
     return (
-      this.args.annotation.typeComment || 'No information found about this type'
+      this.args.annotation.typeComment || this.intl.t('annotation-type-no-info')
     );
   }
 
@@ -41,14 +44,15 @@ export default class AnnotationType extends Component {
     let type = this.args.annotation.type;
 
     const example = {
-      'http://www.w3.org/2001/XMLSchema#date':
-        'YYYY-MM-DD for example 2026-02-25',
+      'http://www.w3.org/2001/XMLSchema#date': this.intl.t(
+        'annotation-help-example-date',
+      ),
     }[type];
 
     if (!example) {
       return null;
     }
 
-    return `Value must be in the format of ${example}`;
+    return this.intl.t('annotation-help-example-text', { example: example });
   }
 }

@@ -1,15 +1,18 @@
 import Component from '@glimmer/component';
+import { service } from '@ember/service';
 
 const MAX_VALUE_LENGTH = 92;
 
 export default class ExpressionAnnotationListItem extends Component {
+  @service intl;
+
   get value() {
     if (
       this.args.annotation.valueText.startsWith(
         'http://mu.semte.ch/vocabularies/ext/no-match-found',
       )
     ) {
-      return 'No Match';
+      return this.intl.t('expression-annotation-no-match');
     }
     const value = this.args.annotation.valueText;
     if (value && value.length > MAX_VALUE_LENGTH) {
@@ -42,7 +45,7 @@ export default class ExpressionAnnotationListItem extends Component {
 
   get agentName() {
     if (this.args.annotation.agent.startsWith('http://mu.semte.ch/sessions/')) {
-      return 'Human correction';
+      return this.intl.t('expression-annotation-human-correction');
     }
     return this.args.annotation.agentName || this.args.annotation.agent;
   }

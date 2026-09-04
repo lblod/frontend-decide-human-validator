@@ -54,15 +54,17 @@
         >Remove</AuButton>
       </div>
     {{else}}
-      No corrections were added
+      {{t "validate-thumbs-no-correction-added"}}
     {{/each}}
     <div class="au-u-margin-top">
-      <AuButton {{on "click" this.addCorrection}} @icon="plus">Add correction</AuButton>
+      <AuButton {{on "click" this.addCorrection}} @icon="plus">
+        {{t "validate-thumbs-add-correction"}}
+      </AuButton>
     </div>
 
     {{#if this.hasDuplicateCorrection}}
       <AuAlert @skin="error" class="au-u-margin-top">
-        The same concept is used multiple times as a correction.
+        {{t "validate-thumbs-concept-mulitple-times"}}
       </AuAlert>
     {{/if}}
   </:body>
@@ -71,11 +73,12 @@
       id="au-confirm-reject"
       @disabled={{this.hasDuplicateCorrection}}
       {{on "click" this.confirmReject}}
-    >Confirm</AuButton>
-    <AuButton
-      @skin="secondary"
-      {{on "click" this.cancelReject}}
-    >Cancel</AuButton>
+    >
+      {{t "general-confirm"}}
+    </AuButton>
+    <AuButton @skin="secondary" {{on "click" this.cancelReject}}>
+      {{t "general-cancel"}}
+    </AuButton>
   </:footer>
 
 </AuModal>

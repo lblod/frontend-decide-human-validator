@@ -1,30 +1,25 @@
-{{page-title "Validate AI Annotations"}}
+{{page-title (t "overview-page-title")}}
 
 <AuBodyContainer @scroll={{true}} class="au-u-padding">
   <AuHeading @skin={{1}} @level={{1}}>
-    Validate AI Annotations
+    {{t "validate-ai-annotations"}}
   </AuHeading>
   <p>
-    In the DECIDE project, AI tooling analyses the text of local decisions and
-    enriches them with annotations. These annotations may identify specific
-    concepts in the text (such as dates, locations, or mandatary roles), or map
-    a decision to one or more concept lists. This interface allows human users
-    to review and validate these AI-generated annotations.
+    {{t "overview-description"}}
   </p>
 
   <div class="au-u-margin-top">
     <AuHeading @skin={{3}} @level={{2}}>
-      Select a local authority
+      {{t "overview-select-local-authority"}}
     </AuHeading>
     <p>
-      The dataset contains decisions from multiple local authorities. Select the
-      local authority whose decision annotations you want to review.
+      {{t "overview-dataset-message"}}
     </p>
 
     <div class="au-u-margin-top-small">
 
       <AuLabel for="decision-passed-by">
-        Local authority
+        {{t "filter-local-authority"}}
       </AuLabel>
       <PowerSelect
         id="decision-passed-by"
@@ -48,15 +43,15 @@
           <AuCard class="au-u-padding" as |c|>
             <c.header>
               <AuHeading @skin={{4}} @level={{2}}>
-                {{app.title}}
+                {{t app.title}}
               </AuHeading>
             </c.header>
             <c.content>
-              {{app.description}}
+              {{t app.description}}
             </c.content>
             <c.footer>
               <AuLink @skin="button" @route={{app.route}} @query={{app.params}}>
-                Start validation
+                {{t "overview-start-validation"}}
               </AuLink>
             </c.footer>
           </AuCard>
@@ -65,7 +60,7 @@
     </div>
   {{else}}
     <AuAlert @skin="info" @icon="circle-info" class="au-u-margin-top">
-      <p>Select a local authority to start validating annotations.</p>
+      <p>{{t "overview-select-authority-message"}}</p>
     </AuAlert>
   {{/if}}
   {{outlet}}

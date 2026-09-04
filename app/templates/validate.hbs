@@ -1,4 +1,4 @@
-{{page-title "Validate AI Annotations"}}
+{{page-title (t "validate-ai-annotations")}}
 
 <AuToolbar @border="bottom" @size="small" @skin="tint">
   <nav aria-label="breadcrumbs" class="au-u-flex au-u-flex--between au-u-1-1">
@@ -10,7 +10,9 @@
           @route="expressions"
           @icon="arrow-left"
           @query={{@model.commonDetailPageParams}}
-        >Back to Decision List</AuLink>
+        >
+          {{t "validate-back-to-decision-list"}}
+        </AuLink>
       </li>
       <li class="vertical-separator"></li>
       <li class="au-c-list-horizontal__item au-u-bold">
@@ -28,11 +30,11 @@
           @level={{3}}
           class="au-u-margin-top-none au-u-margin-bottom-small"
         >
-          Filter annotations
+          {{t "filter-annotations"}}
         </AuHeading>
         <div>
           <AuLabel for="expression-ai-model">
-            AI Component
+            {{t "validate-ai-component"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-ai-model"
@@ -49,7 +51,7 @@
         </div>
         <div>
           <AuLabel for="expression-predicate">
-            Link
+            {{t "expressions-link"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-predicate"
@@ -66,7 +68,7 @@
         </div>
         <div>
           <AuLabel for="expression-value-type">
-            Type
+            {{t "expressions-type"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-value-type"
@@ -85,14 +87,14 @@
           <AuCheckbox
             @checked={{this.hideVoted}}
             @onChange={{this.toggleHideVoted}}
-          >Hide already reviewed entities</AuCheckbox>
+          >
+            {{t "validate-hide-reviewed"}}
+          </AuCheckbox>
         </div>
         <div class="au-u-margin-top-small au-u-text-right">
-          <AuButton
-            @icon="x"
-            @skin="naked"
-            {{on "click" this.resetFilter}}
-          >Reset Filters</AuButton>
+          <AuButton @icon="x" @skin="naked" {{on "click" this.resetFilter}}>
+            {{t "filter-reset"}}
+          </AuButton>
         </div>
       </div>
     </div>
@@ -104,10 +106,14 @@
           <div
             class="au-u-padding au-u-padding-left-none au-u-padding-right-none au-u-flex au-u-flex--vertical-center au-u-flex--between"
           >
-            <AuHeading @level={{1}} @skin={{1}}>Validate AI Annotations</AuHeading>
+            <AuHeading @level={{1}} @skin={{1}}>
+              {{t "validate-ai-annotations"}}
+            </AuHeading>
           </div>
           <div class="au-o-box au-u-background-gray-100 au-u-padding-small">
-            <AuHeading @level={{2}} @skin={{6}}>Decision</AuHeading>
+            <AuHeading @level={{2}} @skin={{6}}>
+              {{t "validate-decision"}}
+            </AuHeading>
             <DecisionLink
               @expression={{@model.expression}}
               @title={{or @model.title @model.expression.fallbackTitle}}
@@ -116,18 +122,18 @@
         </div>
         <AuDataTable
           @content={{@model.annotations}}
-          @noDataMessage="No annotated decisions found"
+          @noDataMessage={{t "general-no-annotated-decisions"}}
           @page={{this.page}}
           @size={{this.size}}
-          as |t|
+          as |table|
         >
-          <t.content as |c|>
+          <table.content as |c|>
             <c.header>
-              <th>AI Component</th>
-              <th>Link</th>
-              <th>Type</th>
-              <th>Discovered entity</th>
-              <th>Is this correct?</th>
+              <th>{{t "validate-ai-component"}}</th>
+              <th>{{t "expressions-link"}}</th>
+              <th>{{t "expressions-type"}}</th>
+              <th>{{t "validate-discovered-entity"}}</th>
+              <th>{{t "validate-correct"}}</th>
             </c.header>
             <c.body as |annotation|>
               <AnnotationListItem
@@ -135,7 +141,7 @@
                 @onSelect={{this.selectAnnotation}}
               />
             </c.body>
-          </t.content>
+          </table.content>
         </AuDataTable>
         {{outlet}}
       </AuBodyContainer>
