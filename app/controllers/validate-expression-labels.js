@@ -37,28 +37,29 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   @service store;
   @service municipalities;
+  @service intl;
 
   yearOptions = [
-    { label: 'Any', value: undefined },
-    { label: '2026', value: '2026' },
-    { label: '2025', value: '2025' },
-    { label: '2024', value: '2024' },
-    { label: '2023', value: '2023' },
-    { label: '2022', value: '2022' },
-    { label: '2021', value: '2021' },
-    { label: '2020', value: '2020' },
+    { label: 'year-label-any', value: undefined },
+    { label: 'year-label-2026', value: '2026' },
+    { label: 'year-label-2025', value: '2025' },
+    { label: 'year-label-2024', value: '2024' },
+    { label: 'year-label-2023', value: '2023' },
+    { label: 'year-label-2022', value: '2022' },
+    { label: 'year-label-2021', value: '2021' },
+    { label: 'year-label-2020', value: '2020' },
   ];
 
   impactOptions = [
     {
       value: '0e432b1b-87ad-4c32-9fc5-b151dd49f60d',
-      label: 'Positive',
+      label: 'expressions-impact-positive-label',
     },
     {
       value: '1e122909-a685-4c0f-8b61-d639173b0a58',
-      label: 'Negative',
+      label: 'expressions-impact-negative-label',
     },
-    { value: undefined, label: 'Any' },
+    { value: undefined, label: 'expressions-impact-any-label' },
   ];
 
   get selectedMunicipality() {

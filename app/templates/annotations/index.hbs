@@ -1,23 +1,24 @@
-{{page-title "Annotations"}}
+{{page-title (t "annotations-page-title")}}
 <AuDataTable
   @content={{@model}}
-  @noDataMessage="No annotated data found"
+  @noDataMessage={{t "general-no-annotated-data"}}
   @page={{this.page}}
   @size={{this.size}}
-  as |t|
+  as |table|
 >
-  <t.content as |c|>
+  <table.content as |c|>
     <c.header>
-      <th>Annotation</th>
-      <th>Motivated by</th>
+      <th>{{t "annotation-annotation"}}</th>
+      <th>{{t "annotation-motivated-by"}}</th>
     </c.header>
     <c.body as |annotation|>
-      <td><AuLink
-          @model={{annotation.id}}
-          @route="annotations.annotation"
-        >{{annotation.id}}</AuLink></td>
+      <td>
+        <AuLink @model={{annotation.id}} @route="annotations.annotation">
+          {{annotation.id}}
+        </AuLink>
+      </td>
       <td>{{annotation.motivatedBy}}</td>
     </c.body>
-  </t.content>
+  </table.content>
 </AuDataTable>
 {{outlet}}

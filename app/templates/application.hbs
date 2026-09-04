@@ -1,11 +1,25 @@
-{{page-title "DecideFrontend"}}
+{{page-title (t "application-page-title")}}
 <AuApp class="{{if this.showEnvironment 'au-c-app--environment'}}">
   <AuBodyContainer>
     <AuMainHeader
       @brandLink="https://www.vlaanderen.be/nl"
       @homeRoute="index"
-      @appTitle={{this.appTitle}}
-    />
+      @appTitle={{t this.appTitle}}
+    >
+      <AuLabel for="select-locale">
+        {{t "general-select-locale"}}
+      </AuLabel>
+      <PowerSelect
+        id="select-locale"
+        @options={{this.availableLocales}}
+        @selected={{this.intl.primaryLocale}}
+        @onChange={{this.changeLocale}}
+        as |locale|
+      >
+        {{locale}}
+      </PowerSelect>
+    </AuMainHeader>
+
     <AuMainContainer as |main|>
       <main.content class="au-u-flex au-u-flex--column">
         {{outlet}}

@@ -1,11 +1,13 @@
-{{page-title "Loading"}}
+{{page-title (t "general-loading")}}
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.content class="au-u-flex au-u-flex--column au-u-flex--around">
     <AuLoader
       @inline={{this.inline}}
       @hideMessage={{this.hideMessage}}
       @centered={{this.centered}}
-    >Loading</AuLoader>,`
+    >
+      {{t "general-loading"}}
+    </AuLoader>,`
     {{outlet}}
   </main.content>
 </AuMainContainer>

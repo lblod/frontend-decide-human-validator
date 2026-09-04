@@ -1,43 +1,48 @@
 diff --git a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
-index 9167ef0..ab2e35d 100644
+index 9167ef0..2b3c523 100644
 --- a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
 +++ b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/number-pagination.hbs
-@@ -1,9 +1,9 @@
+@@ -1,9 +1,10 @@
  <div class="au-c-pagination">
    <p>
 -    <span class="au-u-hidden-visually">Rij </span><strong>{{this.startItem}}
-+    <span class="au-u-hidden-visually">Row </span><strong>{{this.startItem}}
++    <span class="au-u-hidden-visually">{{t "au-table-row"}} </span><strong
++    >{{this.startItem}}
        -
        {{this.endItem}}</strong>
 -    van
-+    of
++    {{t "au-table-of"}}
      {{this.totalItems}}
    </p>
    <ul class="au-c-pagination__list">
-@@ -15,8 +15,8 @@
+@@ -15,8 +16,10 @@
              @icon={{this.NavLeftIcon}}
              {{on "click" (fn this.changePage this.links.prev)}}
            >
 -            vorige
 -            <span class="au-u-hidden-visually"> {{this.pageSize}} rijen</span>
-+            previous
-+            <span class="au-u-hidden-visually"> {{this.pageSize}} rows</span>
++            {{t "au-table-previous"}}
++            <span class="au-u-hidden-visually">
++              {{this.pageSize}}
++              {{t "au-table-rows"}}</span>
            </AuButton>
          </li>
        {{/unless}}
-@@ -28,8 +28,8 @@
+@@ -28,8 +31,10 @@
              @iconAlignment="right"
              {{on "click" (fn this.changePage this.links.next)}}
            >
 -            volgende
 -            <span class="au-u-hidden-visually"> {{this.pageSize}} rijen</span>
-+            next
-+            <span class="au-u-hidden-visually"> {{this.pageSize}} rows</span>
++            {{t "au-table-next"}}
++            <span class="au-u-hidden-visually">
++              {{this.pageSize}}
++              {{t "au-table-rows"}}</span>
            </AuButton>
          </li>
        {{/unless}}
 diff --git a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
-index f0a0c79..a822e6e 100644
+index f0a0c79..825b740 100644
 --- a/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
 +++ b/node_modules/@appuniversum/ember-appuniversum/addon/components/au-data-table/th-sortable.hbs
 @@ -9,7 +9,7 @@
@@ -45,7 +50,7 @@ index f0a0c79..a822e6e 100644
        {{on "click" this.inverseSorting}}
      >
 -      <span class="au-u-hidden-visually">Oplopend sorteren</span>
-+      <span class="au-u-hidden-visually">Sort ascending</span>
++      <span class="au-u-hidden-visually">{{t "au-table-sort-ascending"}}</span>
        <AuIcon @icon={{this.NavUpIcon}} />
      </button>
    {{else if (eq this.order "asc")}}
@@ -54,7 +59,7 @@ index f0a0c79..a822e6e 100644
        {{on "click" this.inverseSorting}}
      >
 -      <span class="au-u-hidden-visually">Aflopend sorteren</span>
-+      <span class="au-u-hidden-visually">Sort descending</span>
++      <span class="au-u-hidden-visually">{{t "au-table-sort-descending"}}</span>
        <AuIcon @icon={{this.NavDownIcon}} />
      </button>
    {{else}}
@@ -63,7 +68,7 @@ index f0a0c79..a822e6e 100644
        {{on "click" this.inverseSorting}}
      >
 -      <span class="au-u-hidden-visually">Sorteren</span>
-+      <span class="au-u-hidden-visually">Sort</span>
++      <span class="au-u-hidden-visually">{{t "au-table-sort"}}</span>
        <AuIcon @icon={{this.NavUpDownIcon}} />
      </button>
    {{/if}}

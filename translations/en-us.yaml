@@ -1,0 +1,122 @@
+{
+  "general-app-title": "DECIDe App",
+  "general-not-applicable": "N/A",
+  "general-no-annotated-decisions": "No annotated decisions found",
+  "general-no-annotated-data": "No annotated data found",
+  "general-none": "None",
+  "general-loading": "Loading",
+  "general-confirm": "Confirm",
+  "general-cancel": "Cancel",
+  "general-close": "Close",
+  "general-select-locale": "Select language",
+
+  "general-page-not-found-title": "Oops, this page as not found",
+  "general-page-not-found-message": "The page you are look for was not found.",
+
+  "application-page-title": "DecideFrontend",
+
+  "overview-page-title": "Validate AI Annotations",
+  "overview-description": "In the DECIDe project, AI tooling analyses the text of local decisions and enriches them with annotations. These annotations may identify specific concepts in the text (such as dates, locations, or mandatary roles), or map a decision to one or more concept lists. This interface allows human users to review and validate these AI-generated annotations.",
+  "overview-select-local-authority": "Select a local authority",
+  "overview-dataset-message": "The dataset contains decisions from multiple local authorities. Select the local authority whose decision annotations you want to review.",
+  "overview-start-validation": "Start validation",
+  "overview-select-authority-message": "Select a local authority to start validating annotations.",
+
+  "overview-validate-sdg-title": "Validate SDG mapping",
+  "overview-validate-sdg-description": "Review how local decisions impact Sustainable Development Goals (SDGs).",
+  "overview-validate-codelist-title": "Validate codelist mapping",
+  "overview-validate-codelist-description": "Review how local decisions are mapped to predefined codelist concepts.",
+  "overview-validate-text-annotation-title": "Validate text annotations",
+  "overview-validate-text-annotation-description": "Review the annotations identified in the text of local decisions, such as dates, locations, or mandatary roles.",
+
+  "filter-local-authority": "Local authority",
+  "filter-title": "Title",
+  "filter-year": "Decision Year",
+  "filter-impact-type": "Impact type",
+  "filter-concept-scheme": "Concept Scheme",
+  "filter-deselect-all": "Deselect all",
+  "filter-select-all": "Select all",
+  "filter-reset": "Reset Filters",
+  "filter-annotations": "Filter annotations",
+
+  "validate-ai-annotations": "Validate AI annotations",
+  "validate-hide-reviewed": "Hide already reviewed entities",
+  "validate-ai-component": "AI Component",
+  "validate-decision-name": "Decision name",
+  "validate-decision": "Decision",
+  "validate-discovered-entity": "Discovered entity",
+  "validate-impact": "Impact",
+  "validate-correct": "Is this correct?",
+  "validate-back-to-decision-list": "Back to Decision List",
+
+  "validate-thumbs-no-correction-added": "No corrections were added",
+  "validate-thumbs-concept-mulitple-times": "The same concept is used multiple times as a correction.",
+  "validate-thumbs-add-correction": "Add correction",
+
+  "annotations-page-title": "Annotations",
+
+  "annotation-page-title": "Annotation",
+  "annotation-annotation": "Annotation",
+
+  "annotation-title-geo": "Geo annotation",
+  "annotation-resource-uuid": "Resource UUID",
+  "annotation-motivation": "Motivation",
+  "annotation-confidence": "Confidence",
+
+  "annotation-location-title": "Location",
+  "annotation-location-label-column": "Label",
+  "annotation-location-match-column": "Exact match",
+
+  "annotation-geometry-title": "Geometry",
+  "annotation-geometry-coord": "EPSG:31370 (Belgian Lambert 72)",
+  "annotation-geometry-map-column": "Map",
+
+  "annotation-motivated-by": "Motivated by",
+
+  "annotation-type-no-info": "No information found about this type",
+  "annotation-link-no-info": "No information found about this predicate",
+  "annotation-help-example-date": "YYYY-MM-DD for example 2026-02-25",
+  "annotation-help-example-text": "Value must be in the format of {example}",
+
+  "expressions-title": "Expressions",
+  "expressions-filter-decisions": "Filter decisions",
+  "expressions-link": "Link",
+  "expressions-type": "Type",
+  "expressions-expression": "Expression",
+  "expressions-organization": "Organization",
+  "expressions-annotations": "Annotations",
+  "expressions-action": "Action",
+  "expressions-view-decision": "View decision",
+  "expressions-no-decision-link": "No decision link",
+
+  "expressions-impact-positive-label": "Positive",
+  "expressions-impact-negative-label": "Negative",
+  "expressions-impact-any-label": "Any",
+
+  "expression-annotation-impact": "impact: {impact}",
+  "expression-annotation-human-correction": "Human correction",
+  "expression-annotation-no-match": "No Match",
+
+  "expressions-codelist-language-message": "The AI tools mapped decisions to concepts solely based on an English description.  Therefore, the concept labels below are also shown only in English.",
+
+  "oops-back-home": "Back to home page",
+  "oops-general-error": "Showing something went wrong",
+
+  "year-label-any": "Any",
+  "year-label-2026": "2026",
+  "year-label-2025": "2025",
+  "year-label-2024": "2024",
+  "year-label-2023": "2023",
+  "year-label-2022": "2022",
+  "year-label-2021": "2021",
+  "year-label-2020": "2020",
+
+  "au-table-row": "Row",
+  "au-table-rows": "rows",
+  "au-table-next": "next",
+  "au-table-previous": "previous",
+  "au-table-of": "of",
+  "au-table-sort": "Sort",
+  "au-table-sort-ascending": "Sort ascending",
+  "au-table-sort-descending": "Sort descending",
+}

@@ -29,7 +29,10 @@
 {{#if @showImpact}}
   <td class="au-u-text-center">
     {{#if this.impact}}
-      <AuPill @skin={{this.impactSkin}} title={{concat "impact: " this.impact}}>
+      <AuPill
+        @skin={{this.impactSkin}}
+        title={{t "expression-annotation-impact" impact=this.impact}}
+      >
         {{this.impactText}}
       </AuPill>
     {{/if}}

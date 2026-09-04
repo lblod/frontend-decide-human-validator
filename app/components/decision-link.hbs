@@ -38,7 +38,9 @@
         @icon="x"
         @hideText={{true}}
         {{on "click" this.hideDecisionText}}
-      >Close</AuButton>
+      >
+        {{t "general-close"}}
+      </AuButton>
       <div>
         {{@expression.trimmedExpressionContent}}
       </div>

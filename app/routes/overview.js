@@ -37,10 +37,12 @@ export default class OverviewRoute extends Route {
     return {
       municipalities: municipalitiesWithSelection,
       apps: [
+        // NOTE (02/09/2026): The values for title and description are the
+        // labels of the intl strings to be displayed, not the actual content.
+        // They must be valid keys in the translation files.
         {
-          title: 'Validate SDG mapping',
-          description:
-            'Review how local decisions impact Sustainable Development Goals (SDGs).',
+          title: 'overview-validate-sdg-title',
+          description: 'overview-validate-sdg-description',
           route: 'validate-expression-labels',
           params: {
             municipality: params.municipality,
@@ -50,9 +52,8 @@ export default class OverviewRoute extends Route {
           },
         },
         {
-          title: 'Validate codelist mapping',
-          description:
-            'Review how local decisions are mapped to predefined codelist concepts.',
+          title: 'overview-validate-codelist-title',
+          description: 'overview-validate-codelist-description',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
@@ -62,9 +63,8 @@ export default class OverviewRoute extends Route {
           },
         },
         {
-          title: 'Validate text annotations',
-          description:
-            'Review the annotations identified in the text of local decisions, such as dates, locations, or mandatary roles.',
+          title: 'overview-validate-text-annotation-title',
+          description: 'overview-validate-text-annotation-description',
           route: 'expressions',
           params: {
             municipality: params.municipality,

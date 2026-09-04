@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
+  @service intl;
   @service municipalities;
   @service('options') dropdownOptions;
 
@@ -83,7 +84,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
           },
         })),
         {
-          prefLabel: 'No Match',
+          prefLabel: this.intl.t('expression-annotation-no-match'),
           id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
           uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
         },

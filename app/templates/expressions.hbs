@@ -1,4 +1,4 @@
-{{page-title "Expressions"}}
+{{page-title (t "expressions-title")}}
 
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
@@ -9,11 +9,11 @@
           @level={{3}}
           class="au-u-margin-top-none au-u-margin-bottom-small"
         >
-          Filter decisions
+          {{t "expressions-filter-decisions"}}
         </AuHeading>
         <div>
           <AuLabel for="decision-passed-by">
-            Local authority
+            {{t "filter-local-authority"}}
           </AuLabel>
           <PowerSelect
             id="decision-passed-by"
@@ -31,7 +31,7 @@
         </div>
         <div>
           <AuLabel for="decision-passed-by">
-            Title
+            {{t "filter-title"}}
           </AuLabel>
           <AuInput
             @width="block"
@@ -42,7 +42,7 @@
         </div>
         <div>
           <AuLabel for="expression-ai-model">
-            AI Component
+            {{t "validate-ai-component"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-ai-model"
@@ -59,7 +59,7 @@
         </div>
         <div>
           <AuLabel for="expression-predicate">
-            Link
+            {{t "expressions-link"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-predicate"
@@ -76,7 +76,7 @@
         </div>
         <div>
           <AuLabel for="expression-value-type">
-            Type
+            {{t "expressions-type"}}
           </AuLabel>
           <PowerSelectMultiple
             id="expression-value-type"
@@ -92,31 +92,31 @@
           </PowerSelectMultiple>
         </div>
         <div class="au-u-margin-top-small au-u-text-right">
-          <AuButton
-            @icon="x"
-            @skin="naked"
-            {{on "click" this.resetFilter}}
-          >Reset Filters</AuButton>
+          <AuButton @icon="x" @skin="naked" {{on "click" this.resetFilter}}>
+            {{t "filter-reset"}}
+          </AuButton>
         </div>
       </div>
     </div>
   </main.sidebar>
   <main.content>
     <AuBodyContainer id="content" @scroll={{true}}>
-      <AuHeading size="large" class="au-u-padding">Validate AI annotations</AuHeading>
+      <AuHeading size="large" class="au-u-padding">
+        {{t "validate-ai-annotations"}}
+      </AuHeading>
       <AuDataTable
         @content={{@model.expressions}}
-        @noDataMessage="No annotated decisions found"
+        @noDataMessage={{t "general-no-annotated-decisions"}}
         @page={{this.page}}
         @size={{this.size}}
-        as |t|
+        as |table|
       >
-        <t.content as |c|>
+        <table.content as |c|>
           <c.header>
-            <th>Expression</th>
-            <th>Organization</th>
-            <th>Annotations</th>
-            <th>Action</th>
+            <th>{{t "expressions-expression"}}</th>
+            <th>{{t "expressions-organization"}}</th>
+            <th>{{t "expressions-annotations"}}</th>
+            <th>{{t "expressions-action"}}</th>
           </c.header>
           <c.body as |expression|>
             <td class="ellipsis">
@@ -153,14 +153,14 @@
                   @newTab={{true}}
                   href={{await expression.model.accessLink}}
                 >
-                  View decision
+                  {{t "expressions-view-decision"}}
                 </AuLinkExternal>
               {{else}}
-                <span>No decision link</span>
+                <span>{{t "expressions-no-decision-link"}}</span>
               {{/if}}
             </td>
           </c.body>
-        </t.content>
+        </table.content>
       </AuDataTable>
       {{outlet}}
     </AuBodyContainer>
