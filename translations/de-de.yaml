@@ -1,0 +1,122 @@
+{
+  "general-app-title": "DECIDe App",
+  "general-not-applicable": "k. A.",
+  "general-no-annotated-decisions": "Es wurden keine kommentierten Entscheidungen gefunden",
+  "general-no-annotated-data": "Es wurden keine kommentierten Daten gefunden",
+  "general-none": "Keine",
+  "general-loading": "Wird geladen",
+  "general-confirm": "Bestätigen",
+  "general-cancel": "Abbrechen",
+  "general-close": "Schließen",
+  "general-select-locale": "Sprache auswählen",
+
+  "general-page-not-found-title": "Hoppla, diese Seite wurde nicht gefunden",
+  "general-page-not-found-message": "Die von Ihnen gesuchte Seite wurde nicht gefunden.",
+
+  "application-page-title": "DecideFrontend",
+
+  "overview-page-title": "KI-Annotationen validieren",
+  "overview-description": "Im Rahmen des DECIDe-Projekts analysieren KI-Tools den Wortlaut lokaler Beschlüsse und ergänzen diese mit Anmerkungen. Diese Anmerkungen können bestimmte Konzepte im Text identifizieren (wie beispielsweise Daten, Orte oder Amtsträger) oder einen Beschluss einer oder mehreren Konzeptlisten zuordnen. Über diese Schnittstelle können menschliche Nutzer diese von der KI generierten Anmerkungen überprüfen und validieren.",
+  "overview-select-local-authority": "Wählen Sie eine Kommunalbehörde aus",
+  "overview-dataset-message": "Der Datensatz enthält Entscheidungen verschiedener Kommunalbehörden. Wählen Sie die Kommunalbehörde aus, deren Entscheidungsanmerkungen Sie einsehen möchten.",
+  "overview-start-validation": "Validierung starten",
+  "overview-select-authority-message": "Wählen Sie eine Kommunalbehörde aus, um mit der Validierung der Anmerkungen zu beginnen.",
+
+  "overview-validate-sdg-title": "SDG-Zuordnung überprüfen",
+  "overview-validate-sdg-description": "Untersuchen Sie, wie sich lokale Entscheidungen auf die Ziele für nachhaltige Entwicklung (Sustainable Development Goals, SDGs) auswirken.",
+  "overview-validate-codelist-title": "Zuordnung der Codeliste überprüfen",
+  "overview-validate-codelist-description": "Überprüfen Sie, wie lokale Entscheidungen den vordefinierten Konzepten der Codeliste zugeordnet werden.",
+  "overview-validate-text-annotation-title": "Textanmerkungen validieren",
+  "overview-validate-text-annotation-description": "Überprüfen Sie die im Wortlaut der lokalen Beschlüsse enthaltenen Angaben, wie beispielsweise Daten, Orte oder Befugnisse.",
+
+  "filter-local-authority": "Kommunalbehörde",
+  "filter-title": "Titel",
+  "filter-year": "Entscheidungsjahr",
+  "filter-impact-type": "Aufprallart",
+  "filter-concept-scheme": "Konzeptentwurf",
+  "filter-deselect-all": "Alle abwählen",
+  "filter-select-all": "Alles auswählen",
+  "filter-reset": "Filter zurücksetzen",
+  "filter-annotations": "Anmerkungen filtern",
+
+  "validate-ai-annotations": "KI-Annotationen validieren",
+  "validate-hide-reviewed": "Bereits geprüfte Entitäten ausblenden",
+  "validate-ai-component": "KI-Komponente",
+  "validate-decision-name": "Name der Entscheidung",
+  "validate-decision": "Entscheidung",
+  "validate-discovered-entity": "Entdeckte Entität",
+  "validate-impact": "Auswirkung",
+  "validate-correct": "Ist das richtig?",
+  "validate-back-to-decision-list": "Zurück zur Liste der Entscheidungen",
+
+  "validate-thumbs-no-correction-added": "Es wurden keine Korrekturen vorgenommen",
+  "validate-thumbs-concept-mulitple-times": "Dasselbe Konzept wird mehrfach als Korrektur verwendet.",
+  "validate-thumbs-add-correction": "Korrektur hinzufügen",
+
+  "annotations-page-title": "Anmerkungen",
+
+  "annotation-page-title": "Anmerkung",
+  "annotation-annotation": "Anmerkung",
+
+  "annotation-title-geo": "Geo Anmerkung",
+  "annotation-resource-uuid": "Ressourcen-UUID",
+  "annotation-motivation": "Motivation",
+  "annotation-confidence": "Vertrauen",
+
+  "annotation-location-title": "Standort",
+  "annotation-location-label-column": "Tag",
+  "annotation-location-match-column": "Genauer Treffer",
+
+  "annotation-geometry-title": "Geometrie",
+  "annotation-geometry-coord": "EPSG:31370 (belgisch Lambert 72)",
+  "annotation-geometry-map-column": "Karte",
+
+  "annotation-motivated-by": "Motiviert durch",
+
+  "annotation-type-no-info": "Zu diesem Typ wurden keine Informationen gefunden",
+  "annotation-link-no-info": "Zu diesem Prädikat wurden keine Informationen gefunden",
+  "annotation-help-example-date": "JJJJ-MM-TT, zum Beispiel 2026-02-25",
+  "annotation-help-example-text": "Der Wert muss das folgende Format haben: {example}",
+
+  "expressions-title": "Expressions",
+  "expressions-filter-decisions": "Filterentscheidungen",
+  "expressions-link": "Link",
+  "expressions-type": "Typ",
+  "expressions-expression": "Expression",
+  "expressions-organization": "Organisation",
+  "expressions-annotations": "Anmerkungen",
+  "expressions-action": "Aktion",
+  "expressions-view-decision": "Entscheidung anzeigen",
+  "expressions-no-decision-link": "Kein Link zur Entscheidung",
+
+  "expressions-impact-positive-label": "Positiv",
+  "expressions-impact-negative-label": "Negativ",
+  "expressions-impact-any-label": "irgendein",
+
+  "expression-annotation-impact": "Auswirkung: {impact}",
+  "expression-annotation-human-correction": "Manuelle Korrektur",
+  "expression-annotation-no-match": "Keine Übereinstimmung",
+
+  "expressions-codelist-language-message": "Die KI-Tools ordneten Entscheidungen ausschließlich auf der Grundlage einer englischen Beschreibung bestimmten Konzepten zu. Daher werden die folgenden Konzeptbezeichnungen ebenfalls nur auf Englisch angezeigt.",
+
+  "oops-back-home": "Zurück zur Startseite",
+  "oops-general-error": "Es ist ein Fehler aufgetreten",
+
+  "year-label-any": "irgendein",
+  "year-label-2026": "2026",
+  "year-label-2025": "2025",
+  "year-label-2024": "2024",
+  "year-label-2023": "2023",
+  "year-label-2022": "2022",
+  "year-label-2021": "2021",
+  "year-label-2020": "2020",
+
+  "au-table-row": "Zeile",
+  "au-table-rows": "Zeilen",
+  "au-table-next": "Weiter",
+  "au-table-previous": "Zurück",
+  "au-table-of": "von",
+  "au-table-sort": "Sortieren",
+  "au-table-sort-ascending": "Aufsteigend sortieren",
+  "au-table-sort-descending": "Absteigend sortieren",
+}
