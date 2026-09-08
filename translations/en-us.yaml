@@ -11,7 +11,7 @@
   "general-select-locale": "Select language",
 
   "general-page-not-found-title": "Oops, this page as not found",
-  "general-page-not-found-message": "The page you are look for was not found.",
+  "general-page-not-found-message": "The page you are looking for was not found.",
 
   "application-page-title": "DecideFrontend",
 
@@ -100,7 +100,7 @@
   "expressions-codelist-language-message": "The AI tools mapped decisions to concepts solely based on an English description.  Therefore, the concept labels below are also shown only in English.",
 
   "oops-back-home": "Back to home page",
-  "oops-general-error": "Showing something went wrong",
+  "oops-general-error": "Something went wrong",
 
   "year-label-any": "Any",
   "year-label-2026": "2026",
