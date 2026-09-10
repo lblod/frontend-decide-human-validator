@@ -2,16 +2,17 @@
 
 <AuBodyContainer @scroll={{true}} class="au-u-padding">
   <AuHeading @skin={{1}} @level={{1}}>
-    AI Annotatie Validator
+    {{t "validate-ai-annotations"}}
   </AuHeading>
   <p>
-    Binnen het VMM project worden de actieplannen uit de meerjarenplannen van de lokale besturen geanalyseerd d.m.v AI, met als doel lokale acties te linken aan het  <AuLinkExternal
+    {{t "overview-description-prefix"}}
+     <AuLinkExternal
       href="https://www.vlaanderen.be/publicaties/vlaams-klimaatadaptatieplan-vlaanderen-wapenen-tegen-de-klimaatverandering"
       @newTab={{true}}
     >
-      Vlaams Klimaatadaptatieplan (VAP)
+      {{t "overview-description-vap-link"}}
     </AuLinkExternal>.
-    Deze interface laat menselijke gebruikers toe om deze gegenereerde links te valideren en indien nodig te corrigeren.
+    {{t "overview-description-suffix"}}
   </p>
 
     <div class="au-o-grid au-o-grid--tiny au-u-margin-top">
@@ -20,15 +21,15 @@
           <AuCard class="au-u-padding" as |c|>
             <c.header>
               <AuHeading @skin={{4}} @level={{2}}>
-                {{app.title}}
+                {{t app.title}}
               </AuHeading>
             </c.header>
             <c.content>
-              {{app.description}}
+              {{t app.description}}
             </c.content>
             <c.footer>
               <AuLink @skin="button" @route={{app.route}} @query={{app.params}}>
-                Start validatie
+                {{t "overview-start-validation"}}
               </AuLink>
             </c.footer>
           </AuCard>

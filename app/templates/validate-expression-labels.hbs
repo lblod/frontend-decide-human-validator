@@ -1,4 +1,4 @@
-{{page-title "AI Annotatie Validator"}}
+{{page-title (t "validate-ai-annotations")}}
 
 <AuMainContainer class="au-u-height-full" as |main|>
   <main.sidebar>
@@ -6,7 +6,7 @@
       <div class="au-c-sidebar__content au-u-padding">
         <div>
           <AuLabel for="decision-passed-by-province">
-            Provincie
+            {{t "filter-province"}}
           </AuLabel>
           <div class="au-u-flex">
             <div class="au-u-flex-grow">
@@ -38,7 +38,7 @@
         </div>
         <div class="au-u-margin-top-small">
           <AuLabel for="decision-passed-by-municipality">
-            Gemeente
+            {{t "filter-local-authority"}}
           </AuLabel>
           <div class="au-u-flex">
             <div class="au-u-flex-grow">
@@ -62,14 +62,14 @@
                 {{on "click" this.clearMunicipality}}
                 class="au-u-flex-shrink-0"
               >
-                verwijder
+                {{t "clear"}}
               </AuButton>
             {{/if}}
           </div>
         </div>
         <div class="au-u-margin-top-small">
           <AuLabel for="description-search">
-            Beschrijving
+            {{t "filter-description"}}
           </AuLabel>
           <AuInput
             id="description-search"
@@ -82,14 +82,14 @@
               {{on "click" this.clearSearch}}
               class="au-u-flex-shrink-0"
             >
-              verwijder
+              {{t "clear"}}
             </AuButton>
           {{/if}}
         </div>
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
             <AuLabel for="impact-filter">
-              Impact type
+              {{t "filter-impact-type"}}
             </AuLabel>
             <AuRadioGroup
               id="impact-filter"
@@ -99,9 +99,9 @@
               as |Group|
             >
               {{#each this.impactOptions as |impact|}}
-                <Group.Radio
-                  @value={{impact.value}}
-                >{{impact.label}}</Group.Radio>
+                <Group.Radio @value={{impact.value}}>
+                  {{t impact.label}}
+                </Group.Radio>
               {{/each}}
             </AuRadioGroup>
           </div>
@@ -109,7 +109,7 @@
         {{#if this.showCs}}
           <div class="au-u-margin-top">
             <AuLabel for="concept-scheme">
-              Concept Schema
+              {{t "filter-concept-scheme"}}
             </AuLabel>
             <PowerSelect
               id="concept-scheme"
@@ -131,7 +131,22 @@
             <div class="au-u-flex">
               <AuLabel for="deselect-all">
                 {{this.selectedConceptScheme.prefLabel}}
+                {{#unless (eq this.intl.primaryLocale "en-us")}}
+                  <AuTooltip @placement="top" as |tooltip|>
+                    <AuButton
+                      {{tooltip.target}}
+                      @skin="naked"
+                      @icon="info-circle"
+                      @iconAlignment="right"
+                      class="au-u-flex-shrink-0"
+                    />
+                    <tooltip.Content>
+                      {{t "expressions-codelist-language-message"}}
+                    </tooltip.Content>
+                  </AuTooltip>
+                {{/unless}}
               </AuLabel>
+
               {{#if this.canDeselectAllConcepts}}
                 <AuButton
                   id="deselect-all"
@@ -139,7 +154,7 @@
                   {{on "click" this.deselectAllConcepts}}
                   class="au-u-flex-shrink-0"
                 >
-                  Deselecteer alles
+                  {{t "filter-deselect-all"}}
                 </AuButton>
               {{/if}}
               {{#if this.canSelectAllConcepts}}
@@ -148,7 +163,7 @@
                   {{on "click" this.selectAllConcepts}}
                   class="au-u-flex-shrink-0"
                 >
-                  Selecteer alles
+                  {{t "filter-select-all"}}
                 </AuButton>
               {{/if}}
             </div>
@@ -164,13 +179,11 @@
                         concept
                       }}
                       @onChange={{fn this.toggleConcept concept}}
-                    >{{if
-                        concept.notation
-                        (concat concept.notation ": ")
-                        ""
-                      }}{{concept.prefLabel}}</AuCheckbox>
+                    >
+                      {{if concept.notation (concat concept.notation ": ") ""}}
+                      {{concept.prefLabel}}
+                    </AuCheckbox>
                   </div>
-
                 </li>
               {{/each}}
             </ul>
@@ -178,11 +191,9 @@
         {{/if}}
 
         <div class="au-u-margin-top-small au-u-text-right">
-          <AuButton
-            @icon="x"
-            @skin="naked"
-            {{on "click" this.resetFilters}}
-          >Reset Filters</AuButton>
+          <AuButton @icon="x" @skin="naked" {{on "click" this.resetFilters}}>
+            {{t "filter-reset"}}
+          </AuButton>
         </div>
       </div>
       {{outlet}}
@@ -197,30 +208,36 @@
             <div
               class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
             >
-              <AuHeading @level={{1}} @skin={{1}}>AI Annotatie Validator</AuHeading>
+              <AuHeading @level={{1}} @skin={{1}}>
+                {{t "validate-ai-annotations"}}
+              </AuHeading>
               <AuToggleSwitch
                 @checked={{this.hideVoted}}
                 @onChange={{this.toggleHideVoted}}
-              >Verberg reeds gevalideerde items</AuToggleSwitch>
+              >
+                {{t "validate-hide-reviewed"}}
+              </AuToggleSwitch>
             </div>
             <AuDataTable
               @content={{@model.annotations}}
-              @noDataMessage="No annotated decisions found"
+              @noDataMessage={{t "general-no-annotated-decisions"}}
               @page={{this.page}}
               @size={{this.size}}
-              as |t|
+              as |table|
             >
-              <t.content as |c|>
+              <table.content as |c|>
                 <c.header>
-                  <th>Actie</th>
-                  <th>{{or
-                      this.selectedConceptScheme.prefLabel
-                      "Discovered entity"
-                    }}</th>
-                  {{#if this.showImpact}}
-                    <th>Impact</th>
+                  <th>{{t "validate-ai-component"}}</th>
+                  <th>{{t "validate-decision-name"}}</th>
+                  {{#if this.selectedConceptScheme.prefLabel}}
+                    <th>{{this.selectedConceptScheme.prefLabel}}</th>
+                  {{else}}
+                    <th>{{t "validate-discovered-entity"}}</th>
                   {{/if}}
-                  <th>Is dit correct?</th>
+                  {{#if this.showImpact}}
+                    <th>{{t "validate-impact"}}</th>
+                  {{/if}}
+                  <th>{{t "validate-correct"}}</th>
                 </c.header>
                 <c.body as |annotation|>
                   <ExpressionAnnotationListItem
@@ -229,7 +246,7 @@
                     @conceptSchemeId={{this.model.conceptSchemeId}}
                   />
                 </c.body>
-              </t.content>
+              </table.content>
             </AuDataTable>
             {{outlet}}
           </div>

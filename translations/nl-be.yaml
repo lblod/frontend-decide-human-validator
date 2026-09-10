@@ -1,0 +1,123 @@
+{
+  "general-app-title": "DECIDe App",
+  "general-not-applicable": "n.v.t",
+  "general-no-annotated-decisions": "Geen geannoteerde beslissingen gevonden",
+  "general-no-annotated-data": "Geen geannoteerde data gevonden",
+  "general-none": "Geen",
+  "general-loading": "Aan het laden",
+  "general-confirm": "Bevestig",
+  "general-cancel": "Annuleer",
+  "general-close": "Sluit",
+  "general-select-locale": "Selecteer taal",
+
+  "general-page-not-found-title": "Oeps, die pagina vonden we niet terug",
+  "general-page-not-found-message": "De pagina die u zoekt, vonden we niet terug.",
+
+  "application-page-title": "DecideFrontend",
+
+  "overview-page-title": "Valideer AI Annotaties",
+  "overview-description": "In het DECIDe project worden AI tools gebruikt om de inhoud van lokale beslissingen te analyseren en verrijken met annotaties. Deze annotaties kunnen concrete concepten in de tekst identificeren (bijvoorbeeld datums, locaties, of rollen van mandatarissen), of koppelen een beslissing aan één of meerdere concept lijsten.  Deze interface laat gebruikers toe om deze AI-gegeneerde annotaties na te kijken en te valideren.",
+  "overview-select-local-authority": "Selecteer een lokaal bestuur",
+  "overview-dataset-message": "De dataset bevat beslissingen van meerdere lokale besturen. Selecteer het lokale bestuur waarvan u the annotaties wil valideren.",
+  "overview-start-validation": "Start validatie",
+  "overview-select-authority-message": "Selecteer een lokaal bestuur om te starten met het valideren van annotaties.",
+
+  # NOTE (02/09/2026): I did not translate the abbreviation SDG, as it also not translated here https://duurzameontwikkeling.be/sdgs
+  "overview-validate-sdg-title": "Valideer SDG mapping",
+  "overview-validate-sdg-description": "Kijk na hoe lokale beslissingen impact hebben op Duurzame Ontwikkelingsdoelstellingen (SDGs).",
+  "overview-validate-codelist-title": "Valideer codelijst mapping",
+  "overview-validate-codelist-description": "Kijk na hoe lokale beslissingen impact hebben op voorgedefinieerde codelijst concepten.",
+  "overview-validate-text-annotation-title": "Valideer tekst annotaties",
+  "overview-validate-text-annotation-description": "Kijk annotaties na die entiteiten identificeren in de inhoud van lokale beslissingen.  Bijvoorbeeld datums, locaties, of rollen van madatarissen.",
+
+  "filter-local-authority": "Lokaal bestuur",
+  "filter-title": "Titel",
+  "filter-year": "Jaar beslissing",
+  "filter-impact-type": "Impact type",
+  "filter-concept-scheme": "Concept Schema",
+  "filter-deselect-all": "Selectie wissen",
+  "filter-select-all": "Selecteer alle",
+  "filter-reset": "Reset filters",
+  "filter-annotations": "Filter annotaties",
+
+  "validate-ai-annotations": "Valideer AI annotaties",
+  "validate-hide-reviewed": "Verberg reeds gevalideerde entiteiten",
+  "validate-ai-component": "AI Component",
+  "validate-decision-name": "Beslissing naam",
+  "validate-decision": "Beslissing",
+  "validate-discovered-entity": "Ontdekte entiteit",
+  "validate-impact": "Impact",
+  "validate-correct": "Is dit correct?",
+  "validate-back-to-decision-list": "Terug naar overzicht van beslissingen",
+
+  "validate-thumbs-no-correction-added": "Er werden geen correcties toegevoegd",
+  "validate-thumbs-concept-mulitple-times": "Hetzelfde concept is meermaals als correctie gebruikt.",
+  "validate-thumbs-add-correction": "Voeg correctie toe",
+
+  "annotations-page-title": "Annotaties",
+
+  "annotation-page-title": "Annotatie",
+  "annotation-annotation": "Annotatie",
+
+  "annotation-title-geo": "Geo annotatie",
+  "annotation-resource-uuid": "Bron UUID",
+  "annotation-motivation": "Motivatie",
+  "annotation-confidence": "Vertrouwen",
+
+  "annotation-location-title": "Locatie",
+  "annotation-location-label-column": "Label",
+  "annotation-location-match-column": "Exacte overeenkomst",
+
+  "annotation-geometry-title": "Geometrie",
+  "annotation-geometry-coord": "EPSG:31370 (Belgische Lambert 72)",
+  "annotation-geometry-map-column": "Kaart",
+
+  "annotation-motivated-by": "Gemotiveerd door",
+
+  "annotation-type-no-info": "Geen informatie beschikbaar omtrent dit type",
+  "annotation-link-no-info": "Geen informatie beschikbaar omtrent dit predikaat",
+  "annotation-help-example-date": "JJJJ-MM-DD bijvoorbeeld 2026-02-25",
+  "annotation-help-example-text": "De waarde moet als formaat hebben {example}",
+
+  "expressions-title": "Expressies",
+  "expressions-filter-decisions": "Filter beslissingen",
+  "expressions-link": "Link",
+  "expressions-type": "Type",
+  "expressions-expression": "Expressie",
+  "expressions-organization": "Organisatie",
+  "expressions-annotations": "Annotaties",
+  "expressions-action": "Actie",
+  "expressions-view-decision": "Bekijk beslissing",
+  "expressions-no-decision-link": "Geen link naar beslissing",
+
+  "expression-annotation-impact": "impact: {impact}",
+  "expression-annotation-human-correction": "Menselijke correctie",
+  "expression-annotation-no-match": "Geen overeenkomst",
+
+  "expressions-codelist-language-message": "De AI tools hebben beslissingen aan concepten gerelateerd op basis van een Engelstalige beschrijving van de concepten. Om die reden toont onderstaande lijst de conceptlabels ook enkel in het Engels.",
+
+  "expressions-impact-positive-label": "Positief",
+  "expressions-impact-negative-label": "Negatief",
+  "expressions-impact-any-label": "Alle",
+
+  "oops-back-home": "Terug naar de startpagina",
+  "oops-general-error": "Iets ging er mis",
+
+  "year-label-any": "Alle",
+  "year-label-2026": "2026",
+  "year-label-2025": "2025",
+  "year-label-2024": "2024",
+  "year-label-2023": "2023",
+  "year-label-2022": "2022",
+  "year-label-2021": "2021",
+  "year-label-2020": "2020",
+
+  "au-table-row": "Rij",
+  "au-table-rows": "rijen",
+  "au-table-next": "volgende",
+  "au-table-previous": "vorige",
+  "au-table-of": "van",
+  "au-table-sort": "Sorteer",
+  "au-table-sort-ascending": "Oplopend sorteren",
+  "au-table-sort-descending": "Aflopend sorteren",
+}

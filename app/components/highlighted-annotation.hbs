@@ -31,7 +31,9 @@
         @icon="x"
         @hideText={{true}}
         {{on "click" this.resetShowInfo}}
-      >Close</AuButton>
+      >
+        {{t "general-close"}}
+      </AuButton>
       <div class="au-u-margin-top-none">
         <AuHeading
           @level={{4}}
@@ -83,7 +85,9 @@
             @level={{4}}
             @skin={{4}}
             class="au-u-muted au-u-margin-none"
-          >Map</AuHeading>
+          >
+            {{t "annotation-geometry-map-column"}}
+          </AuHeading>
           <Leaflet @props={{this.geometry.wgs84Coord}} />
         </div>
       {{/if}}

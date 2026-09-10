@@ -37,10 +37,12 @@ export default class OverviewRoute extends Route {
     return {
       municipalities: municipalitiesWithSelection,
       apps: [
+        // NOTE (02/09/2026): The values for title and description are the
+        // labels of the intl strings to be displayed, not the actual content.
+        // They must be valid keys in the translation files.
         {
-          title: 'Valideer VAP linking',
-          description:
-            'Valideer de gegenereerde links tussen lokale actieplannen en het Vlaams Klimaatadaptatieplan (VAP) voor 2030.',
+          title: 'overview-validate-vap-title',
+          description: 'overview-validate-vap-description',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
