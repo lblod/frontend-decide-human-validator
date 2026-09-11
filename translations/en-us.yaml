@@ -125,4 +125,10 @@
   "au-table-sort": "Sort",
   "au-table-sort-ascending": "Sort ascending",
   "au-table-sort-descending": "Sort descending",
+
+  "decision-link-organization": "Organization",
+  "decision-link-current-action": "Current Action:",
+  "decision-link-part-of-actionplan": "Part of Action Plan:",
+  "decision-link-part-of-policy-goal": "Part of Policy Goal:",
+  "decision-link-same-actionplan": "Actions from the same Action Plan:",
 }

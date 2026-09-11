@@ -48,7 +48,7 @@
         >Close</AuButton>
           {{#if this.organizations.length}}
             <div class="decision-link__section organization-content">
-              <strong>Organisatie:</strong>
+              <strong>{{t "decision-link-organization"}}</strong>
               <ul class="decision-link__list">
                 {{#each this.organizations as |org index|}}
                   <li>
@@ -61,7 +61,7 @@
           {{/if}}
 
         <p class="decision-link__section">
-          <strong>Huidige Actie:</strong>
+          <strong>{{t "decision-link-current-action"}}</strong>
           <ul class="decision-link__list">
             {{#if @expression.trimmedExpressionContent}}
                <li><span class="decision-link__value">{{@expression.trimmedExpressionContent}}</span></li>
@@ -73,7 +73,7 @@
 
         {{#if this.actionPlanContents.length}}
           <div class="decision-link__section action-plan-content">
-            <strong>Deel van Actieplan:</strong>
+            <strong>{{t "decision-link-part-of-actionplan"}}</strong>
             <ul class="decision-link__list">
               {{#each this.actionPlanContents as |content|}}
                 <li>{{content}}</li>
@@ -84,7 +84,7 @@
 
         {{#if this.policyGoalContents.length}}
           <div class="decision-link__section policy-goal-content">
-            <strong>Deel van beleidsdoelstelling:</strong>
+            <strong>{{t "decision-link-part-of-policy-goal"}}</strong>
             <ul class="decision-link__list">
               {{#each this.policyGoalContents as |content|}}
                 <li>{{content}}</li>
@@ -95,7 +95,7 @@
 
         {{#if this.memberWorkContents.length}}
           <div class="decision-link__section member-work-content">
-            <strong>Acties uit hetzelde actieplan:</strong>
+            <strong>{{t "decision-link-same-actionplan"}}</strong>
             <ul class="decision-link__list">
               {{#each this.memberWorkContents as |content|}}
                 <li>{{content}}</li>

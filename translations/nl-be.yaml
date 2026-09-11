@@ -126,4 +126,10 @@
   "au-table-sort": "Sorteer",
   "au-table-sort-ascending": "Oplopend sorteren",
   "au-table-sort-descending": "Aflopend sorteren",
+
+  "decision-link-organization": "Organisatie",
+  "decision-link-current-action": "Huidige actie:",
+  "decision-link-part-of-actionplan": "Deel van actieplan:",
+  "decision-link-part-of-policy-goal": "Deel van beleidsdoelstelling:",
+  "decision-link-same-actionplan": "Acties uit hetzelfde actieplan:",
 }
