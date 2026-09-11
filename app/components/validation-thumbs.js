@@ -13,17 +13,29 @@ export default class ValidationThumbs extends Component {
   @tracked modalOpen = false;
   @tracked corrections = [];
 
-  get concepts() {
+  async loadConcepts() {
     const filter = {};
     if (this.args.conceptSchemeId) {
       filter['concept-scheme'] = { id: this.args.conceptSchemeId };
     }
-    return this.store.query('concept', {
+    let concepts = await this.store.query('concept', {
       filter,
       page: {
         size: 999, // assume concept schemes are smaller than 999 concepts so we don't have to get fancy with the search function
       },
     });
+    for (const concept of concepts) {
+      if (concept.notation && concept.prefLabel?.length) {
+        concept.prefLabel = concept.prefLabel.map(
+          (label) => `${concept.notation}: ${label}`
+        );
+      }
+    }
+    return concepts;
+  }
+
+  get concepts() {
+    return this.loadConcepts();
   }
   get impacts() {
     return [

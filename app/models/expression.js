@@ -1,9 +1,11 @@
-import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
+import { hasMany, belongsTo, attr } from '@ember-data/model';
+import AnnotationTargetModel from './annotation-target';
 
 const MAX_SHORT_TITLE_LENGTH = 90;
-export default class ExpressionModel extends Model {
+export default class ExpressionModel extends AnnotationTargetModel {
   @attr('string') uri;
   @attr('language-string') title;
+  @attr('language-string') description;
   @attr('string') wasDerivedFrom;
   @attr('language-string') expressionContent;
 
@@ -36,8 +38,10 @@ export default class ExpressionModel extends Model {
   isSourceOf;
 
   @belongsTo('work', {
-    inverse: null,
+    inverse: 'isRealizedBy',
+    as: 'work',
     async: true,
+    polymorphic: true,
   })
   realizes;
 

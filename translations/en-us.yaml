@@ -24,13 +24,18 @@
 
   "overview-validate-sdg-title": "Validate SDG mapping",
   "overview-validate-sdg-description": "Review how local decisions impact Sustainable Development Goals (SDGs).",
+  "overview-validate-vap-title": "Validate VAP mapping",
+  "overview-validate-vap-description": "Review generated links between local action plans and the Flemish Climate Adaption Plan (VAP) for 2030.",
   "overview-validate-codelist-title": "Validate codelist mapping",
   "overview-validate-codelist-description": "Review how local decisions are mapped to predefined codelist concepts.",
   "overview-validate-text-annotation-title": "Validate text annotations",
   "overview-validate-text-annotation-description": "Review the annotations identified in the text of local decisions, such as dates, locations, or mandatary roles.",
-
+  "overview-description-prefix": "Within the VMM project, the action plans from the multi-year plans of local governments are analysed using AI, with the goal of linking local actions to the ",
+  "overview-description-vap-link": "Flemish Climate Adaptation Plan (VAP)",
+  "overview-description-suffix": "This interface allows human users to validate these generated links and correct them if needed.",
   "filter-local-authority": "Local authority",
   "filter-title": "Title",
+  "filter-description": "Description",
   "filter-year": "Decision Year",
   "filter-impact-type": "Impact type",
   "filter-concept-scheme": "Concept Scheme",
@@ -38,7 +43,8 @@
   "filter-select-all": "Select all",
   "filter-reset": "Reset Filters",
   "filter-annotations": "Filter annotations",
-
+  "filter-province": "Province",
+  "clear": "clear",
   "validate-ai-annotations": "Validate AI annotations",
   "validate-hide-reviewed": "Hide already reviewed entities",
   "validate-ai-component": "AI Component",
@@ -119,4 +125,10 @@
   "au-table-sort": "Sort",
   "au-table-sort-ascending": "Sort ascending",
   "au-table-sort-descending": "Sort descending",
+
+  "decision-link-organization": "Organization",
+  "decision-link-current-action": "Current Action:",
+  "decision-link-part-of-actionplan": "Part of Action Plan:",
+  "decision-link-part-of-policy-goal": "Part of Policy Goal:",
+  "decision-link-same-actionplan": "Actions from the same Action Plan:",
 }

@@ -1,42 +1,20 @@
-{{page-title (t "overview-page-title")}}
+{{page-title "AI Annotatie Validator"}}
 
 <AuBodyContainer @scroll={{true}} class="au-u-padding">
   <AuHeading @skin={{1}} @level={{1}}>
     {{t "validate-ai-annotations"}}
   </AuHeading>
   <p>
-    {{t "overview-description"}}
+    {{t "overview-description-prefix"}}
+     <AuLinkExternal
+      href="https://www.vlaanderen.be/publicaties/vlaams-klimaatadaptatieplan-vlaanderen-wapenen-tegen-de-klimaatverandering"
+      @newTab={{true}}
+    >
+      {{t "overview-description-vap-link"}}
+    </AuLinkExternal>.
+    {{t "overview-description-suffix"}}
   </p>
 
-  <div class="au-u-margin-top">
-    <AuHeading @skin={{3}} @level={{2}}>
-      {{t "overview-select-local-authority"}}
-    </AuHeading>
-    <p>
-      {{t "overview-dataset-message"}}
-    </p>
-
-    <div class="au-u-margin-top-small">
-
-      <AuLabel for="decision-passed-by">
-        {{t "filter-local-authority"}}
-      </AuLabel>
-      <PowerSelect
-        id="decision-passed-by"
-        @searchEnabled={{true}}
-        @searchField="prefLabel"
-        @search={{this.searchMunicipality}}
-        @options={{@model.municipalities}}
-        @selected={{this.selectedMunicipality}}
-        @onChange={{this.changeSelectedMunicipality}}
-        @renderInPlace={{true}}
-        as |option|
-      >
-        {{option.prefLabel}}
-      </PowerSelect>
-    </div>
-  </div>
-  {{#if this.selectedMunicipality}}
     <div class="au-o-grid au-o-grid--tiny au-u-margin-top">
       {{#each @model.apps as |app|}}
         <div class="au-o-grid__item au-u-1-2">
@@ -58,10 +36,5 @@
         </div>
       {{/each}}
     </div>
-  {{else}}
-    <AuAlert @skin="info" @icon="circle-info" class="au-u-margin-top">
-      <p>{{t "overview-select-authority-message"}}</p>
-    </AuAlert>
-  {{/if}}
   {{outlet}}
 </AuBodyContainer>
