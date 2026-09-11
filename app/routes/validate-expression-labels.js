@@ -35,8 +35,10 @@ function compareByNotation(a, b) {
 
 export default class ValidateExpressionLabelsRoute extends Route {
   @service store;
+  @service intl;
   @service municipalities;
   @service provinces;
+  @service('options') dropdownOptions;
 
   queryParams = {
     page: { refreshModel: true },
@@ -87,6 +89,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       ),
       this.municipalities.getMunicipalities(params.municipality, params.province),
       this.provinces.getProvinces(params.province),
+      this.dropdownOptions.hvtConceptSchemes(),
     ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
@@ -111,7 +114,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     const schemeFilter = {
       filter: {
         'show-in-hvt': true,
-        ':id:': '6673ad10-0f68-5e7d-81b1-c74828de3879', 
+        ':id:': '6673ad10-0f68-5e7d-81b1-c74828de3879',
       },
     };
     const conceptSchemes = [
@@ -140,6 +143,11 @@ export default class ValidateExpressionLabelsRoute extends Route {
             size: 9999,
           },
         })),
+        {
+          prefLabel: this.intl.t('expression-annotation-no-match'),
+          id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
+          uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
+        },
       ];
       // The API sorts alphabetically, which mis-orders notations like
       // "A20" (before "A3"). Re-sort naturally on the client instead.

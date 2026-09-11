@@ -10,6 +10,7 @@ export default class OverviewController extends Controller {
   @tracked municipality = null;
 
   @service store;
+  @service intl;
 
   get selectedMunicipality() {
     return this.model.municipalities.find((municipality) => {
