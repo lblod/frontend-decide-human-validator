@@ -101,9 +101,12 @@
   </main.sidebar>
   <main.content>
     <AuBodyContainer id="content" @scroll={{true}}>
-      <AuHeading size="large" class="au-u-padding">
-        {{t "validate-ai-annotations"}}
-      </AuHeading>
+      <div class="au-u-flex au-u-flex--between au-u-padding-right">
+        <AuHeading size="large" class="au-u-padding">
+          {{t "validate-ai-annotations"}}
+        </AuHeading>
+        <FundedByDs4sscc />
+      </div>
       <AuDataTable
         @content={{@model.expressions}}
         @noDataMessage={{t "general-no-annotated-decisions"}}

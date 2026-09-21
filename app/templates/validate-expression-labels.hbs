@@ -50,6 +50,15 @@
             {{t option.label}}
           </PowerSelect>
         </div>
+
+        <div class="au-u-margin-top">
+          <AuToggleSwitch
+            @checked={{this.hideVoted}}
+            @onChange={{this.toggleHideVoted}}
+          >
+            {{t "validate-hide-reviewed"}}
+          </AuToggleSwitch>
+        </div>
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
             <AuLabel for="decision-passed-by">
@@ -158,6 +167,7 @@
           </AuButton>
         </div>
       </div>
+
       {{outlet}}
     </div>
   </main.sidebar>
@@ -168,17 +178,15 @@
 
           <div class="vertical-grow">
             <div
-              class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between"
+              class="au-u-padding au-u-flex au-u-flex--vertical-center au-u-flex--between au-u-1-1"
             >
-              <AuHeading @level={{1}} @skin={{1}}>
-                {{t "validate-ai-annotations"}}
-              </AuHeading>
-              <AuToggleSwitch
-                @checked={{this.hideVoted}}
-                @onChange={{this.toggleHideVoted}}
-              >
-                {{t "validate-hide-reviewed"}}
-              </AuToggleSwitch>
+
+              <div class="au-u-flex au-u-flex--between au-u-1-1">
+                <AuHeading @level={{1}} @skin={{1}}>
+                  {{t "validate-ai-annotations"}}
+                </AuHeading>
+                <FundedByDs4sscc />
+              </div>
             </div>
             <AuDataTable
               @content={{@model.annotations}}
