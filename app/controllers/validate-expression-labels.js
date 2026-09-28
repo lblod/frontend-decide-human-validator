@@ -108,6 +108,14 @@ export default class ValidateExpressionLabelsController extends Controller {
     );
   }
 
+  get canClearMunicipality() {
+    return !!this.municipality;
+  }
+
+  get canClearTitle() {
+    return !!(this.title || this.search);
+  }
+
   isSelected(selectedConcepts, concept) {
     return selectedConcepts.includes(concept);
   }
@@ -186,6 +194,18 @@ export default class ValidateExpressionLabelsController extends Controller {
   selectAllConcepts() {
     this.dsAll = false;
     this.concepts = [];
+  }
+  
+  @action
+  clearMunicipality() {
+    this.municipality = null;
+  }
+
+  @action
+  clearTitle() {
+    this.searchTitle.cancelAll();
+    this.search = undefined;
+    this.title = undefined;
   }
 
   @action
