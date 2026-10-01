@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
+import { tracked, cached } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import EmberObject from '@ember/object';
 
@@ -24,19 +24,14 @@ export default class ValidationThumbs extends Component {
         size: 999, // assume concept schemes are smaller than 999 concepts so we don't have to get fancy with the search function
       },
     });
-    for (const concept of concepts) {
-      if (concept.notation && concept.prefLabel?.length) {
-        concept.prefLabel = concept.prefLabel.map(
-          (label) => `${concept.notation}: ${label}`
-        );
-      }
-    }
     return concepts;
   }
 
+  @cached
   get concepts() {
     return this.loadConcepts();
   }
+
   get impacts() {
     return [
       {

@@ -24,14 +24,14 @@
           <AuLabel>Concept</AuLabel>
           <PowerSelect
             @searchEnabled={{true}}
-            @searchField="prefLabel"
+            @searchField="displayLabel"
             @options={{this.concepts}}
             @selected={{correction.concept}}
             @onChange={{fn this.editCorrectionConcept index}}
             @renderInPlace={{true}}
             as |option|
           >
-            {{option.prefLabel}}
+            {{option.displayLabel}}
           </PowerSelect>
           <AuLabel>Impact</AuLabel>
           <PowerSelect
