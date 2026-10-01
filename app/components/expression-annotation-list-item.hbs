@@ -1,5 +1,9 @@
 <td>
-  <DecisionLink @expression={{@annotation.targetModel}} />
+  <DecisionLink
+    @expression={{@annotation.targetModel}}
+    @annotationType="expression-label"
+    @currentAnnotation={{@annotation}}
+  />
 </td>
 <td>
   <AuLinkExternal

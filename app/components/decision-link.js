@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import { annotationValueLabel } from '../utils/annotation-value';
 
 export default class DecisionLink extends Component {
   @service intl;
@@ -29,6 +30,9 @@ export default class DecisionLink extends Component {
 
   @tracked
   organizationTypes = [];
+
+  @tracked
+  otherAnnotationValues = [];
 
   constructor(owner, args) {
     super(owner, args);
@@ -112,9 +116,37 @@ export default class DecisionLink extends Component {
       });
   }
 
+  async loadOtherAnnotationValues() {
+    const { annotationType, expression, currentAnnotation } = this.args;
+    if (!annotationType || !expression?.id) {
+      return;
+    }
+    try {
+      const response = await fetch(
+        `/annotation-review/annotations/${annotationType}/${expression.id}?page=0&pageSize=100`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const { annotations } = await response.json();
+      const currentLabel = currentAnnotation
+        ? annotationValueLabel(currentAnnotation, this.intl)
+        : null;
+      const labels = annotations
+        .filter((annotation) => annotation.id !== currentAnnotation?.id)
+        .map((annotation) => annotationValueLabel(annotation, this.intl))
+        .filter((label) => label && label !== currentLabel);
+      this.otherAnnotationValues = [...new Set(labels)];
+    } catch (error) {
+      console.error('Could not load other annotations for decision', error);
+      this.otherAnnotationValues = [];
+    }
+  }
+
   @action
   openDecisionText() {
     this.showContent = true;
+    this.loadOtherAnnotationValues();
   }
 
   @action

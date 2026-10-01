@@ -93,6 +93,17 @@
           </div>
         {{/if}}
 
+        {{#if this.otherAnnotationValues.length}}
+          <div class="decision-link__section other-annotation-values">
+            <strong>{{t "decision-link-other-annotations"}}</strong>
+            <ul class="decision-link__list">
+              {{#each this.otherAnnotationValues as |value|}}
+                <li>{{value}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
         {{#if this.memberWorkContents.length}}
           <div class="decision-link__section member-work-content">
             <strong>{{t "decision-link-same-actionplan"}}</strong>
