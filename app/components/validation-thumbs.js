@@ -1,8 +1,9 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
+import { tracked, cached } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import EmberObject from '@ember/object';
+import { compareByNotation } from '../utils/natural-sort';
 
 export default class ValidationThumbs extends Component {
   @service store;
@@ -13,18 +14,26 @@ export default class ValidationThumbs extends Component {
   @tracked modalOpen = false;
   @tracked corrections = [];
 
-  get concepts() {
+  async loadConcepts() {
     const filter = {};
     if (this.args.conceptSchemeId) {
       filter['concept-scheme'] = { id: this.args.conceptSchemeId };
     }
-    return this.store.query('concept', {
+    const concepts = await this.store.query('concept', {
       filter,
+      sort: 'notation',
       page: {
         size: 999, // assume concept schemes are smaller than 999 concepts so we don't have to get fancy with the search function
       },
     });
+    return [...concepts].sort(compareByNotation);
   }
+
+  @cached
+  get concepts() {
+    return this.loadConcepts();
+  }
+
   get impacts() {
     return [
       {

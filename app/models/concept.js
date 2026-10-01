@@ -6,4 +6,9 @@ export default class ConceptModel extends Model {
   @attr('string') notation;
 
   @belongsTo('concept-scheme', { inverse: null, async: true }) conceptScheme;
+
+  get displayLabel() {
+    const label = (this.prefLabel ?? []).map(String).join(', ');
+    return this.notation ? `${this.notation}: ${label}` : label;
+  }
 }

@@ -1,36 +1,16 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-
-const MAX_VALUE_LENGTH = 92;
+import { annotationValueLabel, isNoMatch } from '../utils/annotation-value';
 
 export default class ExpressionAnnotationListItem extends Component {
   @service intl;
 
   get value() {
-    if (
-      this.args.annotation.valueText.startsWith(
-        'http://mu.semte.ch/vocabularies/ext/no-match-found',
-      )
-    ) {
-      return this.intl.t('expression-annotation-no-match');
-    }
-    const value = this.args.annotation.valueText;
-    if (value && value.length > MAX_VALUE_LENGTH) {
-      return value.substring(0, MAX_VALUE_LENGTH) + '...';
-    } else {
-      return value;
-    }
+    return annotationValueLabel(this.args.annotation, this.intl);
   }
 
   get valueLink() {
-    if (
-      this.args.annotation.valueText.startsWith(
-        'http://mu.semte.ch/vocabularies/ext/no-match-found',
-      )
-    ) {
-      return '#';
-    }
-    return this.fullValue;
+    return isNoMatch(this.args.annotation) ? '#' : this.fullValue;
   }
 
   get fullValue() {

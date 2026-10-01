@@ -2,7 +2,7 @@ import Model, { hasMany } from '@ember-data/model';
 
 export default class AnnotationBodyModel extends Model {
   @hasMany('annotation', {
-    inverse: 'hasTarget',
+    inverse: 'hasBody',
     async: true,
     polymorphic: true,
   })

@@ -6,7 +6,7 @@ export default class AnnotationModel extends Model {
   @attr confidence;
   @tracked renderRight = false;
 
-  @belongsTo('annotation-target', { inverse: null, async: true, polymorphic: true }) hasTarget;
-  @belongsTo('annotation-body', { inverse: null, async: true, polymorphic: true }) hasBody;
+  @belongsTo('annotation-target', { inverse: 'annotations', async: true, polymorphic: true }) hasTarget;
+  @belongsTo('annotation-body', { inverse: 'annotations', async: true, polymorphic: true }) hasBody;
 
 }

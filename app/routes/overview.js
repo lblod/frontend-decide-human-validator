@@ -41,33 +41,14 @@ export default class OverviewRoute extends Route {
         // labels of the intl strings to be displayed, not the actual content.
         // They must be valid keys in the translation files.
         {
-          title: 'overview-validate-sdg-title',
-          description: 'overview-validate-sdg-description',
-          route: 'validate-expression-labels',
-          params: {
-            municipality: params.municipality,
-            conceptScheme: '785cfa4d-6d74-46ad-a99c-1acc176db89e',
-            showImpact: true,
-            showCs: false,
-          },
-        },
-        {
-          title: 'overview-validate-codelist-title',
-          description: 'overview-validate-codelist-description',
+          title: 'overview-validate-vap-title',
+          description: 'overview-validate-vap-description',
           route: 'validate-expression-labels',
           params: {
             owner: params.municipality,
-            conceptScheme: undefined,
+            conceptScheme: '6673ad10-0f68-5e7d-81b1-c74828de3879',
             showImpact: false,
-            showCs: true,
-          },
-        },
-        {
-          title: 'overview-validate-text-annotation-title',
-          description: 'overview-validate-text-annotation-description',
-          route: 'expressions',
-          params: {
-            municipality: params.municipality,
+            showCs: false,
           },
         },
       ],
