@@ -2,8 +2,6 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { annotationValueLabel, isNoMatch } from '../utils/annotation-value';
 
-const MAX_VALUE_LENGTH = 92;
-
 export default class ExpressionAnnotationListItem extends Component {
   @service intl;
 
