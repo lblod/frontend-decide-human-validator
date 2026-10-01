@@ -21,10 +21,18 @@
           >
             {{option.prefLabel}}
           </PowerSelect>
-
+          {{#if this.canClearMunicipality}}
+            <AuButton
+              @skin="link"
+              class="au-u-flex-shrink-0"
+              {{on "click" this.clearMunicipality}}
+            >
+              {{t "filter-clear"}}
+            </AuButton>
+          {{/if}}
         </div>
         <div class="au-u-margin-top-small">
-          <AuLabel for="decision-passed-by">
+          <AuLabel for="title-search">
             {{t "filter-title"}}
           </AuLabel>
           <AuInput
@@ -32,9 +40,18 @@
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
           />
+          {{#if this.canClearTitle}}
+            <AuButton
+              @skin="link"
+              class="au-u-flex-shrink-0"
+              {{on "click" this.clearTitle}}
+            >
+              {{t "filter-clear"}}
+            </AuButton>
+          {{/if}}
         </div>
         <div class="au-u-margin-top-small">
-          <AuLabel for="decision-passed-by">
+          <AuLabel for="decision-year">
             {{t "filter-year"}}
           </AuLabel>
           <PowerSelect
@@ -61,7 +78,7 @@
         </div>
         {{#if this.showImpact}}
           <div class="au-u-margin-top">
-            <AuLabel for="decision-passed-by">
+            <AuLabel for="impact">
               {{t "filter-impact-type"}}
             </AuLabel>
             <AuRadioGroup
@@ -101,7 +118,7 @@
         {{#if @model.concepts}}
           <div class="au-u-margin-top">
             <div class="au-u-flex">
-              <AuLabel for="decision-passed-by">
+              <AuLabel for="concept-scheme">
                 {{this.selectedConceptScheme.prefLabel}}
                 {{#unless (eq this.intl.primaryLocale "en-us")}}
                   <AuTooltip @placement="top" as |tooltip|>

@@ -36,6 +36,7 @@
   "filter-concept-scheme": "Concept Scheme",
   "filter-deselect-all": "Deselect all",
   "filter-select-all": "Select all",
+  "filter-clear": "clear",
   "filter-reset": "Reset Filters",
   "filter-annotations": "Filter annotations",
 
