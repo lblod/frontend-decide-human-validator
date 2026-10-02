@@ -119,7 +119,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
       concepts.sort(compareByNotation);
       // "No match" has no notation, so add it after sorting to keep it last.
       const intl = this.intl;
-      const noMatchLabel = intl.t('expression-annotation-no-match');
       concepts.push({
         get label() {
           return intl.t('expression-annotation-no-match');
