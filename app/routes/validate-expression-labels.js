@@ -118,8 +118,18 @@ export default class ValidateExpressionLabelsRoute extends Route {
       // "A20" (before "A3"). Re-sort naturally on the client instead.
       concepts.sort(compareByNotation);
       // "No match" has no notation, so add it after sorting to keep it last.
+      const intl = this.intl;
+      const noMatchLabel = intl.t('expression-annotation-no-match');
       concepts.push({
-        prefLabel: this.intl.t('expression-annotation-no-match'),
+        get label() {
+          return intl.t('expression-annotation-no-match');
+        },
+        get displayLabel() {
+          return this.label;
+        },
+        get prefLabel() {
+          return this.label;
+        },
         id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
         uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
       });
