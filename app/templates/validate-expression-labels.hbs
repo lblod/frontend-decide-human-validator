@@ -172,16 +172,12 @@
                 <li class="au-u-padding-tiny au-u-padding-top-none">
                   <div class="au-u-flex">
                     <AuCheckbox
-                      @name={{concept.prefLabel}}
+                      @name={{concept.label}}
                       @value={{concept.id}}
-                      @checked={{this.isSelected
-                        @model.selectedConcepts
-                        concept
-                      }}
+                      @checked={{this.isSelected @model.selectedConcepts concept}}
                       @onChange={{fn this.toggleConcept concept}}
                     >
-                      {{if concept.notation (concat concept.notation ": ") ""}}
-                      {{concept.prefLabel}}
+                      {{concept.displayLabel}}
                     </AuCheckbox>
                   </div>
                 </li>
