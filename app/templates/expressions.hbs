@@ -38,6 +38,7 @@
             id="title-search"
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
+            {{on "keydown" this.searchTitleOnEnter}}
           />
         </div>
         <div>

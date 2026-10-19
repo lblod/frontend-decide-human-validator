@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
+import config from 'frontend-decide-human-validator/config/environment';
 
 export default class OverviewController extends Controller {
   queryParams = ['page', 'size', 'selectedMunicipalityUri'];
@@ -31,7 +32,7 @@ export default class OverviewController extends Controller {
   }
 
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(600);
+    await timeout(config.searchTimeout);
     this.store
       .query('organization', {
         filter: {

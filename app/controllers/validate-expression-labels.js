@@ -3,8 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
-
-const SEARCH_TIMEOUT = 600;
+import config from 'frontend-decide-human-validator/config/environment';
 
 export default class ValidateExpressionLabelsController extends Controller {
   queryParams = [
@@ -124,7 +123,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.searchTimeout);
     this.store
       .query('concept-scheme', {
         filter: {
@@ -207,7 +206,15 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   searchTitle = restartableTask(async (e) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.titleSearchTimeout);
     this.title = e.target.value;
   });
+
+  @action
+  searchTitleOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchTitle.cancelAll();
+      this.title = e.target.value;
+    }
+  }
 }
