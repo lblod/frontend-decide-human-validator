@@ -35,6 +35,17 @@
           />
         </div>
         <div class="au-u-margin-top-small">
+          <AuLabel for="content-search">
+            {{t "filter-content"}}
+          </AuLabel>
+          <AuInput
+            id="content-search"
+            value={{this.contentSearch}}
+            {{on "input" (perform this.searchContent)}}
+            {{on "keydown" this.searchContentOnEnter}}
+          />
+        </div>
+        <div class="au-u-margin-top-small">
           <AuLabel for="decision-passed-by">
             {{t "filter-year"}}
           </AuLabel>

@@ -14,11 +14,14 @@ export default class ExpressionsController extends Controller {
     'aimodels',
     'types',
     'title',
+    'content',
   ];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = undefined;
   @tracked search = undefined;
+  @tracked content = undefined;
+  @tracked contentSearch = undefined;
 
   @tracked municipality = null;
   @tracked predicates = null;
@@ -80,6 +83,8 @@ export default class ExpressionsController extends Controller {
     this.types = null;
     this.title = null;
     this.search = null;
+    this.content = null;
+    this.contentSearch = null;
   }
 
   @action
@@ -103,6 +108,19 @@ export default class ExpressionsController extends Controller {
     if (e.key === 'Enter') {
       this.searchTitle.cancelAll();
       this.title = e.target.value;
+    }
+  }
+
+  searchContent = restartableTask(async (e) => {
+    await timeout(config.titleSearchTimeout);
+    this.content = e.target.value;
+  });
+
+  @action
+  searchContentOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchContent.cancelAll();
+      this.content = e.target.value;
     }
   }
 }
