@@ -38,6 +38,19 @@
             id="title-search"
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
+            {{on "keydown" this.searchTitleOnEnter}}
+          />
+        </div>
+        <div>
+          <AuLabel for="content-search">
+            {{t "filter-content"}}
+          </AuLabel>
+          <AuInput
+            @width="block"
+            id="content-search"
+            value={{this.contentSearch}}
+            {{on "input" (perform this.searchContent)}}
+            {{on "keydown" this.searchContentOnEnter}}
           />
         </div>
         <div>

@@ -39,6 +39,18 @@
             id="title-search"
             value={{this.search}}
             {{on "input" (perform this.searchTitle)}}
+            {{on "keydown" this.searchTitleOnEnter}}
+          />
+        </div>
+        <div class="au-u-margin-top-small">
+          <AuLabel for="content-search">
+            {{t "filter-content"}}
+          </AuLabel>
+          <AuInput
+            id="content-search"
+            value={{this.contentSearch}}
+            {{on "input" (perform this.searchContent)}}
+            {{on "keydown" this.searchContentOnEnter}}
           />
           {{#if this.canClearTitle}}
             <AuButton

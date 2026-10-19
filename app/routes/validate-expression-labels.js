@@ -19,6 +19,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
     title: { refreshModel: true },
+    content: { refreshModel: true },
     municipality: { refreshModel: true },
   };
 
@@ -41,6 +42,9 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     if (params.title && params.title.length > 3) {
       filter += `&filter[title]=${params.title}`;
+    }
+    if (params.content && params.content.length > 3) {
+      filter += `&filter[content]=${params.content}`;
     }
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
 
@@ -105,6 +109,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       conceptSchemeId: params.conceptScheme,
       selectedConcepts,
       search: params.title,
+      contentSearch: params.content,
       municipalities: municipalityModels,
     };
   }
@@ -147,5 +152,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
   setupController(controller, model) {
     super.setupController(...arguments);
     controller.search = model.search;
+    controller.contentSearch = model.contentSearch;
   }
 }

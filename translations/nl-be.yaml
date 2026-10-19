@@ -32,6 +32,7 @@
 
   "filter-local-authority": "Lokaal bestuur",
   "filter-title": "Titel",
+  "filter-content": "Inhoud",
   "filter-year": "Jaar beslissing",
   "filter-impact-type": "Impact type",
   "filter-concept-scheme": "Concept Schema",

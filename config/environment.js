@@ -6,6 +6,8 @@ module.exports = function (environment) {
     environment,
     rootURL: '/',
     locationType: 'history',
+    searchTimeout: 600,
+    titleSearchTimeout: 3000,
     EmberENV: {
       EXTEND_PROTOTYPES: false,
       FEATURES: {
