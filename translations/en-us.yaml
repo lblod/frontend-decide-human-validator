@@ -120,4 +120,11 @@
   "au-table-sort": "Sort",
   "au-table-sort-ascending": "Sort ascending",
   "au-table-sort-descending": "Sort descending",
+  "validation-results-chart-title": "Votes per concept (total: {total})",
+  "validation-results-empty": "No votes for the current filters",
+  "validation-results-approve": "Approve",
+  "validation-results-reject": "Reject",
+  "validation-results-title-contains": 'title contains "{title}"',
+  "validation-results-all-concepts": "all concepts",
+  "validation-results-n-of-m-concepts": "{selected} of {total} concepts",
 }
