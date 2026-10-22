@@ -120,6 +120,8 @@
   "au-table-sort": "Sort",
   "au-table-sort-ascending": "Sort ascending",
   "au-table-sort-descending": "Sort descending",
+  "validation-results-button": "Validation results",
+  "validation-results-back": "Back to validation",
   "validation-results-chart-title": "Votes per concept (total: {total})",
   "validation-results-empty": "No votes for the current filters",
   "validation-results-approve": "Approve",

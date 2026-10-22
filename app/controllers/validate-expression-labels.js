@@ -3,6 +3,10 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
+import {
+  buildChartRows,
+  filterSummaryParts,
+} from 'frontend-decide-human-validator/utils/validation-results';
 
 const SEARCH_TIMEOUT = 600;
 
@@ -18,6 +22,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'year',
     'dsAll',
     'hideVoted',
+    'showResults',
     'title',
     'municipality',
   ];
@@ -31,6 +36,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked year = undefined;
   @tracked dsAll = false;
   @tracked hideVoted = true;
+  @tracked showResults = false;
   @tracked title = undefined;
   @tracked search = undefined;
   @tracked municipality = null;
@@ -105,6 +111,31 @@ export default class ValidateExpressionLabelsController extends Controller {
       this.dsAll &&
       this.model.concepts?.length > 0 &&
       this.model.selectedConcepts.length === 0
+    );
+  }
+
+  get chartConcepts() {
+    return this.model.selectedConcepts.length > 0
+      ? this.model.selectedConcepts
+      : this.model.concepts;
+  }
+
+  get chartRows() {
+    return buildChartRows(this.chartConcepts, this.model.summaryRows);
+  }
+
+  get chartFilterSummary() {
+    return filterSummaryParts(
+      {
+        municipalityLabel: this.selectedMunicipality?.prefLabel,
+        schemeLabel: this.selectedConceptScheme?.prefLabel,
+        year: this.year,
+        title: this.title,
+        selectedCount: this.model.selectedConcepts.length,
+        conceptCount: this.model.concepts.length,
+        allConcepts: this.model.selectedConcepts.length === 0,
+      },
+      this.intl.t.bind(this.intl),
     );
   }
 
@@ -219,6 +250,12 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.dsAll = false;
     this.search = undefined;
     this.title = undefined;
+    this.showResults = false;
+  }
+
+  @action
+  toggleResults() {
+    this.showResults = !this.showResults;
   }
 
   @action
