@@ -21,6 +21,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     year: { refreshModel: true },
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
+    showResults: { refreshModel: true },
     title: { refreshModel: true },
     description: { refreshModel: true },
     municipality: { refreshModel: true },
@@ -29,9 +30,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
 
   async model(params) {
     let filter = '';
-    if (params.hideVoted !== false) {
-      filter += '&filter[ignoreAlreadyReviewed]=true';
-    }
     if (params.concepts) {
       filter += `&filter[concept]=${params.concepts}`;
     }
@@ -53,14 +51,24 @@ export default class ValidateExpressionLabelsRoute extends Route {
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
     filter += this.provinces.toProvinceFilter(params.province);
 
-    const [annotationResult, municipalityModels, provinceModels] = await Promise.all([
-      fetch(
-        `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-      ),
-      this.municipalities.getMunicipalities(params.municipality, params.province),
-      this.provinces.getProvinces(params.province),
-      this.dropdownOptions.hvtConceptSchemes(),
-    ]);
+    const hideVotedFilter =
+      params.hideVoted !== false ? '&filter[ignoreAlreadyReviewed]=true' : '';
+
+    const [annotationResult, municipalityModels, provinceModels, summaryRows] =
+      await Promise.all([
+        fetch(
+          `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${hideVotedFilter}${filter}`,
+        ),
+        this.municipalities.getMunicipalities(
+          params.municipality,
+          params.province,
+        ),
+        this.provinces.getProvinces(params.province),
+        params.showResults && params.conceptScheme
+          ? this.fetchReviewSummary(filter)
+          : [],
+        this.dropdownOptions.hvtConceptSchemes(),
+      ]);
 
     const { annotations, annotationCount } = await annotationResult.json();
 
@@ -150,7 +158,16 @@ export default class ValidateExpressionLabelsRoute extends Route {
       search: params.description,
       municipalities: municipalityModels,
       provinces: provinceModels,
+      summaryRows,
     };
+  }
+
+  async fetchReviewSummary(filter) {
+    const response = await fetch(
+      `/annotation-review/review-summary/expression-label?${filter}`,
+    );
+    const { rows } = await response.json();
+    return rows;
   }
 
   async addAnnotationModels(annotations) {

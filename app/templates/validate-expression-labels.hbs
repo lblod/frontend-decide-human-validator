@@ -191,6 +191,23 @@
             {{t "filter-reset"}}
           </AuButton>
         </div>
+        {{#if this.showCs}}
+          <div class="au-u-margin-top-small">
+            <AuButton
+              @width="block"
+              @disabled={{not this.conceptScheme}}
+              {{on "click" this.toggleResults}}
+            >
+              {{t
+                (if
+                  this.showResults
+                  "validation-results-back"
+                  "validation-results-button"
+                )
+              }}
+            </AuButton>
+          </div>
+        {{/if}}
       </div>
       {{outlet}}
     </div>
@@ -210,39 +227,47 @@
               <AuToggleSwitch
                 @checked={{this.hideVoted}}
                 @onChange={{this.toggleHideVoted}}
+                @disabled={{and this.showResults this.conceptScheme}}
               >
                 {{t "validate-hide-reviewed"}}
               </AuToggleSwitch>
             </div>
-            <AuDataTable
-              @content={{@model.annotations}}
-              @noDataMessage={{t "general-no-annotated-decisions"}}
-              @page={{this.page}}
-              @size={{this.size}}
-              as |table|
-            >
-              <table.content as |c|>
-                <c.header>
-                  <th>{{t "validate-decision-name"}}</th>
-                  {{#if this.selectedConceptScheme.prefLabel}}
-                    <th>{{this.selectedConceptScheme.prefLabel}}</th>
-                  {{else}}
-                    <th>{{t "validate-discovered-entity"}}</th>
-                  {{/if}}
-                  {{#if this.showImpact}}
-                    <th>{{t "validate-impact"}}</th>
-                  {{/if}}
-                  <th>{{t "validate-correct"}}</th>
-                </c.header>
-                <c.body as |annotation|>
-                  <ExpressionAnnotationListItem
-                    @showImpact={{this.showImpact}}
-                    @annotation={{annotation}}
-                    @conceptSchemeId={{this.model.conceptSchemeId}}
-                  />
-                </c.body>
-              </table.content>
-            </AuDataTable>
+            {{#if (and this.showResults this.conceptScheme)}}
+              <ValidationResultsChart
+                @rows={{this.chartRows}}
+                @filterSummary={{this.chartFilterSummary}}
+              />
+            {{else}}
+              <AuDataTable
+                @content={{@model.annotations}}
+                @noDataMessage={{t "general-no-annotated-decisions"}}
+                @page={{this.page}}
+                @size={{this.size}}
+                as |table|
+              >
+                <table.content as |c|>
+                  <c.header>
+                    <th>{{t "validate-decision-name"}}</th>
+                    {{#if this.selectedConceptScheme.prefLabel}}
+                      <th>{{this.selectedConceptScheme.prefLabel}}</th>
+                    {{else}}
+                      <th>{{t "validate-discovered-entity"}}</th>
+                    {{/if}}
+                    {{#if this.showImpact}}
+                      <th>{{t "validate-impact"}}</th>
+                    {{/if}}
+                    <th>{{t "validate-correct"}}</th>
+                  </c.header>
+                  <c.body as |annotation|>
+                    <ExpressionAnnotationListItem
+                      @showImpact={{this.showImpact}}
+                      @annotation={{annotation}}
+                      @conceptSchemeId={{this.model.conceptSchemeId}}
+                    />
+                  </c.body>
+                </table.content>
+              </AuDataTable>
+            {{/if}}
             {{outlet}}
           </div>
         </div>
