@@ -1,0 +1,24 @@
+<div class="card au-u-margin">
+  <AuHeading @level="5" @skin="5" data-test-validation-results-title>
+    {{t "validation-results-chart-title" total=this.total}}
+  </AuHeading>
+  <p
+    class="au-u-h-functional au-u-margin-bottom-small au-u-muted"
+    data-test-validation-results-filters
+  >
+    {{this.filterSummary}}
+  </p>
+  {{#if this.total}}
+    {{! template-lint-disable no-at-ember-render-modifiers }}
+    <div
+      {{did-insert this.renderChart}}
+      {{did-update this.updateChart @rows}}
+      class="chart"
+      data-test-validation-results-chart
+    ></div>
+  {{else}}
+    <p class="chart chart-empty au-u-muted au-u-flex au-u-flex--center">
+      {{t "validation-results-empty"}}
+    </p>
+  {{/if}}
+</div>

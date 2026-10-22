@@ -237,3 +237,19 @@ td:has(.decision-link) {
     }
   }
 }
+
+.card {
+  border-radius: 6px;
+  border: 2px solid #cfd5dd;
+  padding: 1.2rem;
+}
+
+.chart {
+  height: 400px;
+}
+
+.chart-empty {
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
