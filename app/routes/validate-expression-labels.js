@@ -47,6 +47,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
     let concepts = [];
     let selectedConcepts = [];
     if (params.conceptScheme) {
+      const intl = this.intl;
       concepts = [
         ...(await this.store.query('concept', {
           'filter[concept-scheme][id]': params.conceptScheme,
@@ -56,7 +57,10 @@ export default class ValidateExpressionLabelsRoute extends Route {
           },
         })),
         {
-          prefLabel: this.intl.t('expression-annotation-no-match'),
+          // getter so the label follows a language switch without a reload
+          get prefLabel() {
+            return intl.t('expression-annotation-no-match');
+          },
           id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
           uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
         },

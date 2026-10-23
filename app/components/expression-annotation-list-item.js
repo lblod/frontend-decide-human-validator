@@ -8,7 +8,7 @@ export default class ExpressionAnnotationListItem extends Component {
 
   get value() {
     if (
-      this.args.annotation.valueText.startsWith(
+      this.args.annotation.value.startsWith(
         'http://mu.semte.ch/vocabularies/ext/no-match-found',
       )
     ) {
@@ -24,7 +24,7 @@ export default class ExpressionAnnotationListItem extends Component {
 
   get valueLink() {
     if (
-      this.args.annotation.valueText.startsWith(
+      this.args.annotation.value.startsWith(
         'http://mu.semte.ch/vocabularies/ext/no-match-found',
       )
     ) {
