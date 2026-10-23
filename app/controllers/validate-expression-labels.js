@@ -8,8 +8,6 @@ const SEARCH_TIMEOUT = 600;
 
 export default class ValidateExpressionLabelsController extends Controller {
   queryParams = [
-    'page',
-    'size',
     'concepts',
     'conceptScheme',
     'showImpact',
@@ -21,8 +19,6 @@ export default class ValidateExpressionLabelsController extends Controller {
     'title',
     'municipality',
   ];
-  @tracked page = 0;
-  @tracked size = 20;
   @tracked concepts = undefined;
   @tracked conceptScheme = undefined;
   @tracked showImpact = false;
@@ -38,6 +34,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @service store;
   @service municipalities;
   @service intl;
+  @service router;
 
   yearOptions = [
     { label: 'year-label-any', value: undefined },
@@ -105,6 +102,12 @@ export default class ValidateExpressionLabelsController extends Controller {
       this.dsAll &&
       this.model.concepts?.length > 0 &&
       this.model.selectedConcepts.length === 0
+    );
+  }
+
+  get onResults() {
+    return (
+      this.router.currentRouteName === 'validate-expression-labels.results'
     );
   }
 

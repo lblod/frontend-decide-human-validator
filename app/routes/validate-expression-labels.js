@@ -8,8 +8,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
   @service('options') dropdownOptions;
 
   queryParams = {
-    page: { refreshModel: true },
-    size: { refreshModel: true },
     concepts: { refreshModel: true },
     conceptScheme: { refreshModel: true },
     showImpact: { refreshModel: false },
@@ -24,9 +22,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
 
   async model(params) {
     let filter = '';
-    if (params.hideVoted !== false) {
-      filter += '&filter[ignoreAlreadyReviewed]=true';
-    }
     if (params.concepts) {
       filter += `&filter[concept]=${params.concepts}`;
     }
@@ -44,37 +39,15 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
 
-    const [annotationResult, municipalityModels, conceptSchemes] =
-      await Promise.all([
-        fetch(
-          `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${filter}`,
-        ),
-        this.municipalities.getMunicipalities(params.municipality),
-        this.dropdownOptions.hvtConceptSchemes(),
-      ]);
-
-    const { annotations, annotationCount } = await annotationResult.json();
-
-    const annotationData = await this.addAnnotationModels(annotations);
-    const annotationDataWithExpressions =
-      await this.addExpressionTargets(annotationData);
-    annotationDataWithExpressions.meta = {
-      count: annotationCount,
-      pagination: {
-        // we can be a little rough with prev and next as the datatable checks the first and last anyway
-        prev: { number: params.page - 1, size: annotationCount },
-        next: { number: params.page + 1, size: annotationCount },
-        first: { number: 0, size: annotationCount },
-        last: {
-          number: Math.floor(annotationCount / params.size),
-          size: annotationCount,
-        },
-      },
-    };
+    const [municipalityModels, conceptSchemes] = await Promise.all([
+      this.municipalities.getMunicipalities(params.municipality),
+      this.dropdownOptions.hvtConceptSchemes(),
+    ]);
 
     let concepts = [];
     let selectedConcepts = [];
     if (params.conceptScheme) {
+      const intl = this.intl;
       concepts = [
         ...(await this.store.query('concept', {
           'filter[concept-scheme][id]': params.conceptScheme,
@@ -84,7 +57,10 @@ export default class ValidateExpressionLabelsRoute extends Route {
           },
         })),
         {
-          prefLabel: this.intl.t('expression-annotation-no-match'),
+          // getter so the label follows a language switch without a reload
+          get prefLabel() {
+            return intl.t('expression-annotation-no-match');
+          },
           id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',
           uri: 'http://mu.semte.ch/vocabularies/ext/no-match-found',
         },
@@ -99,49 +75,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
 
     return {
-      annotations: annotationDataWithExpressions,
       conceptSchemes,
       concepts,
       conceptSchemeId: params.conceptScheme,
       selectedConcepts,
       search: params.title,
       municipalities: municipalityModels,
+      filter,
     };
-  }
-
-  async addAnnotationModels(annotations) {
-    await this.store.query('annotation', {
-      filter: {
-        id: annotations.map((annotation) => annotation.id).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.model = this.store.peekRecord('annotation', annotation.id);
-      return annotation;
-    });
-  }
-
-  async addExpressionTargets(annotations) {
-    await this.store.query('expression', {
-      filter: {
-        id: annotations.map((annotation) => annotation.targetId).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.targetModel = this.store.peekRecord(
-        'expression',
-        annotation.targetId,
-      );
-      return annotation;
-    });
   }
 
   setupController(controller, model) {

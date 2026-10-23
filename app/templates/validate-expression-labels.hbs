@@ -72,6 +72,7 @@
           <AuToggleSwitch
             @checked={{this.hideVoted}}
             @onChange={{this.toggleHideVoted}}
+            @disabled={{this.onResults}}
           >
             {{t "validate-hide-reviewed"}}
           </AuToggleSwitch>
@@ -184,8 +185,6 @@
           </AuButton>
         </div>
       </div>
-
-      {{outlet}}
     </div>
   </main.sidebar>
   <main.content>
@@ -205,36 +204,18 @@
                 <FundedByDs4sscc />
               </div>
             </div>
-            <AuDataTable
-              @content={{@model.annotations}}
-              @noDataMessage={{t "general-no-annotated-decisions"}}
-              @page={{this.page}}
-              @size={{this.size}}
-              as |table|
-            >
-              <table.content as |c|>
-                <c.header>
-                  <th>{{t "validate-ai-component"}}</th>
-                  <th>{{t "validate-decision-name"}}</th>
-                  {{#if this.selectedConceptScheme.prefLabel}}
-                    <th>{{this.selectedConceptScheme.prefLabel}}</th>
-                  {{else}}
-                    <th>{{t "validate-discovered-entity"}}</th>
-                  {{/if}}
-                  {{#if this.showImpact}}
-                    <th>{{t "validate-impact"}}</th>
-                  {{/if}}
-                  <th>{{t "validate-correct"}}</th>
-                </c.header>
-                <c.body as |annotation|>
-                  <ExpressionAnnotationListItem
-                    @showImpact={{this.showImpact}}
-                    @annotation={{annotation}}
-                    @conceptSchemeId={{this.model.conceptSchemeId}}
-                  />
-                </c.body>
-              </table.content>
-            </AuDataTable>
+            <AuTabs class="au-u-padding-left au-u-padding-right" as |Tab|>
+              <Tab>
+                <AuLink @route="validate-expression-labels.index">
+                  {{t "validation-tab-validate"}}
+                </AuLink>
+              </Tab>
+              <Tab>
+                <AuLink @route="validate-expression-labels.results">
+                  {{t "validation-results-button"}}
+                </AuLink>
+              </Tab>
+            </AuTabs>
             {{outlet}}
           </div>
         </div>
