@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateExpressionLabelsIndexRoute extends Route {
   @service store;
+  @service intl;
 
   queryParams = {
     page: { refreshModel: true },
@@ -16,7 +17,7 @@ export default class ValidateExpressionLabelsIndexRoute extends Route {
       hideVoted !== false ? '&filter[ignoreAlreadyReviewed]=true' : '';
 
     const annotationResult = await fetch(
-      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${hideVotedFilter}${filter}`,
+      `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${hideVotedFilter}${filter}&language=${this.intl.primaryLocale.split('-')[0]}`,
     );
     const { annotations, annotationCount } = await annotationResult.json();
 
