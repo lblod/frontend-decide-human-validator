@@ -204,6 +204,20 @@ td {
   height: 400px;
 }
 
+.validation-results-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.card .percentage {
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 47px;
+  text-align: center;
+  color: #004ab2;
+}
+
 .chart-empty {
   align-items: center;
   justify-content: center;

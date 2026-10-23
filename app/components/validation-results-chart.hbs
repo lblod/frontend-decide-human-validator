@@ -1,13 +1,24 @@
-<div class="card au-u-margin">
-  <AuHeading @level="5" @skin="5" data-test-validation-results-title>
-    {{t "validation-results-chart-title" total=this.total}}
-  </AuHeading>
-  <p
-    class="au-u-h-functional au-u-margin-bottom-small au-u-muted"
-    data-test-validation-results-filters
-  >
-    {{this.filterSummary}}
-  </p>
+<div class="card au-u-margin-top">
+  <div class="au-u-flex au-u-flex--between au-u-flex--vertical-start">
+    <div>
+      <AuHeading @level="5" @skin="5" data-test-validation-results-title>
+        {{t "validation-results-chart-title" total=this.total}}
+      </AuHeading>
+      <p
+        class="au-u-h-functional au-u-margin-bottom-small au-u-muted"
+        data-test-validation-results-filters
+      >
+        {{this.filterSummary}}
+      </p>
+    </div>
+    <AuButton
+      @skin="secondary"
+      @icon="download"
+      {{on "click" this.downloadCsv}}
+    >
+      {{t "validation-results-csv-download"}}
+    </AuButton>
+  </div>
   {{#if this.total}}
     {{! template-lint-disable no-at-ember-render-modifiers }}
     <div

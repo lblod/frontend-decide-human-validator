@@ -1,0 +1,30 @@
+<AuDataTable
+  @content={{@model}}
+  @noDataMessage={{t "general-no-annotated-decisions"}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |table|
+>
+  <table.content as |c|>
+    <c.header>
+      <th>{{t "validate-ai-component"}}</th>
+      <th>{{t "validate-decision-name"}}</th>
+      {{#if this.parent.selectedConceptScheme.prefLabel}}
+        <th>{{this.parent.selectedConceptScheme.prefLabel}}</th>
+      {{else}}
+        <th>{{t "validate-discovered-entity"}}</th>
+      {{/if}}
+      {{#if this.parent.showImpact}}
+        <th>{{t "validate-impact"}}</th>
+      {{/if}}
+      <th>{{t "validate-correct"}}</th>
+    </c.header>
+    <c.body as |annotation|>
+      <ExpressionAnnotationListItem
+        @showImpact={{this.parent.showImpact}}
+        @annotation={{annotation}}
+        @conceptSchemeId={{this.parent.model.conceptSchemeId}}
+      />
+    </c.body>
+  </table.content>
+</AuDataTable>
