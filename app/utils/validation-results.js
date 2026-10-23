@@ -24,8 +24,13 @@ export function compareConcepts(a, b) {
   return keyA.localeCompare(keyB, undefined, { numeric: true });
 }
 
-export function buildChartRows(concepts, summaryRows) {
+export function percentage(part, total) {
+  return total > 0 ? Math.round((part / total) * 100) : null;
+}
+
+export function buildChartRows(concepts, summaryRows, conceptCounts) {
   return [...concepts].sort(compareConcepts).map((concept) => {
+    const counts = conceptCounts.find((row) => row.conceptId === concept.id);
     const countFor = (result) =>
       summaryRows.find(
         (row) => row.conceptId === concept.id && row.result === result,
@@ -37,6 +42,8 @@ export function buildChartRows(concepts, summaryRows) {
         : labelOf(concept),
       approve: countFor('approve'),
       reject: countFor('reject'),
+      labeledDecisions: counts?.labeledDecisions ?? 0,
+      reviewedDecisions: counts?.reviewedDecisions ?? 0,
     };
   });
 }
@@ -66,4 +73,44 @@ export function filterSummaryParts(
         }),
   );
   return parts.filter((part) => !!part);
+}
+
+function csvField(value) {
+  return `"${`${value ?? ''}`.replaceAll('"', '""')}"`;
+}
+
+export function buildCsv(rows, headers) {
+  const lines = [
+    headers,
+    ...rows.map((row) => {
+      const votes = row.approve + row.reject;
+      return [
+        row.label,
+        row.labeledDecisions,
+        row.reviewedDecisions,
+        row.approve,
+        row.reject,
+        votes,
+        percentage(row.approve, votes),
+      ];
+    }),
+  ];
+  return (
+    '\uFEFF' + lines.map((line) => line.map(csvField).join(';')).join('\r\n')
+  );
+}
+
+export function csvFileName(filterSummary) {
+  const date = new Date();
+  const day = [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+  const slug = ['validation-results', ...filterSummary, day]
+    .join('-')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  return `${slug}.csv`;
 }

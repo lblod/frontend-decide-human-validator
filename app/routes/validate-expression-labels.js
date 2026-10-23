@@ -11,8 +11,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
   @service('options') dropdownOptions;
 
   queryParams = {
-    page: { refreshModel: true },
-    size: { refreshModel: true },
     concepts: { refreshModel: true },
     conceptScheme: { refreshModel: true },
     showImpact: { refreshModel: false },
@@ -21,7 +19,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
     year: { refreshModel: true },
     dsAll: { refreshModel: true },
     hideVoted: { refreshModel: true },
-    showResults: { refreshModel: true },
     title: { refreshModel: true },
     description: { refreshModel: true },
     municipality: { refreshModel: true },
@@ -51,43 +48,14 @@ export default class ValidateExpressionLabelsRoute extends Route {
     filter += this.municipalities.toMunicipalityFilter(params.municipality);
     filter += this.provinces.toProvinceFilter(params.province);
 
-    const hideVotedFilter =
-      params.hideVoted !== false ? '&filter[ignoreAlreadyReviewed]=true' : '';
-
-    const [annotationResult, municipalityModels, provinceModels, summaryRows] =
-      await Promise.all([
-        fetch(
-          `/annotation-review/annotations/expression-label?page=${params.page}&pageSize=${params.size}${hideVotedFilter}${filter}`,
-        ),
-        this.municipalities.getMunicipalities(
-          params.municipality,
-          params.province,
-        ),
-        this.provinces.getProvinces(params.province),
-        params.showResults && params.conceptScheme
-          ? this.fetchReviewSummary(filter)
-          : [],
-        this.dropdownOptions.hvtConceptSchemes(),
-      ]);
-
-    const { annotations, annotationCount } = await annotationResult.json();
-
-    const annotationData = await this.addAnnotationModels(annotations);
-    const annotationDataWithExpressions =
-      await this.addExpressionTargets(annotationData);
-    annotationDataWithExpressions.meta = {
-      count: annotationCount,
-      pagination: {
-        // we can be a little rough with prev and next as the datatable checks the first and last anyway
-        prev: { number: params.page - 1, size: annotationCount },
-        next: { number: params.page + 1, size: annotationCount },
-        first: { number: 0, size: annotationCount },
-        last: {
-          number: Math.floor(annotationCount / params.size),
-          size: annotationCount,
-        },
-      },
-    };
+    const [municipalityModels, provinceModels] = await Promise.all([
+      this.municipalities.getMunicipalities(
+        params.municipality,
+        params.province,
+      ),
+      this.provinces.getProvinces(params.province),
+      this.dropdownOptions.hvtConceptSchemes(),
+    ]);
 
     const schemeFilter = {
       filter: {
@@ -150,7 +118,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
     }
 
     return {
-      annotations: annotationDataWithExpressions,
       conceptSchemes,
       concepts,
       conceptSchemeId: params.conceptScheme,
@@ -158,51 +125,8 @@ export default class ValidateExpressionLabelsRoute extends Route {
       search: params.description,
       municipalities: municipalityModels,
       provinces: provinceModels,
-      summaryRows,
+      filter,
     };
-  }
-
-  async fetchReviewSummary(filter) {
-    const response = await fetch(
-      `/annotation-review/review-summary/expression-label?${filter}`,
-    );
-    const { rows } = await response.json();
-    return rows;
-  }
-
-  async addAnnotationModels(annotations) {
-    await this.store.query('annotation', {
-      filter: {
-        id: annotations.map((annotation) => annotation.id).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.model = this.store.peekRecord('annotation', annotation.id);
-      return annotation;
-    });
-  }
-
-  async addExpressionTargets(annotations) {
-    await this.store.query('expression', {
-      filter: {
-        id: annotations.map((annotation) => annotation.targetId).join(','),
-      },
-      page: {
-        size: 999,
-      },
-    });
-
-    return annotations.map((annotation) => {
-      annotation.targetModel = this.store.peekRecord(
-        'expression',
-        annotation.targetId,
-      );
-      return annotation;
-    });
   }
 
   setupController(controller, model) {
