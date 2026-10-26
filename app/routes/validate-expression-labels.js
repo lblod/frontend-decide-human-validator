@@ -58,7 +58,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
         })),
         {
           // getter so the label follows a language switch without a reload
-          get prefLabel() {
+          get label() {
             return intl.t('expression-annotation-no-match');
           },
           id: 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd',

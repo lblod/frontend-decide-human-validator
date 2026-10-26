@@ -98,8 +98,6 @@
   "expression-annotation-human-correction": "Manuelle Korrektur",
   "expression-annotation-no-match": "Keine Übereinstimmung",
 
-  "expressions-codelist-language-message": "Die KI-Tools ordneten Entscheidungen ausschließlich auf der Grundlage einer englischen Beschreibung bestimmten Konzepten zu. Daher werden die folgenden Konzeptbezeichnungen ebenfalls nur auf Englisch angezeigt.",
-
   "oops-back-home": "Zurück zur Startseite",
   "oops-general-error": "Es ist ein Fehler aufgetreten",
 

@@ -121,20 +121,6 @@
             <div class="au-u-flex">
               <AuLabel for="concept-scheme">
                 {{this.selectedConceptScheme.prefLabel}}
-                {{#unless (eq this.intl.primaryLocale "en-us")}}
-                  <AuTooltip @placement="top" as |tooltip|>
-                    <AuButton
-                      {{tooltip.target}}
-                      @skin="naked"
-                      @icon="info-circle"
-                      @iconAlignment="right"
-                      class="au-u-flex-shrink-0"
-                    />
-                    <tooltip.Content>
-                      {{t "expressions-codelist-language-message"}}
-                    </tooltip.Content>
-                  </AuTooltip>
-                {{/unless}}
               </AuLabel>
 
               {{#if this.canDeselectAllConcepts}}
@@ -161,7 +147,7 @@
                 <li class="au-u-padding-tiny au-u-padding-top-none">
                   <div class="au-u-flex">
                     <AuCheckbox
-                      @name={{concept.prefLabel}}
+                      @name={{concept.label}}
                       @value={{concept.id}}
                       @checked={{this.isSelected
                         @model.selectedConcepts
@@ -170,7 +156,7 @@
                       @onChange={{fn this.toggleConcept concept}}
                     >
                       {{if concept.notation (concat concept.notation ": ") ""}}
-                      {{concept.prefLabel}}
+                      {{concept.label}}
                     </AuCheckbox>
                   </div>
                 </li>

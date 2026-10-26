@@ -2,9 +2,8 @@ export const NO_MATCH_CONCEPT_ID = 'b8fb6be7-c063-4e87-a3af-4cca5685cdbd';
 
 const MIN_TITLE_FILTER_LENGTH = 4;
 
-// store concepts hold a language string set, the No Match concept a plain string
 function labelOf(concept) {
-  return `${concept.prefLabel ?? ''}`;
+  return concept.label;
 }
 
 function sortGroup(concept) {
