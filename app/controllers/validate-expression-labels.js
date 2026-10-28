@@ -3,8 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
-
-const SEARCH_TIMEOUT = 600;
+import config from 'frontend-decide-human-validator/config/environment';
 
 export default class ValidateExpressionLabelsController extends Controller {
   queryParams = [
@@ -19,6 +18,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     'dsAll',
     'hideVoted',
     'title',
+    'content',
     'municipality',
   ];
   @tracked page = 0;
@@ -33,6 +33,8 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked hideVoted = true;
   @tracked title = undefined;
   @tracked search = undefined;
+  @tracked content = undefined;
+  @tracked contentSearch = undefined;
   @tracked municipality = null;
 
   @service store;
@@ -132,7 +134,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.searchTimeout);
     this.store
       .query('concept-scheme', {
         filter: {
@@ -219,6 +221,8 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.dsAll = false;
     this.search = undefined;
     this.title = undefined;
+    this.contentSearch = undefined;
+    this.content = undefined;
   }
 
   @action
@@ -227,7 +231,28 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   searchTitle = restartableTask(async (e) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.titleSearchTimeout);
     this.title = e.target.value;
   });
+
+  @action
+  searchTitleOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchTitle.cancelAll();
+      this.title = e.target.value;
+    }
+  }
+
+  searchContent = restartableTask(async (e) => {
+    await timeout(config.titleSearchTimeout);
+    this.content = e.target.value;
+  });
+
+  @action
+  searchContentOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchContent.cancelAll();
+      this.content = e.target.value;
+    }
+  }
 }
