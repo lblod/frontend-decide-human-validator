@@ -14,6 +14,7 @@ export default class ExpressionsRoute extends Route {
     aimodels: { refreshModel: true },
     types: { refreshModel: true },
     title: { refreshModel: true },
+    content: { refreshModel: true },
   };
 
   async model(params) {
@@ -24,6 +25,10 @@ export default class ExpressionsRoute extends Route {
     let titleFilter = '';
     if (params.title && params.title.length > 3) {
       titleFilter = `&filter[title]=${encodeURIComponent(params.title)}`;
+    }
+    let contentFilter = '';
+    if (params.content && params.content.length > 3) {
+      contentFilter = `&filter[description]=${encodeURIComponent(params.content)}`;
     }
     let predicatesFilter = '';
     if (params.predicates) {
@@ -49,7 +54,7 @@ export default class ExpressionsRoute extends Route {
 
     // not using ember data for this one as resources will not help us a lot with filtering and indirection of titles (which may be annotations themselves)
     const response = await fetch(
-      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
+      `/annotation-review/targets/expression?page=${params.page}&pageSize=${params.size}${selectedMunicipalityFilter}${titleFilter}${contentFilter}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
     );
     const result = await response.json();
 
@@ -93,6 +98,7 @@ export default class ExpressionsRoute extends Route {
       aiModelOptions: await this.dropdownOptions.aiModels(),
       typeOptions: await this.dropdownOptions.valueTypes(),
       search: params.title,
+      contentSearch: params.content,
       commonDetailPageParams: {
         predicates: params.predicates,
         aimodels: params.aimodels,
@@ -104,5 +110,6 @@ export default class ExpressionsRoute extends Route {
   setupController(controller, model) {
     super.setupController(...arguments);
     controller.search = model.search;
+    controller.contentSearch = model.contentSearch;
   }
 }

@@ -3,8 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
-
-const SEARCH_TIMEOUT = 600;
+import config from 'frontend-decide-human-validator/config/environment';
 
 export default class ValidateExpressionLabelsController extends Controller {
   queryParams = [
@@ -33,6 +32,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @tracked dsAll = false;
   @tracked hideVoted = true;
   @tracked title = undefined;
+  @tracked titleSearch = undefined;
   @tracked description = undefined;
   @tracked search = undefined;
   @tracked municipality = null;
@@ -103,11 +103,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   @action
   searchProvince(term) {
     return new Promise((resolve, reject) => {
-      void this.provinces.searchProvinces.perform(
-        term,
-        resolve,
-        reject,
-      );
+      void this.provinces.searchProvinces.perform(term, resolve, reject);
     });
   }
 
@@ -129,6 +125,10 @@ export default class ValidateExpressionLabelsController extends Controller {
 
   get canClearSearch() {
     return this.search;
+  }
+
+  get canClearTitleSearch() {
+    return this.titleSearch;
   }
 
   get canClearMunicipality() {
@@ -163,7 +163,7 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   _performSearch = restartableTask(async (term, resolve, reject) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.searchTimeout);
     this.store
       .query('concept-scheme', {
         filter: {
@@ -229,6 +229,12 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   @action
+  clearTitleSearch() {
+    this.titleSearch = undefined;
+    this.title = undefined;
+  }
+
+  @action
   clearMunicipality() {
     this.municipality = undefined;
   }
@@ -252,6 +258,7 @@ export default class ValidateExpressionLabelsController extends Controller {
     this.dsAll = false;
     this.search = undefined;
     this.title = undefined;
+    this.titleSearch = undefined;
     this.description = undefined;
     this.municipality = undefined;
     this.province = undefined;
@@ -263,12 +270,28 @@ export default class ValidateExpressionLabelsController extends Controller {
   }
 
   searchTitle = restartableTask(async (e) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.titleSearchTimeout);
     this.title = e.target.value;
   });
 
   searchDescription = restartableTask(async (e) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.titleSearchTimeout);
     this.description = e.target.value;
   });
+
+  @action
+  searchTitleOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchTitle.cancelAll();
+      this.title = e.target.value;
+    }
+  }
+
+  @action
+  searchDescriptionOnEnter(e) {
+    if (e.key === 'Enter') {
+      this.searchDescription.cancelAll();
+      this.description = e.target.value;
+    }
+  }
 }
