@@ -148,6 +148,7 @@ export default class ValidateExpressionLabelsRoute extends Route {
       conceptSchemeId: params.conceptScheme,
       selectedConcepts,
       search: params.description,
+      titleSearch: params.title,
       municipalities: municipalityModels,
       provinces: provinceModels,
     };
@@ -191,5 +192,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
   setupController(controller, model) {
     super.setupController(...arguments);
     controller.search = model.search;
+    controller.titleSearch = model.titleSearch;
   }
 }

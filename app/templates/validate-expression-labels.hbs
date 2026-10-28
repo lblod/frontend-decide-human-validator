@@ -68,6 +68,26 @@
           </div>
         </div>
         <div class="au-u-margin-top-small">
+          <AuLabel for="title-search">
+            {{t "filter-title"}}
+          </AuLabel>
+          <AuInput
+            id="title-search"
+            value={{this.titleSearch}}
+            {{on "input" (perform this.searchTitle)}}
+            {{on "keydown" this.searchTitleOnEnter}}
+          />
+          {{#if this.canClearTitleSearch}}
+            <AuButton
+              @skin="link"
+              {{on "click" this.clearTitleSearch}}
+              class="au-u-flex-shrink-0"
+            >
+              {{t "clear"}}
+            </AuButton>
+          {{/if}}
+        </div>
+        <div class="au-u-margin-top-small">
           <AuLabel for="description-search">
             {{t "filter-description"}}
           </AuLabel>
@@ -75,6 +95,7 @@
             id="description-search"
             value={{this.search}}
             {{on "input" (perform this.searchDescription)}}
+            {{on "keydown" this.searchDescriptionOnEnter}}
           />
           {{#if this.canClearSearch}}
             <AuButton
@@ -174,7 +195,10 @@
                     <AuCheckbox
                       @name={{concept.label}}
                       @value={{concept.id}}
-                      @checked={{this.isSelected @model.selectedConcepts concept}}
+                      @checked={{this.isSelected
+                        @model.selectedConcepts
+                        concept
+                      }}
                       @onChange={{fn this.toggleConcept concept}}
                     >
                       {{concept.displayLabel}}

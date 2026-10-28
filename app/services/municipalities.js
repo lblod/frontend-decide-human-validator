@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { service } from '@ember/service';
 import { restartableTask, timeout } from 'ember-concurrency';
-const SEARCH_TIMEOUT = 600;
+import config from 'frontend-decide-human-validator/config/environment';
 
 export default class MunicipalitiesService extends Service {
   orgFilter = {
@@ -44,7 +44,7 @@ export default class MunicipalitiesService extends Service {
   }
 
   searchMunicipalities = restartableTask(async (term, resolve, reject, selectedProvinceUri) => {
-    await timeout(SEARCH_TIMEOUT);
+    await timeout(config.searchTimeout);
     let orgFilter = {
       filter: {
         ['pref-label']: term,

@@ -36,6 +36,7 @@
   "filter-local-authority": "Local authority",
   "filter-title": "Title",
   "filter-description": "Description",
+  "filter-content": "Content",
   "filter-year": "Decision Year",
   "filter-impact-type": "Impact type",
   "filter-concept-scheme": "Concept Scheme",
