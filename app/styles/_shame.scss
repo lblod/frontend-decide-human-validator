@@ -193,3 +193,33 @@ td {
     flex-shrink: 0;
   }
 }
+
+.card {
+  border-radius: 6px;
+  border: 2px solid #cfd5dd;
+  padding: 1.2rem;
+}
+
+.chart {
+  height: 400px;
+}
+
+.validation-results-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.card .percentage {
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 47px;
+  text-align: center;
+  color: #004ab2;
+}
+
+.chart-empty {
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
