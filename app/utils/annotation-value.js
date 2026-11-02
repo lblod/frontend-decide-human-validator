@@ -2,7 +2,7 @@ const NO_MATCH_URI = 'http://mu.semte.ch/vocabularies/ext/no-match-found';
 const MAX_VALUE_LENGTH = 200;
 
 export function isNoMatch(annotation) {
-  return annotation.valueText?.startsWith(NO_MATCH_URI);
+  return annotation.value?.startsWith(NO_MATCH_URI);
 }
 
 export function annotationValueLabel(annotation, intl) {

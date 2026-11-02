@@ -1,0 +1,32 @@
+{{#if this.model}}
+  <div class="au-u-padding">
+    <div class="validation-results-stats">
+      <ValidationResultsStat
+        @title={{t "validation-results-reviewed-title"}}
+        @value={{this.reviewedPercentage}}
+        @description={{t
+          "validation-results-reviewed-description"
+          reviewed=this.model.totals.reviewedAnnotations
+          total=this.model.totals.annotations
+        }}
+      />
+      <ValidationResultsStat
+        @title={{t "validation-results-approving-title"}}
+        @value={{this.approvalPercentage}}
+        @description={{t
+          "validation-results-approving-description"
+          approve=this.approveTotal
+          total=this.voteTotal
+        }}
+      />
+    </div>
+    <ValidationResultsChart
+      @rows={{this.chartRows}}
+      @filterSummary={{this.chartFilterSummary}}
+    />
+  </div>
+{{else}}
+  <p class="au-u-padding au-u-muted">
+    {{t "validation-results-select-scheme"}}
+  </p>
+{{/if}}

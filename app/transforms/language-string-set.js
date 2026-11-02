@@ -9,18 +9,9 @@ export default class LanguageStringSetTransform extends Transform {
       `Expected array but got ${typeOf(serialized)}`,
       !serialized || typeOf(serialized) === 'array',
     );
-    serialized = serialized.map(function (item) {
+    return serialized.map(function (item) {
       return new LangString(item['content'], item['language']);
     });
-
-    const english = serialized.filter((item) => {
-      return item.language == 'en';
-    });
-    if (english.length > 0) {
-      return english;
-    }
-
-    return serialized;
   }
 
   serialize(deserialized) {

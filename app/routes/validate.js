@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ValidateRoute extends Route {
   @service store;
+  @service intl;
   @service('options') dropdownOptions;
 
   queryParams = {
@@ -46,7 +47,7 @@ export default class ValidateRoute extends Route {
         include: 'annotations,realizes,realizes.passed-by',
       }),
       fetch(
-        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}${hideVoted}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}`,
+        `/annotation-review/annotations/expression/${params.expression_id}?page=${params.page}&pageSize=${params.size}${hideVoted}${predicatesFilter}${byAiModelsFilter}${valueTypesFilter}&language=${this.intl.primaryLocale.split('-')[0]}`,
       ),
     ]);
 

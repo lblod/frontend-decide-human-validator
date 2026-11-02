@@ -1,6 +1,5 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { service } from '@ember/service';
-import stringForLocale from '../helpers/locale-language-string';
 
 export default class ConceptModel extends Model {
   @service intl;
@@ -10,13 +9,20 @@ export default class ConceptModel extends Model {
 
   @belongsTo('concept-scheme', { inverse: null, async: true }) conceptScheme;
 
+  // selected language, untagged, en, other
   get label() {
     const labels = this.prefLabel ?? [];
-    return (
-      stringForLocale(labels, this.intl.primaryLocale) ??
-      labels[0]?.content ??
-      ''
-    );
+    const language = this.intl.primaryLocale.split('-')[0];
+    const matches = (label, wanted) => {
+      const tag = (label.language ?? '').toLowerCase();
+      return tag === wanted || tag.startsWith(`${wanted}-`);
+    };
+    const match =
+      labels.find((label) => matches(label, language)) ??
+      labels.find((label) => !label.language) ??
+      labels.find((label) => matches(label, 'en')) ??
+      labels[0];
+    return match?.content ?? '';
   }
 
   get displayLabel() {
