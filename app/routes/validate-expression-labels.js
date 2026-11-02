@@ -81,7 +81,6 @@ export default class ValidateExpressionLabelsRoute extends Route {
     let concepts = [];
     let selectedConcepts = [];
     if (params.conceptScheme) {
-      const intl = this.intl;
       concepts = [
         ...(await this.store.query('concept', {
           'filter[concept-scheme][id]': params.conceptScheme,
