@@ -36,6 +36,8 @@ export function buildChartRows(concepts, summaryRows, conceptCounts) {
       )?.count ?? 0;
     return {
       id: concept.id,
+      notation: concept.notation,
+      conceptLabel: labelOf(concept),
       label: concept.notation
         ? `${concept.notation}: ${labelOf(concept)}`
         : labelOf(concept),
@@ -84,7 +86,8 @@ export function buildCsv(rows, headers) {
     ...rows.map((row) => {
       const votes = row.approve + row.reject;
       return [
-        row.label,
+        row.notation ?? '',
+        row.conceptLabel,
         row.labeledDecisions,
         row.reviewedDecisions,
         row.approve,

@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import { htmlSafe } from '@ember/template';
 import * as echarts from 'echarts/core';
 import { SVGRenderer } from 'echarts/renderers';
 import { BarChart } from 'echarts/charts';
@@ -27,6 +28,14 @@ echarts.use([
 const APPROVE_COLOR = '#009e47';
 const REJECT_COLOR = '#ffa10a';
 const MAX_LABEL_LENGTH = 40;
+const MIN_CHART_HEIGHT = 400;
+const ROW_HEIGHT = 44;
+const CHART_PADDING = 60;
+
+// the notation when there is one, otherwise the label on a single line
+function axisLabel(row) {
+  return row.notation || truncate(row.label.replace(/\s+/g, ' ').trim());
+}
 
 function truncate(label) {
   return label.length > MAX_LABEL_LENGTH
@@ -44,6 +53,14 @@ export default class ValidationResultsChart extends Component {
       (sum, row) => sum + row.approve + row.reject,
       0,
     );
+  }
+
+  get chartStyle() {
+    const height = Math.max(
+      MIN_CHART_HEIGHT,
+      this.args.rows.length * ROW_HEIGHT + CHART_PADDING,
+    );
+    return htmlSafe(`height: ${height}px`);
   }
 
   get filterSummary() {
@@ -88,7 +105,7 @@ export default class ValidationResultsChart extends Component {
       yAxis: {
         type: 'category',
         inverse: true,
-        data: rows.map((row) => truncate(row.label)),
+        data: rows.map(axisLabel),
       },
       series: [
         {
@@ -110,7 +127,8 @@ export default class ValidationResultsChart extends Component {
   @action
   downloadCsv() {
     const headers = [
-      'concept',
+      'concept-notation',
+      'concept-label',
       'labeled-decisions',
       'reviewed-decisions',
       'approve-votes',
@@ -138,6 +156,7 @@ export default class ValidationResultsChart extends Component {
 
   updateChart = () => {
     this.chart?.setOption(this.chartOptions, true);
+    this.chart?.resize();
   };
 
   resizeHandler = () => {
